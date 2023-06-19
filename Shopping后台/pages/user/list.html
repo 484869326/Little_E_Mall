@@ -1,0 +1,86 @@
+<!--此页面已废弃，仅供参考-->
+<!DOCTYPE html>
+<html>
+	<!--frame传值后再添加新数据的实现方法尝试页面备份-->
+	<head>
+		<meta charset="UTF-8">
+		<title>管理员列表</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../../static/css/font.css">
+		<link rel="stylesheet" href="../../static/css/weadmin.css">
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../static/js/admin.js"></script>
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	</head>
+	<style type="text/css">
+		.layui-select-title .layui-input{
+			color: #009688;
+		}
+	</style>
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+				<a href="">首页</a>
+				<a href="">用户管理</a>
+				<a>
+					<cite>用户列表</cite></a>
+			</span>
+			<a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right"
+				href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+		</div>
+		<div class="weadmin-body">
+			<div class="layui-row">
+				<form class="layui-form layui-col-md12 we-search">
+					<h2 style="margin-bottom: 20px;">用户搜索：</h2>
+					<div class="layui-inline">
+						<input type="text" name="id" placeholder="请输入ID" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="signature" placeholder="请输入编号" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="nickName" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="gender" placeholder="请输入性别" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="city" placeholder="请输入城市" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-inline">
+						<input type="text" name="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+					</div>
+					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i
+							class="layui-icon">&#xe615;</i></button>
+				</form>
+				
+			</div>
+			<div class="weadmin-block demoTable">
+				<button class="layui-btn layui-btn-danger" data-type="getCheckData"><i
+				    class="layui-icon layui-icon-delete" ></i>批量删除</button>
+				<button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html',600,400)"><i
+						class="layui-icon"></i>添加</button>
+				<span class="fr" style="line-height:40px">共有数据：<span id="totalNum">0</span> 条</span>
+			</div>
+			<table class="layui-table" id="memberList">
+			
+			</table>
+
+		</div>
+	</body>
+<script type="text/html" id="operateTpl">
+		<a title='编辑' href='javascript:;' class='edit'  onclick="WeAdminEdit('编辑', './edit.html', {{d.id}}, 600, 400);"><i class='layui-icon layui-icon-edit'></i></a>
+		<a title='删除' href='javascript:;' class='delete' onclick="member_del({{d.id}})"><i class='layui-icon layui-icon-delete'></i></a>	
+</script>
+<script src="list.js" type="text/javascript" charset="utf-8"></script>
+</html>

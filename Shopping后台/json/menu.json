@@ -1,0 +1,89 @@
+{
+	"status": 0,
+	"msg": "ok",
+	"data": [
+		{
+			"id": 1,
+			"name": "管理员管理",
+			"icon": "&#xe6b8;",
+			"url": "",
+			"children": [{
+				"id": 2,
+				"name": "管理员增加",
+				"icon": "",
+				"url": "./pages/admin/add.html"
+			},
+			{
+				"id": 3,
+				"name": "管理员列表",
+				"icon": "",
+				"url": "./pages/admin/list.html"
+			}
+			]
+		},
+		{
+			"id": 4,
+			"name": "类型管理",
+			"icon": "&#xe6b8;",
+			"url": "",
+			"children": [{
+				"id": 5,
+				"name": "类型增加",
+				"icon": "",
+				"url": "./pages/category/add.html"
+			},
+			{
+				"id": 6,
+				"name": "类型列表",
+				"icon": "",
+				"url": "./pages/category/list.html"
+			}
+			]
+		},
+		
+		{
+			"id": 7,
+			"name": "商品管理",
+			"icon": "&#xe6b8;",
+			"url": "",
+			"children": [{
+				"id": 8,
+				"name": "商品增加",
+				"icon": "",
+				"url": "./pages/good/add.html"
+			},
+			{
+				"id": 9,
+				"name": "商品列表",
+				"icon": "",
+				"url": "./pages/good/list.html"
+			}
+			]
+		},
+		{
+			"id": 10,
+			"name": "用户管理",
+			"icon": "&#xe6b8;",
+			"url": "",
+			"children": [{
+				"id": 11,
+				"name": "用户增加",
+				"icon": "",
+				"url": "./pages/user/add.html"
+			},
+			{
+				"id": 12,
+				"name": "用户列表",
+				"icon": "",
+				"url": "./pages/user/list.html"
+			}
+			]
+		},
+		{
+			"id": 13,
+			"name": "订单管理",
+			"icon": "&#xe6b8;",
+			"url": "./pages/order/list.html"
+		}
+	]
+}

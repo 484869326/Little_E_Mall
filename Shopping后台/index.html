@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>管理员登录-后台管理系统-小E商城</title>
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./static/css/font.css">
+  <link rel="stylesheet" href="./static/css/weadmin.css">
+
+  <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+  <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+</head>
+
+<body>
+  <!-- 顶部开始 -->
+  <div class="container">
+    <div class="logo" style="text-align: center;">
+      <a href="./index.html">小E商城</a>
+    </div>
+    <div class="left_open">
+      <!-- <i title="展开左侧栏" class="iconfont">&#xe699;</i> -->
+      <i title="展开左侧栏" class="layui-icon layui-icon-shrink-right"></i>
+
+    </div>
+    <ul class="layui-nav right" lay-filter="">
+      <li class="layui-nav-item">
+        
+      </li>
+      <li class="layui-nav-item to-index" style="width: 2%;">
+      </li>
+    </ul>
+
+  </div>
+  <!-- 顶部结束 -->
+  <!-- 中部开始 -->
+  <!-- 左侧菜单开始 -->
+  <div class="left-nav">
+    <div id="side-nav"></div>
+  </div>
+  <!-- <div class="x-slide_left"></div> -->
+  <!-- 左侧菜单结束 -->
+  <!-- 右侧主体开始 -->
+  <div class="page-content">
+    <div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+     <ul class="layui-tab-title" id="tabName">
+       <li>订单数量展示</li>
+     </ul>
+     <div class="layui-tab-content">
+       <div class="layui-tab-item layui-show">
+         <iframe src='./pages/welcome.html' frameborder="0" scrolling="yes" class="weIframe"></iframe>
+       </div>
+     </div>
+    </div>
+  </div>
+  <div class="page-content-bg"></div>
+  <!-- 右侧主体结束 -->
+  <!-- 中部结束 -->
+  <!-- 底部开始 -->
+  <div class="footer" id="footer" style="display: none;text-align: center;">
+    <div class="copyright">Copyright ©2021-2030 小E商城 All Rights Reserved</div>
+  </div>
+  <!-- 底部结束 -->
+  <script type="text/javascript">
+    var showFooter = true; // 控制是否显示底部示例参数，相关逻辑可删除
+    layui.config({
+      base: './static/js/'
+      , version: '101100'
+    }).extend({ //设定模块别名
+      admin: 'admin'
+      , menu: 'menu'
+      , http: 'http'
+    });
+    layui.use(['jquery', 'admin', 'menu', 'http'], function () {
+      var $ = layui.jquery,
+        admin = layui.admin,
+        http = layui.http,
+        menu = layui.menu;
+		
+      $(function () {
+        http.getMenu();
+        admin.tab.tabInit();
+        if (showFooter) {
+          var currentY = new Date().getFullYear();
+		  let id=parseInt(localStorage.getItem("adminID"));
+		  let newHtml="<a href='javascript:;'>Admin<span class='layui-nav-more'></span></a><dl class='layui-nav-child'><dd><a class='self'>个人信息</a></dd><dd><a onclick='SwitchAccount()'>切换帐号</a></dd><dd><a class='loginout' onclick='exit()'>退出</a></dd></dl>";
+		  $(".layui-nav-item").eq(0).html(newHtml);
+		  $(".layui-nav-item").eq(0).on("click",".self",function(){
+			  WeAdminEdit("个人信息","./pages/admin/edit.html",id,"455","580");
+		  })
+          $('.copyright').html('Copyright ©2020-' + currentY + ' 小E商城 All Rights Reserved');
+          $('#footer').show();
+        } else {
+          $('.left-nav, .page-content').css({ 'bottom': 0 });
+          $('#footer').hide();
+        }
+      });
+    });
+
+  </script>
+</body>
+<!--Tab菜单右键弹出菜单-->
+<ul class="rightMenu" id="rightMenu">
+  <li data-type="fresh">刷新</li>
+  <li data-type="current">关闭当前</li>
+  <li data-type="other">关闭其它</li>
+  <li data-type="all">关闭所有</li>
+</ul>
+
+</html>

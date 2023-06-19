@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>添加会员-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../static/css/font.css">
+  <link rel="stylesheet" href="../../static/css/weadmin.css">
+  <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+  <!--[if lt IE 9]>
+	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+</head>
+<body>
+  <div class="weadmin-body">
+    <form class="layui-form"  name="newsForm"  >
+      <div class="layui-form-item">
+        <label for="Goodname" class="layui-form-label">
+          <span class="we-red">*</span>商品名
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="Goodname" name="Goodname"  class="layui-input" lay-verify="required">
+        </div>
+      </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="Goodname" class="layui-form-label">
+	      <span class="we-red">*</span>类别
+	    </label>
+		<div class="layui-input-inline" >
+							  <select name="CName" id="selectOptions" lay-verify="options">
+							    <option>请选择类别</option>
+							  </select>
+							</div>
+	  </div>
+     <div class="layui-form-item">
+        <label for="Explain" class="layui-form-label">
+          <span class="we-red">*</span>描述
+        </label>
+        <div class="layui-input-inline">
+          <input type="text" id="Explain" name="Explain"  autocomplete="" class="layui-input" lay-verify="required">
+        </div>
+      </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="advertise" class="layui-form-label">
+	      <span class="we-red">*</span>广告词
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="text" id="advertise" name="advertise"  autocomplete="" class="layui-input" lay-verify="required">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="price" class="layui-form-label">
+	      <span class="we-red">*</span>价格
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="text" id="price" name="price"  autocomplete="" class="layui-input" lay-verify="required">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="color" class="layui-form-label">
+	      <span class="we-red">*</span>颜色
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="text" id="color" name="color"  autocomplete="" class="layui-input" lay-verify="required">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="Goodimg" class="layui-form-label">
+	      <span class="we-red">*</span>商品图片
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="file" id="Goodimg" name="Goodimg"  lay-verify="files">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="Type" class="layui-form-label">
+	      <span class="we-red">*</span>类型
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="text" id="Type" name="Type"  autocomplete="" class="layui-input" lay-verify="required">
+	    </div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <label for="Swiper" class="layui-form-label">
+	      <span class="we-red">*</span>轮播图
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="file" id="Swiper" name="Swiper[][]" multiple="multiple" lay-verify="files">
+	    </div>
+	  </div>
+	  
+	  
+	  <div class="layui-form-item">
+	    <label for="Detail" class="layui-form-label">
+	      <span class="we-red">*</span>商品详情图
+	    </label>
+	    <div class="layui-input-inline">
+	      <input type="file" id="Detail" name="Detail[][]" multiple="multiple" lay-verify="files">
+	    </div>
+	  </div>
+	  
+      <div class="layui-form-item">
+        <label for="L_repass" class="layui-form-label">
+        </label>
+        <button class="layui-btn" lay-filter="add" lay-submit="">确定</button>
+      </div>
+    </form>
+  </div>
+  <script src="../../lib/layui/layui.js" charset="utf-8"></script>
+
+  <script>
+    layui.extend({
+      admin: '{/}../../static/js/admin'
+    });
+    layui.use(['form', 'jquery', 'util', 'admin', 'layer'], function () {
+      var form = layui.form,
+        $ = layui.jquery,
+        util = layui.util,
+        admin = layui.admin,
+        layer = layui.layer;
+			form.verify({
+				options:function(value){
+					if(value=="请选择类别"){
+						return '请选择类别';
+					}
+				},
+				files:function(value){
+					if(value==""){
+						return '请选择文件类型';
+					}
+				}
+			})
+		$.ajax({
+			url: 'http://shoppingapi.net:3333/admin/good/selectCategory',
+			method: 'get',
+			async: "false",
+			dataType:"json",
+			success:function(res){
+				console.log(res.message);
+				res.message.map(item=>{
+					$("#selectOptions").append("<option>"+item.Cname+"</option>");
+					$(".layui-anim-upbit").append("<dd lay-value="+item.Cname+" class=''>"+item.Cname+"</dd>")
+				})
+				form.render();
+			}
+		})
+      //监听提交
+	   form.on('submit(add)', function (data) {
+		   var formData = new FormData(document.newsForm);
+		   $.ajax({
+		   	url: 'http://shoppingapi.net:3333/admin/good/Insert',
+		   	method: 'post',
+		   	data: formData,
+		   	async: "false",
+		   	dataType: "json",
+		   		 processData: false,
+		   		 // 告诉jQuery不要去设置Content-Type请求头
+		   		contentType: false,
+		   	success: function(res) {
+		   		
+		   	}
+		   })
+		      layer.alert("增加成功", {
+		        icon: 6
+		      }, function () {
+		        // 获得frame索引
+		   			window.parent.location.reload();
+		        var index = parent.layer.getFrameIndex(window.name);
+		        //关闭当前frame
+		        parent.layer.close(index);
+		   		  
+		      });
+		      return false;
+	   })
+	  
+		
+    });
+  </script>
+</body>
+
+</html>
