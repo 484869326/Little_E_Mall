@@ -1,0 +1,42 @@
+page{
+    background-color: #F5F5F5;
+}
+.shoucang{
+    margin-top: 50rpx;
+    border-radius: 50rpx 50rpx 0 0;
+    background-color: #fff;
+}
+.shoucang>view{
+    display: flex;
+    align-items: center;
+}
+.left{
+    flex: 1;
+}
+.right{
+    flex: 2;
+    position: relative;
+}
+.Goodname{
+    font-size: 36rpx;
+    font-weight: 600;
+}
+.price{
+    font-size: 32rpx;
+    font-weight: 600;
+    color: red;
+}
+.shoucangnum{
+    margin: 20rpx 0;
+    color: #979797;
+}
+.same{
+    position: absolute;
+    right: 20rpx;
+    bottom: 5rpx;
+    padding: 10rpx;
+    font-size: 22rpx;
+    border: 1px solid #D5D7D4;
+    color: #A0A5A1;
+    border-radius: 50rpx;
+}

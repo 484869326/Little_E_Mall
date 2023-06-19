@@ -1,0 +1,86 @@
+<navbar  isHidden="{{hidden}}" flagPop="{{flagPop}}"  bindtap="gosearch" />
+
+
+<swiper autoplay indicator-dots circular indicator-active-color="#fff" class="navBar_swiper">
+   <swiper-item >
+       <image src="http://shoppingapi.net:3333/swiper/1.png" mode="widthFix"  />  
+   </swiper-item> 
+   <swiper-item class="" item-id="">
+          <image  src="http://shoppingapi.net:3333/swiper/2.png" mode="widthFix" />
+   </swiper-item>
+    <swiper-item class="" item-id="">
+          <image  src="http://shoppingapi.net:3333/swiper/3.png" mode="widthFix" />
+   </swiper-item>
+   <swiper-item class="" item-id="">
+          <image  src="http://shoppingapi.net:3333/swiper/4.png" mode="widthFix" />
+   </swiper-item>
+</swiper>
+  <view class="category_wrap">
+    <view class="category_wrap_explain">
+        <view class="iconfont icon-icon">
+            官方商城
+        </view>
+         <view class="iconfont icon-icon">
+            售后无忧
+        </view>
+         <view class="iconfont icon-icon">
+            资质证照
+        </view>
+    </view>
+   <view class="category_wrap_all">
+    <view class="category_wrap_logo" wx:for="{{categoryList}}" wx:key="Cid" data-id="{{item.Cid}}" bindtap="goGoodList">
+        <image  src="{{item.parentimg}}" mode="widthFix" />
+                 <view>{{item.Cname}}</view>     
+    </view>
+   </view>
+</view>
+    
+  <view class="moblie_phone_wrap">
+    <view class="moblie_phone_title">
+    手机臻亲
+    </view>
+    <view class="moblie_phone_content">
+    <view class="moblie_phone_left">
+        <swiper autoplay indicator-dots circular indicator-active-color="#fff">
+            <swiper-item >   
+       <image src="http://shoppingapi.net:3333/swiper/1.1.png" mode="scaleToFill" />  
+   </swiper-item> 
+    <swiper-item >   
+       <image src="http://shoppingapi.net:3333/swiper/1.1.1.png" mode="scaleToFill" />  
+   </swiper-item> 
+    <swiper-item >   
+       <image src="http://shoppingapi.net:3333/swiper/1.1.2.png" mode="scaleToFill" />  
+   </swiper-item> 
+    <swiper-item >   
+       <image src="http://shoppingapi.net:3333/swiper/1.1.3.png" mode="scaleToFill" />  
+   </swiper-item> 
+        </swiper>
+    </view>
+      <view class="moblie_phone_right">
+          <image  src="http://shoppingapi.net:3333/swiper/1.2.png" mode="scaleToFill" />
+          <image  src="http://shoppingapi.net:3333/swiper/1.21.png" mode="scaleToFill"/>
+          <image  src="http://shoppingapi.net:3333/swiper/1.22.png"  mode="scaleToFill" />
+      </view>
+    </view>
+  </view>
+  
+  <view  class="goodList">
+      <view class="good" wx:for="{{good}}" wx:key="Goodid">
+          <image class="" src="{{item.Goodimg}}" mode="widthFix" />
+            <view class="goodName">
+                {{item.Goodname}}
+            </view>
+            <view class="type">
+                {{item.Explain[0]}}|{{item.Explain[1]}}| {{item.Explain[2]}}
+            </view>
+            <view class="price">
+                ￥ {{item.price[0]}}
+            </view>
+            <view class="goDetail" data-id="{{item.Goodid}}" bindtap="goDetail">
+                立即购买
+            </view>
+              
+         
+      </view>
+  </view>
+  

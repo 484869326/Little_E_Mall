@@ -1,0 +1,162 @@
+<view wx:if="{{shoppingList.length==0}}" class="cartnull">
+   <image class="" src="../../icon/cartnull.png" mode="widthFix" />
+      <view class="cartnullTitle">
+          购物车空的
+      </view>
+</view>
+<view wx:else class="cartyou">
+<view bindtap="editShop" class="editShop">
+  <view wx:if="{{editShop}}">
+          完成
+      </view>
+    <view wx:else>
+        编辑
+    </view>
+</view>
+  <view class="shopwrap" wx:for="{{shoppingList}}">
+       <view class="oneShop" >
+       <view class="oneShopSelect">
+<checkbox  checked="{{item.isChecked}}" bindtap="itemChecked" data-id="{{item.shoppingid}}" data-index="{{index}}"/>
+
+         </view>
+          <navigator url="../detail/detail?id={{item.Goodid}}" class="oneShopImage">
+             <image class="" src="{{item.good.Goodimg}}" mode="widthFix"  />
+         </navigator>
+           <view class="oneShopMes">
+               <navigator url="../detail/detail?id={{item.Goodid}}">
+                {{item.good.Goodname}}
+               </navigator>
+                 <view class="type" bindtap="chooseType" data-index="{{index}}" data-id="{{item.shoppingid}}">
+                           {{item.good.Type[item.type]}} - {{item.good.color[item.color]}} <text class="iconfont icon-xiala"></text>
+                    <view>
+                        
+                    </view>
+                      
+                 </view>
+                   <view class="price_line">
+                       <view class="price">
+                           ¥{{item.good.price[item.type]}}
+                       </view>
+                         <view class="num_wrap">
+                             <view class="reduce {{item.Num<=1?'noactive':''}}" bindtap="reduce" data-id="{{item.shoppingid}}"  data-index="{{index}}">
+                                 -
+                             </view>
+                             <view class="value">
+                                {{item.Num}}
+                             </view>
+                            <view class="add" bindtap="add" data-id="{{item.shoppingid}}" data-index="{{index}}">
+                                +
+                            </view>
+                              
+                               
+                         </view>
+                   </view>
+                     
+           </view>
+             </view>
+                 <view class="oneShopDelete">
+               <view class="iconfont icon-shanchu" bindtap="showtips" data-index="{{index}}" data-id="{{item.shoppingid}}">
+             </view>
+  </view>
+    
+   </view>
+
+
+
+
+
+
+     <view class="bottomFix">
+        <view class="sumFix">
+             <view class="checkAll">
+<checkbox checked="{{totalChecked}}" bindtap="checkedTotal"/>  全选
+         </view>
+         <view class="totalPrice"  hidden="{{editShop}}">
+             总计：￥{{TotalPrice}}
+         </view>
+           <view class="sum {{TotalNum==0?'NoNum':''}}" bindtap="sum"  hidden="{{editShop}}">
+               去结算({{TotalNum}}件)
+           </view>
+           <view class="editShopButton" wx:if="{{editShop}}">
+               <view class="editChecked" bindtap="editChecked">
+                   删除
+               </view>
+                 
+           </view>
+             
+        </view>
+     </view>
+</view>
+
+<view class="xe-popup" wx:if="{{tips}}">
+    <view class="xe-dialog-box">
+    <view class="xe-dialog-content">
+        是否删除购物车？
+    </view>
+      <view class="xe-dialog-action">
+          <view class="cancle" bindtap="cancle">
+              取消
+          </view>
+            <view class="yes" bindtap="deleteOneShopping">
+                确认
+            </view>
+              
+      </view>
+        
+    </view>
+      
+</view>
+
+
+
+
+
+
+<view class="tanchu" wx:if="{{tanchu}}" catchtap="close" >
+    <view class="message" catchtap="yyds">
+        <view class="close" catchtap="close">
+            x
+        </view>
+          <view class="messageGood">
+              <image  src="{{good.Goodimg}}" mode="widthFix"  />
+                <view class="GoodMsg">
+                   <view>
+                        ¥{{good.price[type]}}
+                   </view>
+                     <view>
+                         {{good.Goodname}}  {{good.Type[type]}}  {{good.color[type]}}
+                     </view>
+                </view>
+          </view>
+            <view class="edition">
+                <view class="title">
+                    版本
+                </view>
+                <view class="editionWrap">
+                      <view wx:for="{{good.Type}}" class="editionMes {{type==index?'active':''}}" bindtap="changeSection" data-index="{{index}}">
+                          {{item}}
+                  </view>
+                </view>
+            </view>
+                      <view class="edition">
+                <view class="title">
+                    颜色
+                </view>
+                <view class="editionWrap">
+                      <view wx:for="{{good.color}}" class="editionMes {{color==index?'active':''}}" bindtap="changeColor" data-index="{{index}}">
+                          {{item}}
+                  </view>
+                </view>
+            </view>
+            <view class="anniu">
+                  <view class="addShop  {{buyNow?'':'shopping'}}" wx:if="{{shopping}}" bindtap="addShop">
+           {{buyNow?'加入购物车':'确定'}}
+        </view>
+          <view class="buy {{shopping?'':'buyNow'}}" wx:if="{{buyNow}}" bindtap="buy" data-id="{{deleteId}}">
+           {{shopping?'立即购买':'确定'}}
+          </view>
+            </view>
+    </view>
+</view>
+  
+    

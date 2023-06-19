@@ -1,0 +1,278 @@
+page{
+    background-color: #F2F2F2;
+}
+.cartnull{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.cartnullTitle{
+    margin-top: 10px;
+    text-align: center;
+}
+.shopwrap{
+    margin-top: 20rpx;
+    background-color: #fff;
+    border-radius: 20rpx;
+    overflow: hidden;
+}
+.oneShopDelete{
+    float: right;
+    margin: 0 40rpx 30rpx 0;
+}
+.oneShopDelete .icon-shanchu{
+    font-size: 36rpx;
+}
+.oneShop{
+    display: flex;
+    align-items: center;
+}
+.oneShopSelect{
+    flex: 1;
+    text-align: right;
+}
+.oneShopImage{
+    flex: 2.5;
+}
+.oneShopMes{
+    flex: 4;
+}
+.bottomFix{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    padding: 20rpx 30rpx;
+    border-radius: 20rpx 20rpx 0 0;
+    background-color: #fff;
+}
+.sum{
+    flex: 1;
+    padding: 20rpx 0;
+    background-color: red;
+    text-align: center;
+    color: white;
+    border-radius: 40rpx;
+}
+.sumFix{
+    display: flex;
+    align-items: center;
+}
+.checkAll{
+    flex: 1;
+}
+.totalPrice{
+    flex: 1;
+    color: red;
+    text-align: right;
+    margin-right: 30rpx;
+}
+.editShop{
+    padding-top: 20rpx;
+    padding-right: 20rpx;
+    text-align: right;
+    font-size: 30rpx;
+}
+.editShopButton{
+    flex: 2;
+    overflow: hidden;
+}
+.editChecked{
+    width: 45%;
+    float: right;
+    padding: 20rpx 0;
+    border: 1rpx solid red;
+    text-align: center;
+    border-radius: 35rpx;
+}
+/* checkbox 改变成圆形 */
+ checkbox .wx-checkbox-input {
+    border-color: #8C8C8C;
+    border-radius: 50%;
+   }
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+    /* background: #F2270C; */
+    color: black;
+   }
+.price_line{
+    display: flex;
+    /* justify-content:space-between; */
+    align-items: center;
+}
+.price{
+    flex: 1;
+    color: #f2270c;
+    font-size: 32rpx;
+}
+.num_wrap{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.reduce,.value,.add{
+    flex: 1;
+    text-align: center;
+
+}
+.reduce,.add{
+    font-size: 40rpx;
+}
+.value{
+    padding: 5rpx 20rpx;
+    background-color: #f2f2f2;
+    font-size: 24rpx;
+    margin: 0 10rpx;
+}
+.type{
+    /* width: 40%; */
+    display: inline-block;
+    padding: 10rpx 15rpx;
+    border-radius: 15rpx;
+    font-size: 28rpx;
+    background-color: #F2F2F2;
+}
+.noactive{
+    color: #F2F2F2;
+}
+
+/* 弹窗 */
+.xe-popup{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.3);
+}
+.xe-dialog-box{
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    border-radius:10rpx;
+    overflow: hidden;
+}
+.xe-dialog-content{
+    padding: 50rpx 0;
+    color: #676767;
+    text-align: center;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 34rpx;
+}
+.xe-dialog-action{
+    display: flex;
+}
+.cancle,.yes{
+    flex: 1;
+    padding: 30rpx 0;
+    text-align: center;
+    font-size: 34rpx;
+}
+.cancle{
+    border-right: 1px solid #d9d9d9;
+    color: #676767;
+}
+.yes{
+    color: #ff6700;
+}
+
+
+/* 弹出来的 */
+.tanchu{
+    position: fixed;
+    top:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+.message{
+    position: fixed;
+    padding: 40rpx;
+    width: 100vw;
+    bottom: 0;
+    background-color: #fff;
+    border-radius: 45rpx 45rpx 0 0;
+}
+.close{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    width: 60rpx;
+    height: 60rpx;
+    background-color: #F5F5F5;
+    text-align: center;
+    line-height: 60rpx;
+    border-radius: 50%;
+}
+.messageGood{
+    display: flex;
+    align-items: center;
+}
+.messageGood image{
+    flex: 1;
+}
+.GoodMsg{
+    flex: 2;
+}
+.GoodMsg view:first-child{
+    color:#FF5934;
+    font-size: 40rpx;
+    margin-bottom: 20rpx;
+}
+.GoodMsg view:nth-child(2){
+    font-size: 32rpx;
+}
+.title{
+    font-size: 38rpx;
+    font-weight: 600;
+}
+.editionWrap{
+    display: flex;
+    margin: 30rpx 0;
+}
+.editionMes{
+    flex: 1;
+    background-color: #FFF2EF;
+    padding: 10rpx;
+    text-align: center;
+    margin-right: 30rpx;
+    border-radius: 30rpx;
+}
+.editionWrap .active{
+    color: #FF5A35;
+    border:1px solid #FF5A35;
+}
+.anniu{
+    display: flex;
+    margin-top: 40rpx;
+}
+.shoucang{
+    color: red;
+}
+.addShop,.buy{
+    text-align: center;
+    padding: 18rpx 0;
+    color: white;
+    font-size: 26rpx;
+    flex: 1;
+}
+.addShop{
+    border-radius: 40rpx 0 0 40rpx;
+    background-color: #FDA002;
+}
+.buy{
+    border-radius: 0 40rpx 40rpx 0;
+    background-color: #FC6D0D;
+}
+.shopping,.buyNow{
+    border-radius: 40rpx 40rpx 40rpx 40rpx;
+}
+.NoNum{
+    opacity: .3;
+}
+.cartyou{
+    padding-bottom: 150rpx;
+}

@@ -1,0 +1,176 @@
+<view class="oneView {{tanchu?'hidden':''}}">
+    <swiper class="pic_list" indicator-dots="true"  >
+    <swiper-item  wx:for="{{good.Swiper}}" bindtap="handlePreview" data-current="{{index}}" wx:key="*this">
+        <image class="" src="{{item}}" mode="widthFix" />
+    </swiper-item>
+</swiper>
+<view class="price">
+    ¥{{good.price[section]}}
+</view>
+<view class="advertise">
+    <view class="goodName">
+        {{good.Goodname}}
+    </view>
+      <view class="discount">
+          [全版本优惠100元，到手价1699元起；建设银行信用卡分期支付满1500元减66元，数量有限]
+      </view>
+        <view class="moreDetail">
+            <text>1</text>[金刚级大电量]5160mah大电池+67w闪充
+        </view>
+          <view class="moreDetail">
+            <text>1</text>[金刚级大电量]5160mah大电池+67w闪充
+        </view>
+          <view class="moreDetail">
+            <text>1</text>[金刚级大电量]5160mah大电池+67w闪充
+        </view>
+</view>
+<view class="select">
+    <view class="selectTitle">送至</view>
+    <view class="selectType" bindtap="handleAddress">
+       <view wx:if="{{isAddress}}" class="iconfont icon-dingwei">
+           请选择配送地址
+       </view>
+      <view wx:else class="iconfont icon-dingwei">
+          {{address.cityName}}  {{address.countyName}}
+          <view class="yuji">
+              23点前付款,预计{{yuDate}}送达
+          </view>
+      </view>
+    </view>
+      <view class="selectMore iconfont icon-arrow-right">
+      </view>
+</view>
+<view class="select" bindtap="hanleChoose">
+    <view class="selectTitle">已选</view>
+    <view class="selectType" >
+        {{good.Type[section]}}
+    </view>
+      <view class="selectMore iconfont icon-arrow-right">
+      </view>
+</view>
+<view class="select">
+    <view class="selectTitle">服务</view>
+    <view class="selectType">
+       <text class="iconfont icon-kongxinduigou">  7天无理由退货  </text>
+       <text class="iconfont icon-kongxinduigou">  小E发货  </text>
+    </view>
+      <view class="selectMore iconfont icon-arrow-right">
+      </view>
+</view>
+
+  <view class="bg">
+      
+  </view>
+    
+<view class="goodDetail" wx:for="{{good.Detail}}" wx:key="*this">
+    <image  src="{{item}}" mode="widthFix"  />
+</view>
+  
+  
+<view class="nav">
+    <view class="kf">
+    <button open-type="contact"></button>
+    <view class="iconfont icon-kefu">
+    </view>
+        <view>
+            客服
+        </view>
+    </view>
+       <view class="sc" bindtap="shoucang" >
+           <view class="iconfont {{shoucang?'icon-aixin':'icon-jushoucang'}}">
+    </view>
+        <view>
+            收藏
+        </view>
+    </view>
+     <view class="gw" bindtap="gotoShopping">
+       <view class="iconfont icon-gouwuche">
+    </view>
+        <view>
+        购物车
+        </view>
+    </view>
+     <view class="lg">
+        <view class="addShop" bindtap="hanleChooseOne" data-value="buyNow">
+            加入购物车
+        </view>
+          <view class="buy" bindtap="hanleChooseOne" data-value="shopping">
+              立即购买
+          </view>
+    </view>
+</view>
+<view class="tanchu" wx:if="{{tanchu}}" catchtap="close" >
+    <view class="message" catchtap="yyds">
+        <view class="close" catchtap="close">
+            x
+        </view>
+          <view class="messageGood">
+              <image  src="{{good.Goodimg}}" mode="widthFix"  />
+                <view class="GoodMsg">
+                   <view>
+                        ¥{{good.price[section]*num}}
+                   </view>
+                     <view>
+                         {{good.Goodname}}  {{good.Type[section]}}  {{good.color[color]}}
+                     </view>
+                </view>
+          </view>
+            <view class="edition">
+                <view class="title">
+                    版本
+                </view>
+                <view class="editionWrap">
+                      <view wx:for="{{good.Type}}" class="editionMes {{section==index?'active':''}}" bindtap="changeSection" data-index="{{index}}">
+                          {{item}}
+                  </view>
+                </view>
+            </view>
+                      <view class="edition">
+                <view class="title">
+                    颜色
+                </view>
+                <view class="editionWrap">
+                      <view wx:for="{{good.color}}" class="editionMes {{color==index?'active':''}}" bindtap="changeColor" data-index="{{index}}">
+                          {{item}}
+                  </view>
+                </view>
+            </view>
+
+                 <view class="editionNum">
+                <view class="title">
+                    数量
+                </view>
+                 <view class="num_wrap">
+                             <view class="reduce {{num<=1?'noactive':''}}" bindtap="numedit" data-num="-1">
+                                 -
+                             </view>
+                             <view class="value">
+                                {{num}}
+                             </view>
+                            <view class="add" bindtap="numedit" data-num="1">
+                                +
+                            </view>
+                              
+                               
+                         </view>
+                 </view>
+
+            <view class="anniu">
+                  <view class="addShop  {{buyNow?'':'shopping'}}" wx:if="{{shopping}}" bindtap="addShop">
+           {{buyNow?'加入购物车':'确定'}}
+        </view>
+          <view class="buy {{shopping?'':'buyNow'}}" wx:if="{{buyNow}}" bindtap="buy">
+           {{shopping?'立即购买':'确定'}}
+          </view>
+            </view>
+              
+    </view>
+      
+</view>
+  
+  
+  
+  
+  
+</view>
+  

@@ -1,0 +1,107 @@
+page{
+    background-color: #F4F4F4;
+}
+.searchList{
+    padding: 20rpx;
+    border-top: 1px solid #F5F5F5;
+    background-color: white;
+}
+.search{
+    margin:0  20rpx;
+}
+.receivedNull{
+    background-color: #fff;
+}
+.receivedImg{
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.receivedImg image{
+    width: 40%;
+}
+.received{
+    margin: 0 20rpx;
+    padding: 10rpx 30rpx 30rpx 10rpx;
+    background-color: #fff;
+    margin-top: 20rpx;
+    border-radius: 20rpx;
+}
+.Good{
+    display: flex;
+    align-items: center;
+}
+.GoodImg{
+    flex: 3;
+}
+.GoodContent{
+    flex: 5;
+}
+.Goodname{
+    font-size: 32rpx;
+    font-weight: 600;
+    margin-bottom: 20rpx;
+}
+.biaoqian{
+    display: inline-block;
+    color: #C85C27;
+    padding:0  5rpx;
+    margin-right: 5rpx;
+    border: 1px solid #CCC4C2;
+    font-size: 20rpx;
+}
+.GoodPrice{
+    flex: 3;
+    text-align: right;
+}
+.GoodPrice view:first-child{
+    font-weight: 600;
+}
+.GoodPrice view:nth-child(2){
+    font-size: 26rpx;
+    color: #959595;
+}
+.More{
+    display: flex;
+    align-items: center;
+}
+.More>view:first-child{
+    flex: 1;
+    text-align: center;
+    font-size: 26rpx;
+    color: #B1B1B1;
+}
+.options{
+    flex: 3;
+    display: flex;
+}
+.options view{
+    flex: 1;
+    padding:15rpx;
+    text-align: center;
+    border: 1px solid #C9C9C9;
+    font-size: 28rpx;
+    border-radius: 40rpx;
+    margin-left: 15rpx;
+}
+.options view:last-child{
+    color: red;
+    border: 1px solid red;
+}
+.MoreGood{
+    display: flex;
+    align-items: center;
+}
+.left{
+    flex: 8;
+}
+.left .scrollView {
+    white-space: nowrap;
+}
+.left .scrollView view{
+    display: inline-block;
+    width: 40%;
+}
