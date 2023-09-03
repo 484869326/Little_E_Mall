@@ -8,5 +8,5 @@ class Category extends Model {
 	protected $table = 'category';
 	protected $primaryKey = 'Cid';
 	public $timestamps = true;
-	protected $fillable = ['Cname', 'parentID', 'Clevel', 'parentimg', 'Cimg'];
+	protected $fillable = ['Cname', 'parentID', 'level', 'Cimg'];
 }

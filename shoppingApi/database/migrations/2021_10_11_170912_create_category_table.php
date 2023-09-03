@@ -15,8 +15,7 @@ class CreateCategoryTable extends Migration {
 			$table->increments('Cid');
 			$table->string('Cname');
 			$table->integer('parentID')->nullable();
-			$table->integer('Clevel')->nullable();
-			$table->string('parentimg')->nullable();
+			$table->integer('level')->nullable();
 			$table->string('Cimg')->nullable();
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

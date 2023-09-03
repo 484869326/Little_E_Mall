@@ -36,45 +36,59 @@ Route::middleware('CrossHttp')->group(function () {
 });
 //后台api路由
 Route::prefix('api')->middleware('CrossHttp')->group(function () {
+	//上传文件
+	Route::post('sendFile', "FileController@sendFile");
+	//管理员
 	Route::prefix('admin')->group(function () {
 		Route::any('login', "AdminController@login");
-		Route::any('getOrderNum', "OrderController@getOrderNum");
 		Route::any('getSelf', "AdminController@getSelf");
-        Route::any('likeSelect', "AdminController@likeSelect");
+		Route::post('likeSelect', "AdminController@likeSelect");
 		Route::post('Insert', "AdminController@Insert");
-        Route::patch('{id}', "AdminController@Update");
+		Route::patch('{id}', "AdminController@Update");
 		Route::delete('{id}', "AdminController@Delete");
 	});
-    Route::prefix('menu')->group(function () {
-        Route::any('likeSelect', "MenuController@likeSelect");
-    });
-	Route::prefix('good')->group(function () {
-		Route::any('selectCategory', "CategoryController@selectCategory");
-		Route::any('sendFILE', "GoodController@sendFILE");
-        Route::any('likeSelect', "GoodController@likeSelect");
-        Route::post('Insert', "GoodController@Insert");
-		Route::patch('{id}', "GoodController@Update");
-        Route::delete('{id}', "GoodController@Delete");
+	//菜单
+	Route::prefix('menu')->group(function () {
+		Route::any('likeSelect', "MenuController@likeSelect");
+		Route::post('Insert', "MenuController@Insert");
+		Route::patch('{id}', "MenuController@Update");
+		Route::delete('{id}', "MenuController@Delete");
 	});
-
+	//商品
+	Route::prefix('good')->group(function () {
+		Route::post('selectCategory/{level}', "CategoryController@selectCategory");
+		Route::post('likeSelect', "GoodController@likeSelect");
+		Route::post('Insert', "GoodController@Insert");
+		Route::patch('{id}', "GoodController@Update");
+		Route::delete('{id}', "GoodController@Delete");
+	});
+	//订单
 	Route::prefix('order')->group(function () {
 		Route::any('likeSelect', "OrderController@likeSelect");
 		Route::patch('{id}', "OrderController@Update");
 	});
-
+	//用户
 	Route::prefix('user')->group(function () {
-		Route::any('Update', "MyController@Update");
-		Route::any('getSelf', "MyController@getSelf");
-		Route::any('Insert', "MyController@Insert");
-		Route::any('likeSelect', "MyController@likeSelect");
-		Route::any('Delete', "MyController@Delete");
+		Route::post('likeSelect', "MyController@likeSelect");
+		Route::post('Insert', "MyController@Insert");
+		Route::patch('{id}', "MyController@Update");
+		Route::delete('{id}', "MyController@Delete");
+	});
+	//分类
+	Route::prefix('category')->group(function () {
+		Route::post('likeSelect', "CategoryController@likeSelect");
+		Route::any('Insert', "CategoryController@Insert");
+		Route::patch('{id}', "CategoryController@Update");
+		Route::delete('{id}', "CategoryController@Delete");
 	});
 
-	Route::prefix('category')->group(function () {
-		Route::any('Update', "CategoryController@Update");
-		Route::any('getSelf', "CategoryController@getSelf");
-		Route::any('Insert', "CategoryController@Insert");
-		Route::any('likeSelect', "CategoryController@likeSelect");
-		Route::any('Delete', "CategoryController@Delete");
+	// 数据展示
+	Route::prefix('statistics')->group(function () {
+		Route::get('categoryGoodsCount', "GoodController@categoryGoodsCount");
+		Route::get('adminSexCount', "AdminController@adminSexCount");
+		Route::get('orderCount', "OrderController@orderCount");
+		Route::get('monthPriceCount', "OrderController@monthPriceCount");
+
 	});
+
 });

@@ -8,5 +8,5 @@ class Menu extends Model {
 	protected $table = 'menu';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
-	protected $fillable = ['text', 'path', 'parent_id'];
+	protected $fillable = ['text', 'icon', 'path', 'level', 'parentID'];
 }

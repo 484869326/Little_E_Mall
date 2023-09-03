@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller {
 	public function getCategory() {
-		$data = Category::where('Clevel', '=', '0')->orderByRaw('RAND()')->take(10)->get();
+		$data = Category::where('level', '=', '0')->orderByRaw('RAND()')->take(10)->get();
 		Total::json(200, '获取成功', $data, 'parentimg');
 	}
 	public function categoryList() {
-		$category = Category::where('Clevel', '=', '0')->get();
-		$children = Category::where('Clevel', '=', '1')->get();
+		$category = Category::where('level', '=', '0')->get();
+		$children = Category::where('level', '=', '1')->get();
 		foreach ($children as $key => $data) {
 			$parentID = $data["Cid"];
 			$data["children"] = Category::where('parentID', '=', $parentID)->get();
@@ -35,116 +35,84 @@ class CategoryController extends Controller {
 		}
 		Total::json(200, '获取成功', $category, 'parentimg');
 	}
-	public function selectCategory() {
-		$category["data"] = Category::where('Clevel', '2')->get(['Cid', 'Cname']);
+	public function selectCategory($level) {
+		$category["data"] = Category::where('level', $level)->get(['Cid', 'Cname']);
 		Total::json($category);
 	}
-
-	public function getSelf(Request $request) {
-		$id = $request->input('dataId');
-		$data = Category::where('Cid', $id)->first();
-		if ($data["parentimg"] != "") {
-			$data["parentimg"] = env('APP_URL') . substr_replace($data["parentimg"], "", 0, 1);
-		}
-		if ($data["Cimg"] != "") {
-			$data["Cimg"] = env('APP_URL') . substr_replace($data["Cimg"], "", 0, 1);
-		}
-		echo json_encode($data, JSON_UNESCAPED_UNICODE);
-	}
-	public function Update(Request $request) {
-		$id = $request->input('dataId');
-		$Cname = $request->input('Cname');
-		$parentID = $request->input('parentID');
-		$Clevel = $request->input('Clevel');
-		$parentimg = $request->file('parentimg') ? $request->file('parentimg') : "";
-		$Cimg = $request->file('Cimg') ? $request->file('Cimg') : "";
-		if ($Clevel == "一级分类") {
-			$Clevel = 0;
-			if ($parentimg == "") {
-				$parentimg = Category::where('Cid', $id)->first()["parentimg"];
-			} else {
-				$parentimg = Total::saveImg($parentimg, './image/category/level0');
-			}
-		} else if ($Clevel == "二级分类") {
-			$Clevel = 1;
-		} else {
-			$Clevel = 2;
-			if ($Cimg == "") {
-				$Cimg = Category::where('Cid', $id)->first()["Cimg"];
-			} else {
-				$Cimg = Total::saveImg($Cimg, './image/category/level2');
-			}
-		}
-		$data = Category::where('Cid', '=', $id)->update(
-			[
-				'Cname' => $Cname,
-				'parentID' => $parentID,
-				'Clevel' => $Clevel,
-				'parentimg' => $parentimg,
-				'Cimg' => $Cimg,
-			]
-		);
-	}
+	// public function getSelf(Request $request) {
+	// 	$id = $request->input('dataId');
+	// 	$data = Category::where('Cid', $id)->first();
+	// 	if ($data["parentimg"] != "") {
+	// 		$data["parentimg"] = env('APP_URL') . substr_replace($data["parentimg"], "", 0, 1);
+	// 	}
+	// 	if ($data["Cimg"] != "") {
+	// 		$data["Cimg"] = env('APP_URL') . substr_replace($data["Cimg"], "", 0, 1);
+	// 	}
+	// 	echo json_encode($data, JSON_UNESCAPED_UNICODE);
+	// }
 	public function Insert(Request $request) {
 		$Cname = $request->input('Cname');
 		$parentID = $request->input('parentID');
-		$Clevel = $request->input('Clevel');
-		$parentimg = $request->file('parentimg') ? $request->file('parentimg') : "";
-		$Cimg = $request->file('Cimg') ? $request->file('Cimg') : "";
-		if ($Clevel == "一级分类") {
-			$Clevel = 0;
-			if ($parentimg != "") {
-				$parentimg = Total::saveImg($parentimg, './image/category/level0');
-			}
-		} else if ($Clevel == "二级分类") {
-			$Clevel = 1;
-		} else {
-			$Clevel = 2;
-			if ($Cimg != "") {
-				$Cimg = Total::saveImg($Cimg, './image/category/level2');
-			}
-		}
-		$data = Category::insert(
+		$level = $request->input('level');
+		$Cimg = $request->input('Cimg');
+		$result = Category::insert(
 			[
 				'Cname' => $Cname,
 				'parentID' => $parentID,
-				'Clevel' => $Clevel,
-				'parentimg' => $parentimg,
+				'level' => $level,
 				'Cimg' => $Cimg,
 			]
 		);
-	}
-	public function likeSelect(Request $request) {
-		$page = $request->input('page');
-		$limit = $request->input('limit');
-		$offset = ($page - 1) * $limit;
-		$Cid = $request->input('Cid') ? $request->input('Cid') : "";
-		$Cname = $request->input('Cname') ? $request->input('Cname') : "";
-		$parentID = $request->input('parentID') ? $request->input('parentID') : "";
-		$Clevel = $request->input('Clevel') ? $request->input('Clevel') : "一级分类";
-		if ($Clevel === '一级分类') {
-			$Clevel = 0;
-		} else if ($Clevel === '二级分类') {
-			$Clevel = 1;
+		if ($result) {
+			Total::json('增加成功');
 		} else {
-			$Clevel = 2;
+			Total::json('增加失败', -1);
 		}
-		$data["data"] = Category::where('Cid', 'like', '%' . $Cid . '%')->where('Cname', 'like', '%' . $Cname . '%')->where('parentID', 'like', '%' . $parentID . '%')->where('Clevel', 'like', '%' . $Clevel . '%')->offset($offset)->limit($limit)->get();
-		foreach ($data["data"] as $key => $model) {
-			if ($model["parentimg"] != "") {
-				$model["parentimg"] = env('APP_URL') . substr_replace($model["parentimg"], "", 0, 1);
-			}
-			if ($model["Cimg"] != "") {
-				$model["Cimg"] = env('APP_URL') . substr_replace($model["Cimg"], "", 0, 1);
-			}
-		}
-		$data["count"] = Category::count();
-		Total::json($data);
-		// echo json_encode($data, JSON_UNESCAPED_UNICODE);
 	}
-	public function Delete(Request $request) {
-		$id = $request->input('id');
+	public function Update($id, Request $request) {
+		$Cname = $request->input('Cname');
+		$parentID = $request->input('parentID');
+		$level = $request->input('level');
+		$Cimg = $request->input('Cimg');
+		$result = Category::where('Cid', '=', $id)->update(
+			[
+				'Cname' => $Cname,
+				'parentID' => $parentID,
+				'level' => $level,
+				'Cimg' => $Cimg,
+			]
+		);
+		if ($result) {
+			Total::json('更新成功');
+		} else {
+			Total::json('更新失败', -1);
+		}
+	}
+
+	public function likeSelect(Request $request) {
+		$category = Category::where('level', '=', '0')->get();
+		foreach ($category as $key1 => $children) {
+			$parentID = $children["Cid"];
+			$children["Cimg"] = env('APP_URL') . substr_replace($children["Cimg"], "", 0, 1);
+			$children["children"] = Category::where('parentID', '=', $parentID)->get();
+			foreach ($children["children"] as $key2 => $value) {
+				$parentID = $value['Cid'];
+				$value['children'] = Category::where('parentID', '=', $parentID)->get();
+				foreach ($value['children'] as $key3 => $value2) {
+					$value2["Cimg"] = env('APP_URL') . substr_replace($value2["Cimg"], "", 0, 1);
+				}
+			}
+		}
+		$data['data'] = $category;
+		Total::json($data);
+	}
+	public function Delete($id) {
 		$data = Category::where('Cid', $id)->delete();
+		if ($data) {
+			Total::json('删除成功');
+		} else {
+			Total::json('删除失败', -1);
+		}
 	}
 
 }
