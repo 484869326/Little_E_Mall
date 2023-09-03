@@ -3,16 +3,9 @@
 
 * tips：
 * 图片没显示，是因为我把图片弄在GitHub的仓库，得使用科学上网才能正常加载。
-* 没有数据库，laravel可以通过命令生成，首先得先创建数据库(create database store;)
+* 数据库可以拿现有，也可以laravel命令生成，首先得先创建数据库(create database store;)
 * 命令行窗口到shoppingApi目录下,执行 php artisan migrate  
-* 最后数据填充 
-php artisan db:seed --class=CategoryTableSeeder
-php artisan db:seed --class=AdminTableSeeder
-php artisan db:seed --class=MenuTableSeeder
-php artisan db:seed --class=MyTableSeeder
-php artisan db:seed --class=GoodTableSeeder
-php artisan db:seed --class=CategoryTableSeeder
-php artisan db:seed --class=OrderTableSeeder
+* 最后数据填充  php artisan db:seed 
 <h1 align="center">小E商城</h1>
 
 ## 1.系统功能结构图
@@ -38,16 +31,29 @@ php artisan db:seed --class=OrderTableSeeder
 ![image](https://raw.githubusercontent.com/484869326/img/main/login.png)
 ### 3.2技术总览界面
 ![image](https://raw.githubusercontent.com/484869326/img/main/technology.png)
-### 3.3 管理员管理界面
-![image](https://raw.githubusercontent.com/484869326/img/main/admin_manage.png)
-![image](https://raw.githubusercontent.com/484869326/img/main/edit.png)
-![image](https://raw.githubusercontent.com/484869326/img/main/add.png)
-### 3.4分类管理界面
-![image](https://raw.githubusercontent.com/484869326/img/main/good_manage.png)
-### 3.5 商品管理界面
-![image](https://raw.githubusercontent.com/484869326/img/main/category_manage.png)
-### 3.6 用户管理界面
+### 3.3系统统计(数据可视化)
+![image](https://raw.githubusercontent.com/484869326/img/main/statistics.png)
+### 3.4用户管理
 ![image](https://raw.githubusercontent.com/484869326/img/main/user_manage.png)
-### 3.7 订单管理界面
+![image](https://raw.githubusercontent.com/484869326/img/main/user_manage_edit.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/user_manage_add.png)
+### 3.5菜单管理
+![image](https://raw.githubusercontent.com/484869326/img/main/menu_manage.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/menu_manage_edit.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/menu_manage_edit2.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/menu_manage_add.png)
+### 3.6 管理员管理
+![image](https://raw.githubusercontent.com/484869326/img/main/admin_manage.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/admin_manage_edit.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/admin_manage_add.png)
+### 3.7 商品类别管理
+![image](https://raw.githubusercontent.com/484869326/img/main/category_manage.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_edit.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_edit2.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_add.png)
+### 3.8商品管理
+![image](https://raw.githubusercontent.com/484869326/img/main/good_manage.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/good_manage_edit.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/good_manage_add.png)
+### 3.9订单管理
 ![image](https://raw.githubusercontent.com/484869326/img/main/order_manage.png)
-
