@@ -1,8 +1,9 @@
 export const contentTableConfig = {
   title: '菜单列表',
+  addTitle: '新增菜单',
   propList: [
     { prop: 'text', label: '菜单名称', minWidth: '60px' },
-    { prop: 'icon', label: 'icon图标', minWidth: '40px' },
+    { prop: 'icon', label: 'icon图标', minWidth: '40px', slotName: 'icon' },
     { prop: 'path', label: '路径', minWidth: '100px' },
     {
       prop: 'created_at',

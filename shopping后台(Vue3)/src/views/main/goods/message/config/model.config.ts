@@ -46,17 +46,32 @@ export const modelConfig: IForm = {
       placeholder: '请输入颜色'
     },
     {
-      field: 'Goodimg',
-      type: 'image',
-      label: '商品图',
-      rules: []
-    },
-    {
       field: 'Type',
       type: 'input',
       label: '类型',
       rules: [],
       placeholder: '请输入类型'
+    },
+    {
+      field: 'Goodimg',
+      type: 'upload',
+      label: '商品图',
+      rules: [],
+      listType: 'text'
+    },
+    {
+      field: 'Swiper',
+      type: 'upload',
+      label: '轮播图',
+      rules: [],
+      listType: 'picture-card'
+    },
+    {
+      field: 'Detail',
+      type: 'upload',
+      label: '详细图',
+      rules: [],
+      listType: 'picture-card'
     }
   ],
   labelWidth: '100px',

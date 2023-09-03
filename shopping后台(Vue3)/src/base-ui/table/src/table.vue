@@ -42,7 +42,7 @@
       </template>
     </el-table>
     <!-- 分页 -->
-    <div class="footer">
+    <div class="footer" v-if="total">
       <slot name="footer">
         <el-pagination
           v-model:current-page="localPagination.currentPage"
@@ -74,12 +74,11 @@ export default defineComponent({
     },
     total: {
       type: Number,
-      required: true
+      default: null
     },
     propList: {
-      type: Array as PropType<any>
-      //会报错,暂时不知道怎么改
-      // required: true
+      type: Array as PropType<any>,
+      required: true
     },
     pagination: {
       type: Object,

@@ -13,7 +13,7 @@ export function mapMenusToRouter(userMenus: any[]): RouteRecordRaw[] {
   });
   const _recurseGetRoute = (menus: any[]) => {
     for (const menu of menus) {
-      if (menu.parent_id != null || menu.children.length == 0) {
+      if (menu.level !== 0 || menu.children.length === 0) {
         const route = allRoutes.find((route) => {
           return route.path == menu.path;
         });
@@ -36,7 +36,7 @@ export function pathMapToMenu(
   breadCrumb?: IBreadCrumb[]
 ): any {
   for (const menu of userMenus) {
-    if (menu.parent_id != null || menu.children.length == 0) {
+    if (menu.level !== 0 || menu.children.length === 0) {
       if (menu.path == currentPath) {
         //2.解决订单管理,而且不影响数组的重复
         breadCrumb?.push({ name: menu.text });

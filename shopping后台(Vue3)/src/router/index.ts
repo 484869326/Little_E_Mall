@@ -16,13 +16,11 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/main',
     name: 'main',
-
     component: () => import('@/views/main/main.vue')
   },
   {
     path: '/:pathMatch(.*)*',
     name: '404',
-
     component: () => import('@/views/404/404.vue')
   }
 ];

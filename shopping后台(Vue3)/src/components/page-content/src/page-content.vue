@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue';
+import { defineComponent, computed, ref, watch, PropType } from 'vue';
 import DiyTable from '@/base-ui/table';
 import { useStore } from '@/store';
 import { formatUtcToString } from '@/utils/data-format';
@@ -71,7 +71,7 @@ import { formatUtcToString } from '@/utils/data-format';
 export default defineComponent({
   props: {
     contentTableConfig: {
-      type: Object,
+      type: Object as PropType<any>,
       required: true
     },
     pageName: {
@@ -105,7 +105,7 @@ export default defineComponent({
         }
       });
     };
-    getPageData();
+    getPageData(props.getFormData);
     const List = computed(
       //第一种写法通过拼接
       // () => (store.state.systemModule as any)[`${props.pageName}List`]

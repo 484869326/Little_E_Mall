@@ -37,7 +37,7 @@ export default defineComponent({
     const formItem = props.SearchFormConfig?.formItems ?? [];
     const formOriginData: any = {};
     for (const item of formItem) {
-      formOriginData[item.field] = '';
+      formOriginData[item.field] = item.value;
     }
     const formData = ref(formOriginData);
     const handleResetClick = () => {

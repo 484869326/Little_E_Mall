@@ -6,9 +6,10 @@ type IFormType =
   | 'switch'
   | 'checkbox'
   | 'radio'
-  | 'image';
+  | 'upload';
 export interface IFormItem {
   field?: string;
+  value?: any;
   type: IFormType;
   label: string;
   rules?: any[];
@@ -16,6 +17,8 @@ export interface IFormItem {
   options?: any[];
   dataOptions?: any;
   isHidden?: boolean;
+  listType?: string;
+  isChange?: any;
 }
 export interface IForm {
   formItems: IFormItem[];

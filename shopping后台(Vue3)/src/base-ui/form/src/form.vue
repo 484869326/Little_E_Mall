@@ -2,13 +2,13 @@
   <div class="form">
     <el-form :label-width="labelWidth">
       <el-row>
-        <template v-for="item in formItems" :key="item.label">
+        <template v-for="item in formItemsRef" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
               :label="item.label"
               :rules="item.rules"
               :style="itemStyle"
-              v-if="!item.isHidden"
+              v-show="!item.isHidden"
             >
               <template v-if="item.type === 'input'">
                 <el-input
@@ -20,9 +20,17 @@
                 <el-select
                   :placeholder="item.placeholder"
                   v-model="formData[`${item.field}`]"
+                  @change="
+                    item.isChange
+                      ? item.isChange(formItemsRef, formData[`${item.field}`])
+                      : ''
+                  "
                 >
                   <template v-for="option in item.options" :key="option.label">
-                    <el-option :label="option.label" :value="option.value" />
+                    <el-option
+                      :label="option.label"
+                      :value="option.value"
+                    ></el-option>
                   </template>
                 </el-select>
               </template>
@@ -54,8 +62,13 @@
                   <el-radio label="Venue" />
                 </el-radio-group>
               </template>
-              <template v-else-if="item.type === 'image'">
-                <DiyUpload :imageUrl="formData[`${item.field}`]"> </DiyUpload>
+              <!-- 图片展示上传 -->
+              <template v-else-if="item.type === 'upload'">
+                <DiyUpload
+                  v-model="formData[`${item.field}`]"
+                  :list-type="(item.listType as any)"
+                >
+                </DiyUpload>
               </template>
             </el-form-item>
           </el-col>
@@ -69,9 +82,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { IFormItem } from '../type';
-import DiyUpload from '@/base-ui/upload';
+import { DiyUpload } from '@/base-ui/upload';
+// import { useVModel } from '@/hook/useVModel';
 export default defineComponent({
   props: {
     modelValue: {
@@ -104,7 +118,10 @@ export default defineComponent({
   components: { DiyUpload },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const formItemsRef = ref([...props.formItems]);
+
     //响应式,避免不是单向数据流
+    //第一种方法
     const formData = ref({ ...props.modelValue });
     watch(
       formData,
@@ -113,7 +130,9 @@ export default defineComponent({
       },
       { deep: true }
     );
-    return { formData };
+    //第二种,computed。第三种 vueuse  这种有bug  数组有问题，到时候再来解决
+    // const formData = useVModel(props, 'modelValue', emit);
+    return { formData, formItemsRef };
   }
 });
 </script>

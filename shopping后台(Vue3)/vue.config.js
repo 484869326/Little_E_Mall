@@ -24,6 +24,7 @@ module.exports = defineConfig({
   configureWebpack: {
     plugins: [
       AutoImport({
+        imports: ['vue'],
         eslintrc: {
           enabled: true
         },
@@ -31,7 +32,8 @@ module.exports = defineConfig({
           ElementPlusResolver(),
           IconsResolver({
             //解决不了 必须这样引入<i-ep-edit></i-ep-edit>
-            prefix: 'icon'
+            prefix: 'icon',
+            enabledCollections: ['ep']
           })
         ],
         dts: path.resolve(pathSrc, 'auto-imports.d.ts')
@@ -47,6 +49,8 @@ module.exports = defineConfig({
       }),
 
       Icons({
+        compiler: 'vue3',
+        // 自动安装
         autoInstall: true
       })
     ]

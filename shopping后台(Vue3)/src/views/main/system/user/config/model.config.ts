@@ -1,10 +1,9 @@
 import { IForm } from '@/base-ui/form';
 
-export const SearchFormConfig: IForm = {
+export const modelConfig: IForm = {
   formItems: [
     {
       field: 'nickName',
-      value: '',
       type: 'input',
       label: '用户名',
       rules: [],
@@ -28,6 +27,12 @@ export const SearchFormConfig: IForm = {
       ]
     },
     {
+      field: 'avatarUrl',
+      type: 'upload',
+      label: '头像',
+      listType: 'text'
+    },
+    {
       field: 'city',
       type: 'input',
       label: '城市',
@@ -42,16 +47,17 @@ export const SearchFormConfig: IForm = {
       placeholder: '请输入手机号'
     },
     {
-      field: 'betweenTime',
-      type: 'datapicker',
-      label: '时间',
-      rules: [],
-      dataOptions: {
-        type: 'daterange',
-        startPlaceholder: '开始时间',
-        endPlaceholder: '结束时间'
-      }
+      field: 'Status',
+      type: 'switch',
+      label: '状态',
+      rules: []
     }
   ],
-  labelWidth: '120px'
+  labelWidth: '100px',
+  colLayout: {
+    span: 24
+  },
+  itemStyle: {
+    padding: '5px'
+  }
 };

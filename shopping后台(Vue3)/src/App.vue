@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+
 export default defineComponent({
   name: 'App',
   components: {},

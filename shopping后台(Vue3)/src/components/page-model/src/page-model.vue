@@ -2,10 +2,10 @@
   <div class="pageModel">
     <el-dialog
       v-model="centerDialogVisible"
+      v-if="centerDialogVisible"
       :title="title"
       width="30%"
       center
-      destroy-on-close
     >
       <DiyForm v-bind="modelConfig" v-model="formData"> </DiyForm>
       <template #footer>
@@ -30,6 +30,7 @@ export default defineComponent({
       type: String,
       required: true
     },
+    //表单值  是空还是有值
     defaultInfo: {
       type: Object,
       required: true
@@ -38,6 +39,7 @@ export default defineComponent({
       type: Object,
       required: true
     },
+    //页面名字
     pageName: {
       type: String,
       required: true
