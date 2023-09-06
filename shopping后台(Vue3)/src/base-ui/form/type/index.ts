@@ -19,6 +19,7 @@ export interface IFormItem {
   isHidden?: boolean;
   listType?: string;
   isChange?: any;
+  disabled?: boolean;
 }
 export interface IForm {
   formItems: IFormItem[];

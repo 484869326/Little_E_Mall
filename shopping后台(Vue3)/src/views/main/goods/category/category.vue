@@ -35,17 +35,35 @@ import { usePageModel } from '@/hook/usePageModel';
 export default defineComponent({
   name: 'category',
   setup() {
-    //隐藏函数
-    const editCallback = () => {
-      const levelItem = modelConfig.formItems.find((item: any) => {
+    //默认 disabled为false
+    const addCallback = () => {
+      const levelItem: any = modelConfig.formItems.find((item: any) => {
         return item.field === 'level';
       });
-      const value: any = defaultInfo.value;
-      const level = value['level'];
+      levelItem.disabled = false;
+    };
+    //隐藏函数
+    const editCallback = () => {
+      const levelItem: any = modelConfig.formItems.find((item: any) => {
+        return item.field === 'level';
+      });
+      const formData: any = defaultInfo.value;
+      const level = formData['level'];
+      levelItem.disabled = false;
+      if (formData['children'] && formData['children'].length !== 0) {
+        const children = formData['children'];
+        const grandson = children.some((item: any) => {
+          if (item.children && item.children.length !== 0) {
+            return true;
+          }
+        });
+        grandson && (levelItem.disabled = true);
+      }
+
       levelItem?.isChange(modelConfig.formItems, level);
     };
     const { handleAddData, handleEditData, defaultInfo, pageModelRef, title } =
-      usePageModel(undefined, editCallback);
+      usePageModel(addCallback, editCallback);
     return {
       contentTableConfig,
       modelConfig,

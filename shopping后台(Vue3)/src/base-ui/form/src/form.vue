@@ -1,14 +1,15 @@
 <template>
   <div class="form">
-    <el-form :label-width="labelWidth">
+    <el-form :label-width="labelWidth" :model="formData" ref="ruleFormRef">
       <el-row>
         <template v-for="item in formItemsRef" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
               :label="item.label"
-              :rules="item.rules"
-              :style="itemStyle"
+              :prop="item.field"
               v-show="!item.isHidden"
+              :rules="!item.isHidden ? item.rules : undefined"
+              :style="itemStyle"
             >
               <template v-if="item.type === 'input'">
                 <el-input
@@ -18,6 +19,7 @@
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
+                  :disabled="item.disabled"
                   :placeholder="item.placeholder"
                   v-model="formData[`${item.field}`]"
                   @change="
@@ -25,6 +27,7 @@
                       ? item.isChange(formItemsRef, formData[`${item.field}`])
                       : ''
                   "
+                  clearable
                 >
                   <template v-for="option in item.options" :key="option.label">
                     <el-option
@@ -85,6 +88,7 @@
 import { defineComponent, PropType } from 'vue';
 import { IFormItem } from '../type';
 import { DiyUpload } from '@/base-ui/upload';
+import type { FormInstance } from 'element-plus';
 // import { useVModel } from '@/hook/useVModel';
 export default defineComponent({
   props: {
@@ -118,8 +122,20 @@ export default defineComponent({
   components: { DiyUpload },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const formItemsRef = ref([...props.formItems]);
+    //校验规则ref
+    const ruleFormRef = ref<FormInstance>();
+    const validateData = async () => {
+      const result = await ruleFormRef.value?.validate((valid: any) => {
+        if (valid) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      return result;
+    };
 
+    const formItemsRef = ref([...props.formItems]);
     //响应式,避免不是单向数据流
     //第一种方法
     const formData = ref({ ...props.modelValue });
@@ -132,7 +148,7 @@ export default defineComponent({
     );
     //第二种,computed。第三种 vueuse  这种有bug  数组有问题，到时候再来解决
     // const formData = useVModel(props, 'modelValue', emit);
-    return { formData, formItemsRef };
+    return { formData, formItemsRef, ruleFormRef, validateData };
   }
 });
 </script>

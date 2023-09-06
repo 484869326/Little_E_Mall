@@ -7,7 +7,8 @@
       width="30%"
       center
     >
-      <DiyForm v-bind="modelConfig" v-model="formData"> </DiyForm>
+      <DiyForm v-bind="modelConfig" v-model="formData" ref="diyFormRef">
+      </DiyForm>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="centerDialogVisible = false">取消</el-button>
@@ -22,6 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import DiyForm from '@/base-ui/form';
+
 import { useStore } from '@/store';
 export default defineComponent({
   name: 'page-model',
@@ -60,36 +62,45 @@ export default defineComponent({
         }
       }
     );
+    const diyFormRef = ref<InstanceType<typeof DiyForm>>();
     //确认按钮
     const handleConfirmClick = async () => {
-      try {
-        if (Object.keys(props.defaultInfo).length) {
-          const id =
-            props.defaultInfo.id ??
-            props.defaultInfo.Goodid ??
-            props.defaultInfo.Cid;
-          await store.dispatch('systemModule/editPageDataAction', {
-            pageName: props.pageName,
-            data: { ...formData.value },
-            id
-          });
-          ElMessage.success('修改成功');
+      if (diyFormRef.value) {
+        const result = await diyFormRef?.value.validateData();
+        if (result) {
+          try {
+            if (Object.keys(props.defaultInfo).length) {
+              const id =
+                props.defaultInfo.id ??
+                props.defaultInfo.Goodid ??
+                props.defaultInfo.Cid;
+              await store.dispatch('systemModule/editPageDataAction', {
+                pageName: props.pageName,
+                data: { ...formData.value },
+                id
+              });
+              ElMessage.success('修改成功');
+            } else {
+              await store.dispatch('systemModule/addPageDataAction', {
+                pageName: props.pageName,
+                data: { ...formData.value }
+              });
+              ElMessage.success('增加成功');
+            }
+            centerDialogVisible.value = false;
+          } catch (error: any) {
+            ElMessage.error(error.message);
+          }
         } else {
-          await store.dispatch('systemModule/addPageDataAction', {
-            pageName: props.pageName,
-            data: { ...formData.value }
-          });
-          ElMessage.success('增加成功');
+          ElMessage.error('检查所填内容');
         }
-        centerDialogVisible.value = false;
-      } catch (error: any) {
-        ElMessage.error(error.message);
       }
     };
     return {
       centerDialogVisible,
       formData,
-      handleConfirmClick
+      handleConfirmClick,
+      diyFormRef
     };
   }
 });

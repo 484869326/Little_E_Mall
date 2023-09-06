@@ -32,17 +32,6 @@ export default defineComponent({
   name: 'menus',
   setup() {
     const store = useStore();
-    //隐藏函数
-    const editCallback = () => {
-      const levelItem = modelConfig.formItems.find((item: any) => {
-        return item.field === 'level';
-      });
-      const value: any = defaultInfo.value;
-      const level = value['level'];
-      levelItem?.isChange(modelConfig.formItems, level);
-    };
-    const { handleAddData, handleEditData, defaultInfo, pageModelRef, title } =
-      usePageModel(undefined, editCallback);
     const modelConfigComputed = computed(() => {
       const menuItem = modelConfig.formItems.find((item: any) => {
         return item.field === 'parentID';
@@ -55,6 +44,40 @@ export default defineComponent({
       }
       return modelConfig;
     });
+    //默认 disabled为false
+    const addCallback = () => {
+      const levelItem: any = modelConfig.formItems.find((item: any) => {
+        return item.field === 'level';
+      });
+      levelItem.disabled = false;
+    };
+    //隐藏函数
+    const editCallback = () => {
+      //层级
+      const levelItem: any = modelConfig.formItems.find((item: any) => {
+        return item.field === 'level';
+      });
+      //上次菜单
+      const parentIDItem = modelConfig.formItems.find((item: any) => {
+        return item.field === 'parentID';
+      });
+      //默认设置为false
+      levelItem.disabled = false;
+      //获取 传过来的编辑数据
+      const formData: any = defaultInfo.value;
+      const level = formData['level'];
+      if (parentIDItem && level === 0) {
+        parentIDItem.options = parentIDItem.options?.filter((item: any) => {
+          return item.value !== formData['id'];
+        });
+        formData['children'].length !== 0 && (levelItem.disabled = true);
+      }
+      levelItem?.isChange(modelConfig.formItems, level);
+    };
+    //hook
+    const { handleAddData, handleEditData, defaultInfo, pageModelRef, title } =
+      usePageModel(addCallback, editCallback);
+
     return {
       contentTableConfig,
       handleAddData,
