@@ -50,6 +50,7 @@
 ![image](https://raw.githubusercontent.com/484869326/img/main/category_manage.png)
 ![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_edit.png)
 ![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_edit2.png)
+![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_edit3.png)
 ![image](https://raw.githubusercontent.com/484869326/img/main/category_manage_add.png)
 ### 3.8商品管理
 ![image](https://raw.githubusercontent.com/484869326/img/main/good_manage.png)
