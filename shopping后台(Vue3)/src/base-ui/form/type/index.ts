@@ -20,6 +20,7 @@ export interface IFormItem {
   listType?: string;
   isChange?: any;
   disabled?: boolean;
+  remote?: boolean;
 }
 export interface IForm {
   formItems: IFormItem[];

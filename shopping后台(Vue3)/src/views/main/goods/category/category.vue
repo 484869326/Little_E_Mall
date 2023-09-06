@@ -19,7 +19,7 @@
     </pageContent>
     <PageModel
       :title="title"
-      :modelConfig="modelConfig"
+      :modelConfig="modelConfigComputed"
       pageName="category"
       ref="pageModelRef"
       :defaultInfo="defaultInfo"
@@ -35,6 +35,9 @@ import { usePageModel } from '@/hook/usePageModel';
 export default defineComponent({
   name: 'category',
   setup() {
+    const modelConfigComputed = computed(() => {
+      return modelConfig;
+    });
     //默认 disabled为false
     const addCallback = () => {
       const levelItem: any = modelConfig.formItems.find((item: any) => {
@@ -43,12 +46,13 @@ export default defineComponent({
       levelItem.disabled = false;
     };
     //隐藏函数
-    const editCallback = () => {
+    const editCallback = async () => {
       const levelItem: any = modelConfig.formItems.find((item: any) => {
         return item.field === 'level';
       });
       const formData: any = defaultInfo.value;
       const level = formData['level'];
+      await levelItem?.isChange(modelConfig.formItems, level);
       levelItem.disabled = false;
       if (formData['children'] && formData['children'].length !== 0) {
         const children = formData['children'];
@@ -59,14 +63,13 @@ export default defineComponent({
         });
         grandson && (levelItem.disabled = true);
       }
-
-      levelItem?.isChange(modelConfig.formItems, level);
     };
     const { handleAddData, handleEditData, defaultInfo, pageModelRef, title } =
       usePageModel(addCallback, editCallback);
+
     return {
       contentTableConfig,
-      modelConfig,
+      modelConfigComputed,
       handleAddData,
       handleEditData,
       defaultInfo,

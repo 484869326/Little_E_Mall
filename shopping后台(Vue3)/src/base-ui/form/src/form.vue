@@ -28,6 +28,7 @@
                       : ''
                   "
                   clearable
+                  :remote="item.remote"
                 >
                   <template v-for="option in item.options" :key="option.label">
                     <el-option

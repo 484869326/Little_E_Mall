@@ -38,6 +38,7 @@ export const modelConfig: IForm = {
           value: 2
         }
       ],
+      remote: true,
       isChange: async (formItems: any, value: any) => {
         //隐藏列表
         const categoryParentItem = formItems.find((item: any) => {

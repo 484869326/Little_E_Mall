@@ -16,11 +16,11 @@ export function usePageModel(
       title.value = '新增界面';
     }
   };
-  const handleEditData = (item: any) => {
+  const handleEditData = async (item: any) => {
     if (pageModelRef.value) {
       defaultInfo.value = { ...item };
-      pageModelRef.value.centerDialogVisible = true;
-      editCallback && editCallback();
+      editCallback && (await editCallback());
+      pageModelRef.value && (pageModelRef.value.centerDialogVisible = true);
       title.value = '编辑界面';
     }
   };
