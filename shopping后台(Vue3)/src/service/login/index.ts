@@ -13,7 +13,8 @@ export function accountLoginRequest(account: IAccount) {
   });
 }
 export function accountMenuRequest() {
-  return Request1.get<IDataType<ILoginResult>>({
-    url: LoginApi.GetMenu
+  return Request1.post<IDataType<ILoginResult>>({
+    url: LoginApi.GetMenu,
+	data:{}
   });
 }
