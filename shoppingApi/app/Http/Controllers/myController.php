@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class myController extends Controller {
+class MyController extends Controller {
     public function Login(Request $request) {
         $signature = $request->input('signature');
         $nickName  = $request->input('nickName');
