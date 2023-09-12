@@ -98,7 +98,7 @@ class GoodController extends Controller {
 
                 },
             ],
-            'Cid'       => ['required', 'numeric', Rule::exists('Category', 'Cid')->where('level', 2)],
+            'Cid'       => ['required', 'numeric', Rule::exists('category', 'Cid')->where('level', 2)],
 
             'Explain'   => ['required', 'regex:/[^,]+/'],
             'advertise' => 'required',
