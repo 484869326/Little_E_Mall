@@ -36,6 +36,7 @@ Route::middleware('CrossHttp')->group(function () {
 });
 //后台api路由
 Route::prefix('api')->middleware('CrossHttp')->group(function () {
+    Route::get('home/multidata', "HomeController@multidata");
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
     //管理员
