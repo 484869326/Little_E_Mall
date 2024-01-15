@@ -5,8 +5,7 @@
       :contentTableConfig="contentTableConfig"
       pageName="category"
       @addBtnClick="handleAddData"
-      @editBtnClick="handleEditData"
-    >
+       @editBtnClick="handleEditData">
       <template #Cimg="scope">
         <el-image
           v-show="scope.row.Cimg"
