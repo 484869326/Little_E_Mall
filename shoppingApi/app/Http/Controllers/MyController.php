@@ -102,6 +102,7 @@ class MyController extends Controller {
         $avatarUrl = $request->input('avatarUrl');
         $city      = $request->input('city');
         $phone     = $request->input('phone');
+		$Status    = $request->input('Status');
         $data      = My::insert(
             [
                 'signature' => $signature,
@@ -110,6 +111,7 @@ class MyController extends Controller {
                 'avatarUrl' => $avatarUrl,
                 'city'      => $city,
                 'phone'     => $phone,
+				'Status'    => $Status,
             ]
         );
         if ($data) {
