@@ -15,7 +15,6 @@ Route::get('/', function () {
 });
 //微信小程序api路由
 Route::middleware('CrossHttp')->group(function () {
-    Route::any('category', "CategoryController@getCategory");
     Route::any('categoryList', "CategoryController@categoryList");
     Route::any('getGood', "GoodController@getGood");
     Route::get('goodDetail/{id}', "GoodController@goodDetail");
@@ -90,5 +89,4 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
         Route::get('orderCount', "OrderController@orderCount");
         Route::get('monthPriceCount', "OrderController@monthPriceCount");
     });
-
 });
