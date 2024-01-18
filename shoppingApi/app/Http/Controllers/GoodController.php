@@ -68,18 +68,16 @@ class GoodController extends Controller {
         Total::json($data, 0, 'Goodimg');
         // Total::json(200, '获取成功', $data, 'Goodimg');
     }
-    public function getGoodList(Request $request) {
-        $paginate = $request->input('paginate');
-        $lastPage = $request->input('lastPage');
+    public function getGoodList($page) {
+        $offset=($page-1)*10;
         // offset从哪里开始 limit 限制条数
-        $data["good"] = Good::offset($lastPage)->limit($paginate)->get();
+        $result["data"] = Good::offset($offset)->limit(10)->get();
         // 获取总条数
-        $data["count"] = Good::count();
-        foreach ($data["good"] as $key => $model) {
+        $result["count"] = Good::count();
+        foreach ($result["data"] as $key => $model) {
             $model["Goodimg"] = env('APP_URL') . substr_replace($model["Goodimg"], "", 0, 1);
         }
-        Total::json($data);
-        // Total::json(200, '获取成功', $data, '');
+        Total::json($result);
     }
     //验证规则
     public function validateData(Request $request, $id) {
