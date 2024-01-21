@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Model\Category;
 use App\Model\Good;
 use App\Total;
@@ -8,9 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class GoodController extends Controller {
+class GoodController extends Controller
+{
     //图表展示，分类商品数量
-    public function categoryGoodsCount() {
+    public function categoryGoodsCount()
+    {
         $counts = Good::select('parentID')
             ->selectRaw('COUNT(*) as count')
             ->fromSub(function ($query) {
@@ -34,7 +37,8 @@ class GoodController extends Controller {
         Total::json($result);
     }
     //
-    public function getGood(Request $request) {
+    public function getGood(Request $request)
+    {
         $id    = $request->input('id');
         $Cid   = $request->input('Cid');
         $value = $request->input('value');
@@ -59,16 +63,18 @@ class GoodController extends Controller {
         Total::json($data, 0, 'Goodimg');
         // Total::json(200, '获取成功', $data, 'Goodimg');
     }
-    public function goodDetail($id) {
-        $data              = Good::where('Goodid', '=', $id)->get();
-        $data[0]["Swiper"] = explode(",", $data[0]["Swiper"]);
-        $data[0]["Detail"] = explode(",", $data[0]["Detail"]);
-        $data[0]["Swiper"] = Total::change($data[0]["Swiper"]);
-        $data[0]["Detail"] = Total::change($data[0]["Detail"]);
-        Total::json($data, 0, 'Goodimg');
-        // Total::json(200, '获取成功', $data, 'Goodimg');
+    public function goodDetail(Request $request)
+    {
+        $Goodid=$request->input('Goodid');
+        $data= Good::where('Goodid', '=', $Goodid)->first();
+        $data["Goodimg"] = Total::envImg($data["Goodimg"]);
+        $data["Swiper"] = Total::envImg($data["Swiper"]);
+        $data["Detail"] = Total::envImg($data["Detail"]);
+        $result['data']=$data;
+        Total::json($result);
     }
-    public function getGoodList($page) {
+    public function getGoodList($page)
+    {
         $offset=($page-1)*10;
         // offset从哪里开始 limit 限制条数
         $result["data"] = Good::offset($offset)->limit(10)->get();
@@ -80,7 +86,8 @@ class GoodController extends Controller {
         Total::json($result);
     }
     //验证规则
-    public function validateData(Request $request, $id) {
+    public function validateData(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'Goodname'  => ['required', 'regex:/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]{1,15}$/u',
                 function ($attribute, $value, $fail) use ($request, $id) {
@@ -93,7 +100,6 @@ class GoodController extends Controller {
                     if ($ifExists > 0) {
                         $fail('字段重复');
                     }
-
                 },
             ],
             'Cid'       => ['required', 'numeric', Rule::exists('category', 'Cid')->where('level', 2)],
@@ -119,7 +125,8 @@ class GoodController extends Controller {
         return $validator;
     }
     //更新
-    public function Update($id, Request $request) {
+    public function Update($id, Request $request)
+    {
         $validator = $this->validateData($request, $id);
         if ($validator->fails()) {
             Total::json('校验失败', -1);
@@ -154,7 +161,8 @@ class GoodController extends Controller {
         }
     }
     //增加
-    public function Insert(Request $request) {
+    public function Insert(Request $request)
+    {
         $validator = $this->validateData($request, null);
         if ($validator->fails()) {
             Total::json('校验失败', -1);
@@ -191,7 +199,8 @@ class GoodController extends Controller {
     }
 
     //查找
-    public function likeSelect(Request $request) {
+    public function likeSelect(Request $request)
+    {
         $page        = $request->input('page');
         $limit       = $request->input('limit');
         $offset      = ($page - 1) * $limit;
@@ -243,7 +252,8 @@ class GoodController extends Controller {
         Total::json($data);
     }
     //删除
-    public function Delete($id) {
+    public function Delete($id)
+    {
         $data = Good::where('Goodid', $id)->delete();
         if ($data) {
             Total::json('删除成功');
@@ -251,5 +261,4 @@ class GoodController extends Controller {
             Total::json('删除失败', -1);
         }
     }
-
 }

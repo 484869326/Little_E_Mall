@@ -17,7 +17,6 @@ Route::get('/', function () {
 Route::middleware('CrossHttp')->group(function () {
     Route::any('categoryList', "CategoryController@categoryList");
     Route::any('getGood', "GoodController@getGood");
-    Route::get('goodDetail/{id}', "GoodController@goodDetail");
     Route::get('search/{value}', "GoodController@search");
 
     Route::any('getShop', "ShoppingController@getShop");
@@ -39,6 +38,8 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格
     Route::get('home/getGoodList/{page}', "GoodController@getGoodList");
+    //详情页
+    Route::get('goodDetail', "GoodController@goodDetail");
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
     //管理员
