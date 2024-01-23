@@ -15,7 +15,6 @@ Route::get('/', function () {
 });
 //微信小程序api路由
 Route::middleware('CrossHttp')->group(function () {
-    Route::any('categoryList', "CategoryController@categoryList");
     Route::any('getGood', "GoodController@getGood");
     Route::get('search/{value}', "GoodController@search");
 
@@ -40,6 +39,8 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     Route::get('home/getGoodList/{page}', "GoodController@getGoodList");
     //详情页
     Route::get('goodDetail', "GoodController@goodDetail");
+    //分类
+    Route::get('categoryList', "CategoryController@categoryList");
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
     //管理员

@@ -19,10 +19,8 @@ class CategoryController extends Controller {
 			$data["children"] = Category::where('parentID', '=', $parentID)->get();
 			foreach ($data["children"] as $Index => $datas) {
 				$datas["Cimg"] = env('APP_URL') . substr_replace($datas["Cimg"], "", 0, 1);
-
 			}
 		}
-
 		foreach ($category as $key => $data) {
 			$parentID = $data["Cid"];
 			$newArr = [];
@@ -32,9 +30,9 @@ class CategoryController extends Controller {
 				}
 				$data["children"] = $newArr;
 			}
-
 		}
-		Total::json(200, '获取成功', $category, 'parentimg');
+        $result['data']=$category;
+		Total::json($result);
 	}
 	public function selectCategory($level) {
 		$category["data"] = Category::where('level', $level)->get(['Cid', 'Cname']);
