@@ -17,10 +17,6 @@ Route::get('/', function () {
 Route::middleware('CrossHttp')->group(function () {
     Route::any('getGood', "GoodController@getGood");
     Route::get('search/{value}', "GoodController@search");
-
-    Route::any('getShop', "ShoppingController@getShop");
-    Route::get('changeNum/{id}/{Num}', "ShoppingController@changeNum");
-    Route::get('DeleteShop/{id}', "ShoppingController@DeleteShop");
     Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
     Route::get('changeChecked/{shoppingid}/{isChecked}', "ShoppingController@changeChecked");
     Route::get('CheckedAll/{Userid}/{isChecked}', "ShoppingController@CheckedAll");
@@ -43,6 +39,10 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     Route::get('categoryList', "CategoryController@categoryList");
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
+    //购物车
+    Route::post('getShop', "ShoppingController@getShop");
+    Route::get('changeNum/{id}/{Num}', "ShoppingController@changeNum");
+    Route::get('DeleteShop/{id}', "ShoppingController@DeleteShop");
     //管理员
     Route::prefix('admin')->group(function () {
         Route::post('login', "AdminController@login");
