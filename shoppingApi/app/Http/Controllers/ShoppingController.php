@@ -21,19 +21,22 @@ class ShoppingController extends Controller
         $result['data']=$data;
         Total::json($result);
     }
-    public function changeNum($shoppingid, $Num)
+    public function changeNum(Request $request)
     {
+        $shoppingid = $request->input('id');
+        $Num=$request->input('num');
         $data = Shopping::where('shoppingid', '=', $shoppingid)->update(
             [
                 'Num' => $Num,
             ]
         );
+        Total::json('success');
     }
     public function DeleteShop($shoppingid)
     {
         $data = Shopping::find($shoppingid);
         $data = $data->delete();
-        echo $data;
+        Total::json('success');
     }
     public function changeType($shoppingid, $type, $color)
     {

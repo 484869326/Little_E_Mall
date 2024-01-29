@@ -41,8 +41,8 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     Route::post('sendFile', "FileController@sendFile");
     //购物车
     Route::post('getShop', "ShoppingController@getShop");
-    Route::get('changeNum/{id}/{Num}', "ShoppingController@changeNum");
-    Route::get('DeleteShop/{id}', "ShoppingController@DeleteShop");
+    Route::post('changeNum', "ShoppingController@changeNum");
+    Route::delete('{id}', "ShoppingController@DeleteShop");
     //管理员
     Route::prefix('admin')->group(function () {
         Route::post('login', "AdminController@login");
