@@ -10,11 +10,12 @@ use Illuminate\Http\Request;
 class ShoppingController extends Controller
 {
     //
-    public function getShop(Request $request)
+    public function getShop($page,Request $request)
     {
+        $offset=($page-1)*10;
         $signature = $request->input('signature');
         $Userid = My::where('signature', '=', $signature)->first()["id"];
-        $data = Shopping::with(['Good'])->where('isBuy', '=', 'false')->orderBy('shoppingid', 'desc')->get()->Where('Userid', '=', $Userid);
+        $data = Shopping::with(['Good'])->where('isBuy', '=', 'false')->orderBy('shoppingid', 'desc')->offset($offset)->limit(10)->get()->Where('Userid', '=', $Userid);
         foreach ($data as $Key => $model) {
             $model["good"]["Goodimg"] = env('APP_URL') . substr_replace($model["good"]["Goodimg"], "", 0, 1);
         }

@@ -39,7 +39,7 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
     //购物车
-    Route::post('getShop', "ShoppingController@getShop");
+    Route::post('getShop/{page}', "ShoppingController@getShop");
     Route::post('changeNum', "ShoppingController@changeNum");
     Route::delete('{id}', "ShoppingController@DeleteShop");
     Route::post('changeChecked', "ShoppingController@changeChecked");
