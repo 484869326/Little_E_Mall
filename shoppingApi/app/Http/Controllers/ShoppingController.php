@@ -47,13 +47,16 @@ class ShoppingController extends Controller
             ]
         );
     }
-    public function changeChecked($shoppingid, $isChecked)
+    public function changeChecked(Request $request)
     {
+        $shoppingid = $request->input('id');
+        $isChecked = $request->input('checked');
         $data = Shopping::where('shoppingid', '=', $shoppingid)->update(
             [
                 'isChecked' => $isChecked,
             ]
         );
+        Total::json('success');
     }
     public function CheckedAll($signature, $isChecked)
     {
