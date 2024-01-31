@@ -18,7 +18,6 @@ Route::middleware('CrossHttp')->group(function () {
     Route::any('getGood', "GoodController@getGood");
     Route::get('search/{value}', "GoodController@search");
     Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
-    Route::get('CheckedAll/{Userid}/{isChecked}', "ShoppingController@CheckedAll");
     Route::any('AddShop', "ShoppingController@AddShop");
     Route::any('deleteChecked', "ShoppingController@deleteChecked");
     Route::any('Buy', "OrderController@Buy");
@@ -39,10 +38,12 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
     //购物车
+    Route::post('getAllCheck', "ShoppingController@getAllCheck");
     Route::post('getShop/{page}', "ShoppingController@getShop");
     Route::post('changeNum', "ShoppingController@changeNum");
     Route::delete('{id}', "ShoppingController@DeleteShop");
     Route::post('changeChecked', "ShoppingController@changeChecked");
+    Route::post('checkedAll', "ShoppingController@CheckedAll");
     //管理员
     Route::prefix('admin')->group(function () {
         Route::post('login', "AdminController@login");

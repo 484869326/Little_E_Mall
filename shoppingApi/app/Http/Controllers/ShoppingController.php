@@ -9,13 +9,17 @@ use Illuminate\Http\Request;
 
 class ShoppingController extends Controller
 {
-    //
+    public function getAllCheck(Request $request){
+        $Userid = $request->input('userid');
+       $result['data'] = Shopping::where('isChecked', '=', 0)->where('Userid', '=', $Userid)->count() === 0;
+       Total::json($result);
+    }
     public function getShop($page,Request $request)
     {
         $offset=($page-1)*10;
         $signature = $request->input('signature');
         $Userid = My::where('signature', '=', $signature)->first()["id"];
-        $data = Shopping::with(['Good'])->where('isBuy', '=', 'false')->orderBy('shoppingid', 'desc')->offset($offset)->limit(10)->get()->Where('Userid', '=', $Userid);
+        $data = Shopping::with(['Good'])->where('isBuy', '=', 'false')->Where('Userid', '=', $Userid)->orderBy('shoppingid', 'desc')->offset($offset)->limit(10)->get();
         foreach ($data as $Key => $model) {
             $model["good"]["Goodimg"] = env('APP_URL') . substr_replace($model["good"]["Goodimg"], "", 0, 1);
         }
@@ -52,21 +56,26 @@ class ShoppingController extends Controller
     {
         $shoppingid = $request->input('id');
         $isChecked = $request->input('checked');
-        $data = Shopping::where('shoppingid', '=', $shoppingid)->update(
+        $Userid = $request->input('userid');
+        $data = Shopping::where('shoppingid', '=', $shoppingid)->where('Userid', '=', $Userid)->update(
             [
                 'isChecked' => $isChecked,
             ]
         );
-        Total::json('success');
+        //是否下面的也是全选
+        $result['data'] = Shopping::where('isChecked', '=', 0)->where('Userid', '=', $Userid)->count() === 0;
+        Total::json($result);
     }
-    public function CheckedAll($signature, $isChecked)
+    public function CheckedAll(Request $request)
     {
-        $Userid = My::where('signature', '=', $signature)->first()["id"];
+        $Userid = $request->input('id');
+        $checkAll = $request->input('checkAll');
         $data = Shopping::where('Userid', '=', $Userid)->update(
             [
-                'isChecked' => $isChecked,
+                'isChecked' => $checkAll,
             ]
         );
+         Total::json('success');
     }
     public function AddShop(Request $request)
     {
