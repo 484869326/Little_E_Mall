@@ -11,8 +11,18 @@ class ShoppingController extends Controller
 {
     public function getAllCheck(Request $request){
         $Userid = $request->input('userid');
-       $result['data'] = Shopping::where('isChecked', '=', 0)->where('Userid', '=', $Userid)->count() === 0;
-       Total::json($result);
+        $shoppingList = Shopping::with(['Good'])->where('Userid', '=', $Userid)->get();
+        $data['totalPrice']=0;
+        $data['totalCheck']=0;
+        foreach($shoppingList as $key=>$model){
+          if($model['isChecked']){
+            $data['totalCheck']++;
+           $data['totalPrice']+=(float)explode(',',$model['good']['price'])[$model['type']]*$model['Num'];
+          }
+        }
+        $data['isCheckAll']=$data['totalCheck']===count($shoppingList);
+        $result['data']=$data;
+        Total::json($result);
     }
     public function getShop($page,Request $request)
     {
