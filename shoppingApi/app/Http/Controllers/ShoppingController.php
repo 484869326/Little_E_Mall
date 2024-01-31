@@ -9,22 +9,24 @@ use Illuminate\Http\Request;
 
 class ShoppingController extends Controller
 {
-    public function getAllCheck(Request $request){
+    public function getAllCheck(Request $request)
+    {
         $Userid = $request->input('userid');
         $shoppingList = Shopping::with(['Good'])->where('Userid', '=', $Userid)->get();
         $data['totalPrice']=0;
         $data['totalCheck']=0;
-        foreach($shoppingList as $key=>$model){
-          if($model['isChecked']){
-            $data['totalCheck']++;
-           $data['totalPrice']+=(float)explode(',',$model['good']['price'])[$model['type']]*$model['Num'];
+        foreach ($shoppingList as $key=>$model) {
+            if ($model['isChecked']) {
+                $data['totalCheck']++;
+            $data['totalPrice']+=(float)explode(',', $model['good']['price'])[$model['type']]*$model['Num'];
           }
         }
         $data['isCheckAll']=$data['totalCheck']===count($shoppingList);
+        $data['total']=count($shoppingList);
         $result['data']=$data;
         Total::json($result);
     }
-    public function getShop($page,Request $request)
+    public function getShop($page, Request $request)
     {
         $offset=($page-1)*10;
         $signature = $request->input('signature');
@@ -85,7 +87,7 @@ class ShoppingController extends Controller
                 'isChecked' => $checkAll,
             ]
         );
-         Total::json('success');
+        Total::json('success');
     }
     public function AddShop(Request $request)
     {
