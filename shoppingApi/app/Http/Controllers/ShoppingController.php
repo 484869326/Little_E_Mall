@@ -15,11 +15,14 @@ class ShoppingController extends Controller
         $shoppingList = Shopping::with(['Good'])->where('Userid', '=', $Userid)->get();
         $data['totalPrice']=0;
         $data['totalCheck']=0;
+        $data['totalCheckPrice']=0;
         foreach ($shoppingList as $key=>$model) {
+            $price=(float)explode(',', $model['good']['price'])[$model['type']]*$model['Num'];
             if ($model['isChecked']) {
-                $data['totalCheck']++;
-            $data['totalPrice']+=(float)explode(',', $model['good']['price'])[$model['type']]*$model['Num'];
+            $data['totalCheck']++;
+            $data['totalCheckPrice']+=$price;
           }
+          $data['totalPrice']+=$price;
         }
         $data['isCheckAll']=$data['totalCheck']===count($shoppingList);
         $data['total']=count($shoppingList);
