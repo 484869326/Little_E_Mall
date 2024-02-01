@@ -16,7 +16,7 @@ Route::get('/', function () {
 //微信小程序api路由
 Route::middleware('CrossHttp')->group(function () {
     Route::any('getGood', "GoodController@getGood");
-    Route::get('search/{value}', "GoodController@search");
+
     Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
     Route::any('AddShop', "ShoppingController@AddShop");
     Route::any('deleteChecked', "ShoppingController@deleteChecked");
@@ -44,6 +44,8 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     Route::delete('{id}', "ShoppingController@DeleteShop");
     Route::post('changeChecked', "ShoppingController@changeChecked");
     Route::post('checkedAll', "ShoppingController@CheckedAll");
+    //搜索
+    Route::get('search', "GoodController@likeSelect");
     //管理员
     Route::prefix('admin')->group(function () {
         Route::post('login', "AdminController@login");
