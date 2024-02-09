@@ -1,14 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Model\My;
 use App\Total;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class MyController extends Controller {
-    public function Login(Request $request) {
+class MyController extends Controller
+{
+    public function generateNumericCode()
+    {
+        $code = '';
+        for ($i = 0; $i < 6; $i++) {
+            $code .= rand(0, 9);
+        }
+        session(['code' => $code]);
+        echo $code;
+    }
+    public function Login(Request $request)
+    {
         $signature = $request->input('signature');
         $nickName  = $request->input('nickName');
         $gender    = $request->input('gender');
@@ -17,7 +29,6 @@ class MyController extends Controller {
         $phone     = $request->input('phone') ? $request->input('phone') : "";
         $result    = My::where('signature', '=', $signature)->first();
         if ($result) {
-
         } else {
             My::insert([
                 'signature' => $signature,
@@ -29,20 +40,23 @@ class MyController extends Controller {
             ]);
         }
     }
-    public function LoginId(Request $request) {
+    public function LoginId(Request $request)
+    {
         $signature = $request->input('signature');
         $data      = My::where('signature', '=', $signature)->first();
         Total::json($data);
         // Total::json(200, '获取成功', $data, '');
     }
-    public function getSelf(Request $request) {
+    public function getSelf(Request $request)
+    {
         $id   = $request->input('dataId');
         $data = My::where('id', $id)->first();
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 
     //验证规则
-    public function validateData(Request $request) {
+    public function validateData(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'nickName'  => ['required', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{4,10}$/u'],
             'gender'    => ['required', Rule::in(['男', '女'])],
@@ -64,7 +78,8 @@ class MyController extends Controller {
         return $validator;
     }
     //更新
-    public function Update($id, Request $request) {
+    public function Update($id, Request $request)
+    {
         $validator = $this->validateData($request);
         if ($validator->fails()) {
             Total::json('校验失败', -1);
@@ -91,7 +106,8 @@ class MyController extends Controller {
             Total::json('更新失败', -1);
         }
     }
-    public function Insert(Request $request) {
+    public function Insert(Request $request)
+    {
         $validator = $this->validateData($request);
         if ($validator->fails()) {
             Total::json('校验失败', -1);
@@ -102,7 +118,7 @@ class MyController extends Controller {
         $avatarUrl = $request->input('avatarUrl');
         $city      = $request->input('city');
         $phone     = $request->input('phone');
-		$Status    = $request->input('Status');
+        $Status    = $request->input('Status');
         $data      = My::insert(
             [
                 'signature' => $signature,
@@ -111,7 +127,7 @@ class MyController extends Controller {
                 'avatarUrl' => $avatarUrl,
                 'city'      => $city,
                 'phone'     => $phone,
-				'Status'    => $Status,
+                'Status'    => $Status,
             ]
         );
         if ($data) {
@@ -120,7 +136,8 @@ class MyController extends Controller {
             Total::json('增加失败', -1);
         }
     }
-    public function likeSelect(Request $request) {
+    public function likeSelect(Request $request)
+    {
         $page        = $request->input('page');
         $limit       = $request->input('limit');
         $offset      = ($page - 1) * $limit;
@@ -146,7 +163,6 @@ class MyController extends Controller {
             if (!empty($betweenTime)) {
                 $query->whereBetween('created_at', $betweenTime);
             }
-
         })->tap(function ($query) use (&$data) {
             $data["count"] = $query->count();
         })
@@ -165,7 +181,8 @@ class MyController extends Controller {
     }
 
     //删除
-    public function Delete($id) {
+    public function Delete($id)
+    {
         $data = My::where('id', $id)->delete();
         if ($data) {
             Total::json('删除成功');
@@ -173,5 +190,4 @@ class MyController extends Controller {
             Total::json('删除失败', -1);
         }
     }
-
 }

@@ -27,6 +27,7 @@ Route::middleware('CrossHttp')->group(function () {
 });
 //后台api路由
 Route::prefix('api')->middleware('CrossHttp')->group(function () {
+
     //首页
     Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格
@@ -37,6 +38,9 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     Route::get('categoryList', "CategoryController@categoryList");
     //上传文件
     Route::post('sendFile', "FileController@sendFile");
+    //我的页面
+    Route::get('mySwiper', "HomeController@mySwiper");
+    Route::get('code', "MyController@generateNumericCode");
     //购物车
     Route::post('getAllCheck', "ShoppingController@getAllCheck");
     Route::post('getShop/{page}', "ShoppingController@getShop");
