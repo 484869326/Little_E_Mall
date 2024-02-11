@@ -16,7 +16,6 @@ Route::get('/', function () {
 //微信小程序api路由
 Route::middleware('CrossHttp')->group(function () {
     Route::any('getGood', "GoodController@getGood");
-
     Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
     Route::any('AddShop', "ShoppingController@AddShop");
     Route::any('deleteChecked', "ShoppingController@deleteChecked");
@@ -25,11 +24,11 @@ Route::middleware('CrossHttp')->group(function () {
     Route::any('LoginId', "MyController@LoginId");
     Route::any('received', "OrderController@received");
 });
-//后台api路由
-Route::prefix('api')->middleware('CrossHttp')->group(function () {
 
+//后台api路由
+Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     //首页
-    Route::get('home/multidata', "HomeController@multidata");
+    Route::get('home/multidata', "HomeController@getCsrfCode");
     //首页获取全部Good表格
     Route::get('home/getGoodList/{page}', "GoodController@getGoodList");
     //详情页
@@ -41,6 +40,7 @@ Route::prefix('api')->middleware('CrossHttp')->group(function () {
     //我的页面
     Route::get('mySwiper', "HomeController@mySwiper");
     Route::get('code', "MyController@generateNumericCode");
+    Route::post('verifyCode', "MyController@verifyCode");
     //购物车
     Route::post('getAllCheck', "ShoppingController@getAllCheck");
     Route::post('getShop/{page}', "ShoppingController@getShop");

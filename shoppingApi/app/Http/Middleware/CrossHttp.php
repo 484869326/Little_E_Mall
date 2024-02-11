@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CrossHttp {
+class CrossHttp
+{
     /**
      * Handle an incoming request.
      *
@@ -12,10 +13,12 @@ class CrossHttp {
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
+    public function handle($request, Closure $next)
+    {
         //解决跨域
         header("Content-type: text/html; charset=utf-8");
-        header('Access-Control-Allow-Origin: *');
+        // 得指明那个网址
+        header('Access-Control-Allow-Origin: http://localhost:1234');
         header('Access-Control-Allow-Credentials: true');
         header("Access-Control-Allow-Methods: *");
         header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');

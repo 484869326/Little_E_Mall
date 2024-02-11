@@ -7,17 +7,43 @@ use App\Total;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Cache;
 
 class MyController extends Controller
 {
-    public function generateNumericCode()
+    public function generateNumericCode(Request $request)
     {
+        $phone= $request->input('phone');
         $code = '';
         for ($i = 0; $i < 6; $i++) {
             $code .= rand(0, 9);
         }
-        session(['code' => $code]);
+        session(['code'=>$code,'phone'=>$phone]);
+        // 存储数据并设置过期时间为30秒
+        // Cache::put('key', $value, now()->addSeconds(30));
+        // 存储数据并设置过期时间(这不是唯一的)
+        // Cache::put('code', $code, now()->addMinutes(1));
+        // Cache::put('phone', $phone, now()->addMinutes(1));
         echo $code;
+    }
+    public function verifyCode(Request $request)
+    {
+        $code=$request->input('code');
+        $phone=$request->input('phone');
+        $scode = session('code');
+        $sphone = session('phone');
+        if ($code!==$scode &&$phone!==$sphone) {
+            Total::json('fail');
+            return;
+        }
+        $data=My::where('phone', '=', $phone)->first();
+        if (is_null($data)) {
+            // 得去注册
+            Total::json('register');
+        } else {
+            // 正常登录
+            Total::json('success');
+        }
     }
     public function Login(Request $request)
     {
