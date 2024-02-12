@@ -18,7 +18,7 @@ class MyController extends Controller
         for ($i = 0; $i < 6; $i++) {
             $code .= rand(0, 9);
         }
-        session(['code'=>$code,'phone'=>$phone]);
+        session(['code'=>$code,'phone'=>$phone,'expireTime'=>time() + 60,'codeStatus'=>'init']);
         // 存储数据并设置过期时间为30秒
         // Cache::put('key', $value, now()->addSeconds(30));
         // 存储数据并设置过期时间(这不是唯一的)
@@ -32,52 +32,61 @@ class MyController extends Controller
         $phone=$request->input('phone');
         $scode = session('code');
         $sphone = session('phone');
-        if ($code!==$scode &&$phone!==$sphone) {
+        if ($code!==$scode || $phone!==$sphone||time() >= session('expireTime')) {
+            $request->session()->forget('code');
+            $request->session()->save();
             Total::json('fail');
             return;
         }
         $data=My::where('phone', '=', $phone)->first();
         if (is_null($data)) {
             // 得去注册
+            $request->session()->put('codeStatus', 'pass');
+            $request->session()->save();
             Total::json('register');
         } else {
             // 正常登录
             Total::json('success');
         }
     }
-    public function Login(Request $request)
+    public function register(Request $request)
     {
-        $signature = $request->input('signature');
-        $nickName  = $request->input('nickName');
-        $gender    = $request->input('gender');
-        $avatarUrl = $request->input('avatarUrl');
-        $city      = $request->input('city') ? $request->input('city') : "";
-        $phone     = $request->input('phone') ? $request->input('phone') : "";
-        $result    = My::where('signature', '=', $signature)->first();
-        if ($result) {
-        } else {
-            My::insert([
-                'signature' => $signature,
-                'nickName'  => $nickName,
-                'gender'    => $gender,
-                'avatarUrl' => $avatarUrl,
-                'city'      => $city,
+        $phone= session('phone');
+        $status= session('codeStatus');
+        if ($status!=='pass') {
+            Total::json('未知错误');
+            return;
+        }
+        $data=My::where('phone', '=', $phone)->first();
+        if (is_null($data)) {
+            $password=$request->input('password');
+            $result= My::insert([
+                'password'      => $password,
                 'phone'     => $phone,
             ]);
+            Total::json(strval($result));
+        } else {
+            Total::json('已注册');
         }
     }
-    public function LoginId(Request $request)
+    public function Login(Request $request)
     {
-        $signature = $request->input('signature');
-        $data      = My::where('signature', '=', $signature)->first();
-        Total::json($data);
-        // Total::json(200, '获取成功', $data, '');
+        $phone = $request->input('phone');
+        $password=$request->input('password');
+        $data = My::where('phone', '=', $phone)->where('password', '=', $password)->first();
+        if ($data) {
+            Total::json('success');
+        } else {
+            Total::json('fail');
+        }
     }
-    public function getSelf(Request $request)
+    public function getUserInfo(Request $request)
     {
-        $id   = $request->input('dataId');
-        $data = My::where('id', $id)->first();
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        $phone = $request->input('phone');
+        $data = My::where('phone', '=', $phone)->first();
+        $data["avatarUrl"] = env('APP_URL') . substr_replace($data["avatarUrl"], "", 0, 1);
+        $result['data']=$data;
+        Total::json($result);
     }
 
     //验证规则
@@ -85,7 +94,7 @@ class MyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nickName'  => ['required', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{4,10}$/u'],
-            'gender'    => ['required', Rule::in(['男', '女'])],
+            'gender'    => ['nullable', Rule::in(['男', '女'])],
             'avatarUrl' => ['nullable', function ($attribute, $value, $fail) {
                 if ($value) {
                     if (!preg_match('/\/+/', $value)) {
@@ -93,10 +102,10 @@ class MyController extends Controller
                     }
                 }
             }],
-            'city'      => 'required',
+            'city'      => 'nullable',
             'phone'     => ['required', 'regex:/^1[0-9]{10}$/'],
             'Status'    => [
-                'required',
+                'nullable',
                 'numeric',
                 Rule::in(['0', '1']),
             ],

@@ -20,8 +20,6 @@ Route::middleware('CrossHttp')->group(function () {
     Route::any('AddShop', "ShoppingController@AddShop");
     Route::any('deleteChecked', "ShoppingController@deleteChecked");
     Route::any('Buy', "OrderController@Buy");
-    Route::any('Login', "MyController@Login");
-    Route::any('LoginId', "MyController@LoginId");
     Route::any('received', "OrderController@received");
 });
 
@@ -41,6 +39,9 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     Route::get('mySwiper', "HomeController@mySwiper");
     Route::get('code', "MyController@generateNumericCode");
     Route::post('verifyCode', "MyController@verifyCode");
+    Route::post('register', "MyController@register");
+    Route::post('login', "MyController@Login");
+    Route::post('getUserInfo', "MyController@getUserInfo");
     //购物车
     Route::post('getAllCheck', "ShoppingController@getAllCheck");
     Route::post('getShop/{page}', "ShoppingController@getShop");
