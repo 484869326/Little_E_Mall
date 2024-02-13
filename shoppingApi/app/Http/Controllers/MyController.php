@@ -125,16 +125,21 @@ class MyController extends Controller
         $city      = $request->input('city');
         $phone     = $request->input('phone');
         $Status    = $request->input('Status');
-        $data      = My::where('id', '=', $id)->update(
-            [
-                'nickName'  => $nickName,
-                'gender'    => $gender,
-                'avatarUrl' => $avatarUrl,
-                'city'      => $city,
-                'phone'     => $phone,
-                'Status'    => $Status,
-            ]
-        );
+        $data = My::find($id);
+        //暂时偷懒 为了只传文件后台系统后面在看要不要传
+        if ($request->filled('isField')) {
+            $data->update(['avatarUrl' => $avatarUrl]);
+        } else {
+            $data->update(
+                [
+                    'nickName'  => $nickName,
+                    'gender'    => $gender,
+                    'city'      => $city,
+                    'phone'     => $phone,
+                    'Status'    => $Status,
+                ]
+            );
+        }
         if ($data) {
             Total::json('更新成功');
         } else {
