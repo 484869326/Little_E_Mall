@@ -26,7 +26,7 @@ Route::middleware('CrossHttp')->group(function () {
 //后台api路由
 Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     //首页
-    Route::get('home/multidata', "HomeController@getCsrfCode");
+    Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格
     Route::get('home/getGoodList/{page}', "GoodController@getGoodList");
     //详情页

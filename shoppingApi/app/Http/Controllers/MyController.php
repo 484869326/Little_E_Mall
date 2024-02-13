@@ -84,7 +84,9 @@ class MyController extends Controller
     {
         $phone = $request->input('phone');
         $data = My::where('phone', '=', $phone)->first();
-        $data["avatarUrl"] = env('APP_URL') . substr_replace($data["avatarUrl"], "", 0, 1);
+        if (!is_null($data["avatarUrl"])) {
+            $data["avatarUrl"] = env('APP_URL') . substr_replace($data["avatarUrl"], "", 0, 1);
+        }
         $result['data']=$data;
         Total::json($result);
     }
@@ -123,6 +125,7 @@ class MyController extends Controller
         $gender    = $request->input('gender');
         $avatarUrl = $request->input('avatarUrl');
         $city      = $request->input('city');
+        $defaultID = $request->input('defaultID');
         $phone     = $request->input('phone');
         $Status    = $request->input('Status');
         $data = My::find($id);
@@ -135,6 +138,7 @@ class MyController extends Controller
                     'nickName'  => $nickName,
                     'gender'    => $gender,
                     'city'      => $city,
+                    'defaultID' => $defaultID,
                     'phone'     => $phone,
                     'Status'    => $Status,
                 ]
