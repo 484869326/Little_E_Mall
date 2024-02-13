@@ -19,10 +19,10 @@ class ShoppingController extends Controller
         foreach ($shoppingList as $key=>$model) {
             $price=(float)explode(',', $model['good']['price'])[$model['type']]*$model['Num'];
             if ($model['isChecked']) {
-            $data['totalCheck']++;
-            $data['totalCheckPrice']+=$price;
-          }
-          $data['totalPrice']+=$price;
+                $data['totalCheck']++;
+                $data['totalCheckPrice']+=$price;
+            }
+            $data['totalPrice']+=$price;
         }
         $data['isCheckAll']=$data['totalCheck']===count($shoppingList);
         $data['total']=count($shoppingList);
@@ -32,8 +32,7 @@ class ShoppingController extends Controller
     public function getShop($page, Request $request)
     {
         $offset=($page-1)*10;
-        $signature = $request->input('signature');
-        $Userid = My::where('signature', '=', $signature)->first()["id"];
+        $Userid = $request->input('userid');
         $data = Shopping::with(['Good'])->where('isBuy', '=', 'false')->Where('Userid', '=', $Userid)->orderBy('shoppingid', 'desc')->offset($offset)->limit(10)->get();
         foreach ($data as $Key => $model) {
             $model["good"]["Goodimg"] = env('APP_URL') . substr_replace($model["good"]["Goodimg"], "", 0, 1);
@@ -83,7 +82,7 @@ class ShoppingController extends Controller
     }
     public function CheckedAll(Request $request)
     {
-        $Userid = $request->input('id');
+        $Userid = $request->input('userid');
         $checkAll = $request->input('checkAll');
         $data = Shopping::where('Userid', '=', $Userid)->update(
             [
