@@ -104,7 +104,7 @@ class ShoppingController extends Controller
                 [
                     'type' => $type,
                     'color' => $color,
-                    'Num' => $result["Num"] + $Num,
+                    'Num' => $Num,
                 ]
             );
         } else {
@@ -118,11 +118,6 @@ class ShoppingController extends Controller
                 'isBuy' => 'false',
             ]);
         }
-    }
-    public function deleteChecked(Request $request)
-    {
-        $signature = $request->input('signature');
-        $Userid = My::where('signature', '=', $signature)->first()["id"];
-        $data = Shopping::where('Userid', '=', $Userid)->where('isChecked', '=', '1')->delete();
+        Total::json('success');
     }
 }

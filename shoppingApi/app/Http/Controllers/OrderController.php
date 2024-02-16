@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Model\Good;
 use App\Model\My;
 use App\Model\Order;
@@ -8,9 +9,11 @@ use App\Model\Shopping;
 use App\Total;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller {
+class OrderController extends Controller
+{
     //展示一年每个月的销售额
-    public function monthPriceCount() {
+    public function monthPriceCount()
+    {
         $currentYear = date('Y');
         $data        = [];
         for ($i = 1; $i <= 12; $i++) {
@@ -24,10 +27,10 @@ class OrderController extends Controller {
         }
         $result["data"] = $data;
         Total::json($result);
-
     }
     //展示近7天数据
-    public function orderCount() {
+    public function orderCount()
+    {
         $time = time();
         $date = [];
         $data = [];
@@ -44,7 +47,8 @@ class OrderController extends Controller {
         $result["data"] = $data;
         Total::json($result);
     }
-    public function Buy(Request $request) {
+    public function Buy(Request $request)
+    {
         $Userid     = $request->input('Userid');
         $shoppingid = $request->input('shoppingid');
         $shoppingid = explode(',', $shoppingid);
@@ -62,8 +66,10 @@ class OrderController extends Controller {
                 'isBuy' => 'true',
             ]);
         }
+        Total::json("success");
     }
-    public function received(Request $request) {
+    public function received(Request $request)
+    {
         $signature = $request->input('signature');
         $Userid    = My::where('signature', '=', $signature)->first()["id"];
         $Order     = Order::where('Userid', $Userid)->get();
@@ -79,12 +85,12 @@ class OrderController extends Controller {
             foreach ($model["Good"] as $key2 => $Good) {
                 $Good["Goodimg"] = env('APP_URL') . substr_replace($Good["Goodimg"], "", 0, 1);
             }
-
         }
         Total::json($Order);
         // Total::json(200, '获取成功', $Order, '');
     }
-    public function likeSelect(Request $request) {
+    public function likeSelect(Request $request)
+    {
         $page          = $request->input('page');
         $limit         = $request->input('limit');
         $offset        = ($page - 1) * $limit;
@@ -98,7 +104,8 @@ class OrderController extends Controller {
         $data["count"] = Order::count();
         Total::json($data);
     }
-    public function Update($id) {
+    public function Update($id)
+    {
         $data = Order::where('orderid', $id)->update([
             'condition' => '已发货',
         ]);

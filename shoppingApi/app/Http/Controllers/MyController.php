@@ -95,7 +95,7 @@ class MyController extends Controller
     public function validateData(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nickName'  => ['required', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{4,10}$/u'],
+            'nickName'  => ['nullable', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{4,10}$/u'],
             'gender'    => ['nullable', Rule::in(['男', '女'])],
             'avatarUrl' => ['nullable', function ($attribute, $value, $fail) {
                 if ($value) {

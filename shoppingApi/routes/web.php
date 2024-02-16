@@ -17,20 +17,20 @@ Route::get('/', function () {
 Route::middleware('CrossHttp')->group(function () {
     Route::any('getGood', "GoodController@getGood");
     Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
-    Route::any('AddShop', "ShoppingController@AddShop");
-    Route::any('deleteChecked', "ShoppingController@deleteChecked");
-    Route::any('Buy', "OrderController@Buy");
     Route::any('received', "OrderController@received");
 });
 
 //后台api路由
 Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
-    //首页
+    //购买
+    Route::post('Buy', "OrderController@Buy");
+    //首页获取数据
     Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格
     Route::get('home/getGoodList/{page}', "GoodController@getGoodList");
     //详情页
     Route::get('goodDetail', "GoodController@goodDetail");
+    Route::post('addShop', "ShoppingController@AddShop");
     //分类
     Route::get('categoryList', "CategoryController@categoryList");
     //上传文件
