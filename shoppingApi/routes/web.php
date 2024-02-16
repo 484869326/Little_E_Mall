@@ -23,7 +23,7 @@ Route::middleware('CrossHttp')->group(function () {
 //后台api路由
 Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     //购买
-    Route::post('Buy', "OrderController@Buy");
+    Route::post('buy', "OrderController@Buy");
     //首页获取数据
     Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格
