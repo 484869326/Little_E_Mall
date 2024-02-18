@@ -37,31 +37,14 @@ class GoodController extends Controller
         Total::json($result);
     }
     //
-    public function getGood(Request $request)
+    public function getBuyGoodList(Request $request)
     {
-        $id    = $request->input('id');
-        $Cid   = $request->input('Cid');
-        $value = $request->input('value');
-        if ($request->input('value') != null) {
-            $data = Good::where('Goodname', 'like', '%' . $value . '%')->get();
-        } elseif ($request->input('id') != null) {
-            $data = Good::where('Cid', '=', $id)->get();
-        } else {
-            $Cid  = Category::where('parentID', $Cid)->get(["Cid"]);
-            $data = "";
-            foreach ($Cid as $key => $model) {
-                $CidList = Category::where('parentID', $model["Cid"])->get(["Cid"]);
-                foreach ($CidList as $key1 => $model1) {
-                    if ($data == "") {
-                        $data = Good::where('Cid', $model1["Cid"])->get();
-                    } else {
-                        $data = $data->merge(Good::where('Cid', $model1["Cid"])->get());
-                    }
-                }
-            }
+        $Goodid=$request->input('Goodid');
+       $result["data"] =Good::whereIn('Goodid', $Goodid)->get();
+        foreach ($result["data"] as $key => $model) {
+            $model["Goodimg"] = env('APP_URL') . substr_replace($model["Goodimg"], "", 0, 1);
         }
-        Total::json($data, 0, 'Goodimg');
-        // Total::json(200, '获取成功', $data, 'Goodimg');
+        Total::json($result);
     }
     public function goodDetail(Request $request)
     {

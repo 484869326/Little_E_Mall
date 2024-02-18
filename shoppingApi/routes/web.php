@@ -15,7 +15,6 @@ Route::get('/', function () {
 });
 //微信小程序api路由
 Route::middleware('CrossHttp')->group(function () {
-    Route::any('getGood', "GoodController@getGood");
     Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
     Route::any('received', "OrderController@received");
 });
@@ -24,6 +23,8 @@ Route::middleware('CrossHttp')->group(function () {
 Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     //购买
     Route::post('buy', "OrderController@Buy");
+    //获取想要的商品数据
+    Route::post('getBuyGoodList', "GoodController@getBuyGoodList");
     //首页获取数据
     Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格
