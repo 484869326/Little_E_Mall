@@ -24,7 +24,7 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     //购买
     Route::post('buy', "OrderController@Buy");
     //获取想要的商品数据
-    Route::post('getBuyGoodList', "GoodController@getBuyGoodList");
+    Route::post('getBuyGoodList', "ShoppingController@getBuyGoodList");
     //首页获取数据
     Route::get('home/multidata', "HomeController@multidata");
     //首页获取全部Good表格

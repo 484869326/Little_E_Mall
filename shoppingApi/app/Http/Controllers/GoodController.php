@@ -36,16 +36,6 @@ class GoodController extends Controller
         $result["data"] = $categories;
         Total::json($result);
     }
-    //
-    public function getBuyGoodList(Request $request)
-    {
-        $Goodid=$request->input('Goodid');
-       $result["data"] =Good::whereIn('Goodid', $Goodid)->get();
-        foreach ($result["data"] as $key => $model) {
-            $model["Goodimg"] = env('APP_URL') . substr_replace($model["Goodimg"], "", 0, 1);
-        }
-        Total::json($result);
-    }
     public function goodDetail(Request $request)
     {
         $Goodid=$request->input('Goodid');
