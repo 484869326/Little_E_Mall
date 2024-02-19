@@ -34,7 +34,7 @@ class ShoppingController extends Controller
         $Goodid=$request->input('Goodid');
         $Userid=$request->input('Userid');
         $isBuy=$request->input('isBuy')?'1':'0';
-        $sql=Shopping::with(['Good'])->where('isBuy', '=', $isBuy)->Where('Userid', '=', $Userid);
+        $sql=Shopping::with(['Good'])->where('isBuy', '=', $isBuy)->where('isChecked', '=', '1')->Where('Userid', '=', $Userid);
         if ($Goodid) {
             $sql->where('Goodid', '=', $Goodid);
         }
@@ -131,7 +131,7 @@ class ShoppingController extends Controller
                 'type' => $type,
                 'color' => $color,
                 'Num' => $Num,
-                'isChecked' => '0',
+                'isChecked' => $isBuy,
                 'isBuy' => $isBuy,
             ]);
         }
