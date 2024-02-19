@@ -62,9 +62,7 @@ class OrderController extends Controller
             'Userid' => $Userid, 'Goodid' => $Goodid, 'Num' => $Num, 'totalPrice' => $totalPrice, 'OrderDate' => date("Y-m-d  H:i:s a "), 'Name' => $Name, 'Address' => $Address, 'Phone' => $Phone, 'condition' => '购买成功',
         ]);
         foreach ($shoppingid as $key => $data) {
-            Shopping::where('shoppingid', '=', $data)->update([
-                'isBuy' => 'true',
-            ]);
+            Shopping::find($data)->delete();
         }
         Total::json("success");
     }
