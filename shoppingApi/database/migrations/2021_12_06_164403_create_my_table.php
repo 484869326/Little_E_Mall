@@ -18,7 +18,9 @@ class CreateMyTable extends Migration {
             $table->string('gender')->nullable();
             $table->string('avatarUrl')->nullable();
             $table->string('city')->default("");
+            $table->string('defaultID')->default("");
             $table->string('phone')->default("");
+            $table->string('password')->default("");
             $table->integer('Status')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

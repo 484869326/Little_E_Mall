@@ -18,7 +18,7 @@ class CreateGoodTable extends Migration {
 			$table->string('Explain')->nullable();
 			$table->string('advertise')->nullable();
 			$table->string('price')->nullable();
-			$table->string('color')->nullable();
+			$table->string('Color')->nullable();
 			$table->string('Goodimg')->nullable();
 			$table->string('Type')->nullable();
 			$table->string('Swiper')->nullable();

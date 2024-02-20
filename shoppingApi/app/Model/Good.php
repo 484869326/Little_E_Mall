@@ -13,5 +13,5 @@ class Good extends Model {
     {
             return $this->belongsTo(Category::class, 'cid');
     }
-	protected $fillable = ['Goodname', 'Cid', 'Price', 'Explain', 'advertise', 'color', 'Goodimg', 'Type', 'Swiper', 'Detail'];
+	protected $fillable = ['Goodname', 'Cid', 'Price', 'Explain', 'advertise', 'Color', 'Goodimg', 'Type', 'Swiper', 'Detail'];
 }
