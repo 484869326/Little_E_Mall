@@ -15,12 +15,12 @@ Route::get('/', function () {
 });
 //微信小程序api路由
 Route::middleware('CrossHttp')->group(function () {
-    Route::get('changeType/{shoppingid}/{type}/{color}', "ShoppingController@changeType");
     Route::any('received', "OrderController@received");
 });
 
 //后台api路由
 Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
+    Route::post('changeType', "ShoppingController@changeType");
     //购买
     Route::post('buy', "OrderController@Buy");
     //获取想要的商品数据

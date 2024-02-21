@@ -40,7 +40,7 @@ class GoodController extends Controller
     {
         $Goodid=$request->input('Goodid');
         $data= Good::where('Goodid', '=', $Goodid)->first();
-        $data["Goodimg"] = Total::envImg($data["Goodimg"]);
+        $data["Goodimg"] =env('APP_URL') . substr_replace($data["Goodimg"], "", 0, 1);
         $data["Swiper"] = Total::envImg($data["Swiper"]);
         $data["Detail"] = Total::envImg($data["Detail"]);
         $result['data']=$data;

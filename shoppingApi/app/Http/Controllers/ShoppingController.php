@@ -73,14 +73,24 @@ class ShoppingController extends Controller
         $data = $data->delete();
         Total::json('success');
     }
-    public function changeType($shoppingid, $type, $color)
+    public function changeType(Request $request)
     {
+        $shoppingid = $request->input('shoppingid');
+        $type = $request->input('type');
+        $color = $request->input('color');
+        $num = $request->input('num');
         $data = Shopping::where('shoppingid', '=', $shoppingid)->update(
             [
                 'type' => $type,
                 'color' => $color,
+                'Num'=>$num
             ]
         );
+        if ($data) {
+            Total::json('success');
+        } else {
+            Total::json('fail');
+        }
     }
     public function changeChecked(Request $request)
     {
