@@ -13,13 +13,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//微信小程序api路由
-Route::middleware('CrossHttp')->group(function () {
-    Route::any('received', "OrderController@received");
-});
-
-//后台api路由
 Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
+    //微信小程序api路由
+    Route::post('received', "OrderController@received");
+    Route::post('getOrderList', "OrderController@getOrderList");
     Route::post('changeType', "ShoppingController@changeType");
     //购买
     Route::post('buy', "OrderController@Buy");
@@ -52,6 +49,7 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     Route::post('checkedAll', "ShoppingController@CheckedAll");
     //搜索
     Route::get('search', "GoodController@likeSelect");
+    //后台api路由
     //管理员
     Route::prefix('admin')->group(function () {
         Route::post('login', "AdminController@login");

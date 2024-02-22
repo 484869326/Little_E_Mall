@@ -87,6 +87,16 @@ class OrderController extends Controller
         Total::json($Order);
         // Total::json(200, '获取成功', $Order, '');
     }
+    public function getOrderList(Request $request)
+    {
+        $page=$request->input('page');
+        $limit=$request->input('limit');
+        $offset        = ($page - 1) * $limit;
+        $Userid=$request->input('Userid');
+        $condition=$request->input('condition');
+        $data["data"]  = Order::where('Userid', '=', $Userid)->where('condition', '=', $condition)->offset($offset)->limit($limit)->get();
+        Total::json($data);
+    }
     public function likeSelect(Request $request)
     {
         $page          = $request->input('page');
