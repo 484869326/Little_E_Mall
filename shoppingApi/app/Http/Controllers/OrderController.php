@@ -95,6 +95,13 @@ class OrderController extends Controller
         $Userid=$request->input('Userid');
         $condition=$request->input('condition');
         $data["data"]  = Order::where('Userid', '=', $Userid)->where('condition', '=', $condition)->offset($offset)->limit($limit)->get();
+        foreach ($data["data"] as $order) {
+         $goodIds = explode(',', $order['Goodid']);
+        $order['goods']=Good::whereIn('Goodid', $goodIds)->get();
+        foreach ($order['goods'] as $Good) {
+            $Good["Goodimg"] = env('APP_URL') . substr_replace($Good["Goodimg"], "", 0, 1);
+        }
+        }
         Total::json($data);
     }
     public function likeSelect(Request $request)
