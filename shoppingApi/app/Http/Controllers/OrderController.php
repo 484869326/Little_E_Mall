@@ -68,24 +68,17 @@ class OrderController extends Controller
     }
     public function received(Request $request)
     {
-        $signature = $request->input('signature');
-        $Userid    = My::where('signature', '=', $signature)->first()["id"];
-        $Order     = Order::where('Userid', $Userid)->get();
-        foreach ($Order as $key => $model) {
-            $newArr = explode(",", $model["Goodid"]);
-            foreach ($newArr as $key1 => $model1) {
-                if ($model["Good"] == "") {
-                    $model["Good"] = Good::where('Goodid', $model1)->get();
-                } else {
-                    $model["Good"] = $model["Good"]->merge(Good::where('Goodid', $model1)->get());
-                }
-            }
-            foreach ($model["Good"] as $key2 => $Good) {
-                $Good["Goodimg"] = env('APP_URL') . substr_replace($Good["Goodimg"], "", 0, 1);
-            }
+        $Userid = $request->input('Userid');
+        $orderid = $request->input('orderid');
+        $sql=Order::where('orderid', $orderid)->where('Userid',$Userid);
+        $condition=$sql->first()['condition'];
+        if($condition==='购买成功'){
+            Total::json('fail');
         }
-        Total::json($Order);
-        // Total::json(200, '获取成功', $Order, '');
+        $data = $sql->update([
+            'condition' => '确认收货',
+        ]);
+        Total::json('success');
     }
     public function getOrderList(Request $request)
     {
@@ -94,7 +87,11 @@ class OrderController extends Controller
         $offset        = ($page - 1) * $limit;
         $Userid=$request->input('Userid');
         $condition=$request->input('condition');
-        $data["data"]  = Order::where('Userid', '=', $Userid)->where('condition', '=', $condition)->offset($offset)->limit($limit)->get();
+        $sql = Order::where('Userid', '=', $Userid);
+        if($condition ==='toBeReceived'){
+            $sql->where('condition', '=', '购买成功')->orWhere('condition','=','已发货');
+        }
+        $data['data']=$sql->offset($offset)->limit($limit)->get();
         foreach ($data["data"] as $order) {
          $goodIds = explode(',', $order['Goodid']);
         $order['goods']=Good::whereIn('Goodid', $goodIds)->get();
