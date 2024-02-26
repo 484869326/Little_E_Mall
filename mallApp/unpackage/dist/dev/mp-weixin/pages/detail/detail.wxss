@@ -1,0 +1,82 @@
+.title {
+  font-weight: bold;
+  font-size: 36rpx;
+  padding-left: 20rpx;
+}
+page {
+  background-color: #f2f2f2;
+}
+.image {
+  display: block;
+  width: 100%;
+}
+.detail .normal-box {
+  margin: 20rpx;
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+.detail .good-info {
+  margin: 20rpx;
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+.detail .good-info .good-price {
+  color: #f3402b;
+  font-size: 44rpx;
+  font-weight: bold;
+}
+.detail .good-info .good-name {
+  padding: 20rpx 0;
+  font-size: 44rpx;
+  font-weight: bold;
+}
+.detail .activity {
+  display: flex;
+}
+.detail .activity .slot {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: self-end;
+}
+.detail .activity .slot .text {
+  margin-right: 20rpx;
+  padding: 2rpx 10rpx;
+  font-size: 24rpx;
+  border: 1px solid #f3402b;
+  border-radius: 10rpx;
+  color: #f3402b;
+}
+.detail .delivery {
+  padding: 36rpx 0;
+}
+.detail .delivery .slot {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: #7e7e7e;
+}
+.detail .service .slot {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.detail .service .slot .service-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.detail .service .slot .service-item .text {
+  color: #7e7e7e;
+  font-size: 28rpx;
+}
+.detail .service .slot .service-item:last-child {
+  margin-bottom: 0;
+}

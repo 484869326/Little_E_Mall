@@ -1,0 +1,9 @@
+@import "@/style/global.scss";
+page {
+  background-color: $gBgColor;
+}
+.image {
+  display: block;
+  // vertical-align: middle;任意属性值消除有个间距
+  width: 100%;
+}

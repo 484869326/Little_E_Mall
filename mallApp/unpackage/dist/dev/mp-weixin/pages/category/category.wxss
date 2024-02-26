@@ -1,0 +1,20 @@
+.title {
+  font-weight: bold;
+  font-size: 36rpx;
+  padding-left: 20rpx;
+}
+page {
+  background-color: #f2f2f2;
+}
+.image {
+  display: block;
+  width: 100%;
+}
+page {
+  background-color: #ffffff;
+  height: 100%;
+}
+.category {
+  display: flex;
+  height: 100%;
+}

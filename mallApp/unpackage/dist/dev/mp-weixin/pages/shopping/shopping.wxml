@@ -1,0 +1,1 @@
+<view class="shopping" style="{{g}}"><shopping-content wx:if="{{d}}" bindchangeChecked="{{a}}" bindchangeNum="{{b}}" binddelete="{{c}}" u-i="66bacff3-0" bind:__l="__l" u-p="{{d}}"></shopping-content><shopping-balance class="r" u-r="shoppingBalanceRef" bindcheckAll="{{f}}" u-i="66bacff3-1" bind:__l="__l"></shopping-balance></view>

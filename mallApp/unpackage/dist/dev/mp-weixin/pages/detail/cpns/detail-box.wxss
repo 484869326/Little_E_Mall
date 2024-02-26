@@ -1,0 +1,26 @@
+.title {
+  font-weight: bold;
+  font-size: 36rpx;
+  padding-left: 20rpx;
+}
+page {
+  background-color: #f2f2f2;
+}
+.image {
+  display: block;
+  width: 100%;
+}
+.detail-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.detail-box .text {
+  color: #7e7e7e;
+  flex-shrink: 0;
+}
+.detail-box .slot {
+  margin-left: 20rpx;
+  flex-grow: 1;
+}

@@ -1,0 +1,1 @@
+<view class="mask" bindtap="{{a}}"></view><view class="drawer"><view class="close" bindtap="{{c}}"><uni-icons wx:if="{{b}}" u-i="38099399-0" bind:__l="__l" u-p="{{b}}"></uni-icons></view><slot></slot></view>

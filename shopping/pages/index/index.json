@@ -1,8 +1,0 @@
-{
-  "navigationStyle":"custom",
-  "navigationBarTitleText": "首页",
-  "enablePullDownRefresh": true,
-  "usingComponents":{
-	  "navbar": "/components/head/head"
-  }
-}

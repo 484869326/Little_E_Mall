@@ -1,0 +1,33 @@
+.title.data-v-b49732ed {
+  font-weight: bold;
+  font-size: 36rpx;
+  padding-left: 20rpx;
+}
+page.data-v-b49732ed {
+  background-color: #f2f2f2;
+}
+.image.data-v-b49732ed {
+  display: block;
+  width: 100%;
+}
+.category-menu.data-v-b49732ed {
+  height: 100%;
+  width: 200rpx;
+  overflow: hidden;
+}
+.category-menu .category-menu-scroll.data-v-b49732ed {
+  height: 100%;
+}
+.category-menu .scroll-view-item.data-v-b49732ed {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #757575;
+}
+.category-menu .scroll-view-item.active.data-v-b49732ed {
+  border-left: 6rpx solid #f3402b;
+  color: #323232;
+  font-weight: 700;
+}

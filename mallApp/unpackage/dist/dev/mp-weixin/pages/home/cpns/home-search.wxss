@@ -1,0 +1,44 @@
+.title {
+  font-weight: bold;
+  font-size: 36rpx;
+  padding-left: 20rpx;
+}
+page {
+  background-color: #f2f2f2;
+}
+.image {
+  display: block;
+  width: 100%;
+}
+.home-search {
+  display: flex;
+  padding: 20rpx 40rpx 20rpx 30rpx;
+  align-items: stretch;
+}
+.home-search .logo {
+  width: 60rpx;
+  height: auto;
+  padding-right: 10rpx;
+}
+.home-search .search {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+  color: #b4b4b4 !important;
+  font-size: 28rpx;
+  background-color: #f2f2f2;
+  border-radius: 9999rpx;
+  margin-right: 10rpx;
+}
+.home-search .search .search-text {
+  margin-left: 10rpx;
+}
+.home-search .search .icon-scan {
+  position: absolute;
+  right: 20rpx;
+}
+.home-search .uniui-chat {
+  align-self: center;
+}

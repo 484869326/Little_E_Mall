@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "uni-icons": "../../uni_modules/uni-icons/components/uni-icons/uni-icons",
+    "banner": "../../components/banner",
+    "water-fall-good": "../../components/water-fall-good"
+  }
+}

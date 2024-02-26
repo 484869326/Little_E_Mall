@@ -1,0 +1,1 @@
+<view class="num-edit"><text class="reduce" style="{{'background:' + a}}" bindtap="{{b}}"></text><text class="num">{{c}}</text><uni-icons wx:if="{{e}}" class="add" bindclick="{{d}}" u-i="7f155e99-0" bind:__l="__l" u-p="{{e}}"></uni-icons></view>

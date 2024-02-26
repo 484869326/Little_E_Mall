@@ -1,7 +1,0 @@
-<view class="search_new_wrap">
-    <navigator class="navigator" >
-        <text class="iconfont icon-sousuo"></text>
-        <text class="search_content">搜索商品</text>
-    </navigator>
-</view>
-  

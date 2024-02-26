@@ -1,0 +1,1 @@
+<view class="category-menu data-v-b49732ed"><scroll-view scroll-y="true" class="category-menu-scroll data-v-b49732ed"><block wx:for="{{a}}" wx:for-item="item" wx:key="d"><view class="{{['data-v-b49732ed', 'scroll-view-item', item.b]}}" bindtap="{{item.c}}">{{item.a}}</view></block></scroll-view></view>

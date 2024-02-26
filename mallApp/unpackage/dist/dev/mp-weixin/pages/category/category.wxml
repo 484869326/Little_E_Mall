@@ -1,0 +1,1 @@
+<view class="category"><category-menu wx:if="{{b}}" u-i="0db518b3-0" bind:__l="__l" bindupdateCurrentIndex="{{a}}" u-p="{{b}}"></category-menu><scroll-view class="content-scroll" scroll-y="true" scroll-top="{{d}}"><category-content wx:if="{{c}}" u-i="0db518b3-1" bind:__l="__l" u-p="{{c}}"></category-content></scroll-view></view>
