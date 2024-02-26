@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : phpMysql
+ Source Server         : php
  Source Server Type    : MySQL
- Source Server Version : 50726
+ Source Server Version : 50726 (5.7.26)
  Source Host           : localhost:3306
  Source Schema         : store
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 04/09/2023 00:07:48
+ Date: 26/02/2024 17:22:40
 */
 
 SET NAMES utf8mb4;
@@ -30,10 +30,10 @@ CREATE TABLE `admin`  (
   `adminPwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Status` int(11) NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of admin
@@ -82,10 +82,10 @@ CREATE TABLE `category`  (
   `parentID` int(11) NULL DEFAULT NULL,
   `level` int(11) NULL DEFAULT NULL,
   `Cimg` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Cid`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -144,27 +144,73 @@ CREATE TABLE `good`  (
   `Explain` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `advertise` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `price` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `color` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `Color` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Goodimg` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Swiper` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Goodid`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of good
 -- ----------------------------
-INSERT INTO `good` VALUES (1, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
-INSERT INTO `good` VALUES (2, '小米Mix4', 19, '全网通,快速充电,6.67英寸', '买赠素皮保护壳（黑色）', '4199,4399,4599', '红色,白色,黑色', './image/Good/2.png', '4+64,6+128,8+256', './image/Good/2.1.jpg,./image/Good/2.2.jpg,./image/Good/2.3.jpg,./image/Good/2.4.jpg', './image/Good/2D1.jpg,./image/Good/2D2.jpg,./image/Good/2D3.jpg,./image/Good/2D4.jpg,./image/Good/2D5.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (1, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '1,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (2, '小米Mix4', 19, '全网通,快速充电,6.67英寸', '买赠素皮保护壳（黑色）', '2,4399,4599', '红色,白色,黑色', './image/Good/2.png', '4+64,6+128,8+256', './image/Good/2.1.jpg,./image/Good/2.2.jpg,./image/Good/2.3.jpg,./image/Good/2.4.jpg', './image/Good/2D1.jpg,./image/Good/2D2.jpg,./image/Good/2D3.jpg,./image/Good/2D4.jpg,./image/Good/2D5.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 INSERT INTO `good` VALUES (3, '小米10s', 19, '高通骁龙870,快速充电,6.67英寸', '赠蓝牙耳机Air2 SE', '2699,2899,2999', '红色,白色,黑色', './image/Good/3.png', '4+64,6+128,8+256', './image/Good/3.1.jpg,./image/Good/3.2.jpg,./image/Good/3.3.jpg,./image/Good/3.4.jpg', './image/Good/3D1.jpg,./image/Good/3D2.jpg,./image/Good/3D3.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 INSERT INTO `good` VALUES (4, '小米CIVI', 19, '高通骁龙870,快速充电,6.67英寸', '赠蓝牙耳机Air2 SE', '2599,2899,3199', '红色,白色,黑色', './image/Good/4.png', '4+64,6+128,8+256', './image/Good/4.1.jpg,./image/Good/4.2.jpg,./image/Good/4.3.jpg,./image/Good/4.4.jpg', './image/Good/4D1.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 INSERT INTO `good` VALUES (5, '小米11Pro', 19, '高通骁龙870,快速充电,7.92英寸', '赠蓝牙耳机Air2 SE', '3999,4299,4699', '红色,白色,黑色', './image/Good/5.png', '4+64,6+128,8+256', './image/Good/5.1.jpg,./image/Good/5.2.jpg,./image/Good/5.3.jpg,./image/Good/5.4.jpg', './image/Good/5D1.jpg,./image/Good/5D2.jpg,./image/Good/5D3.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 INSERT INTO `good` VALUES (6, '小米MIX Alpha', 19, '高通骁龙855+,快速充电,7.92英寸', '赠蓝牙耳机Air2 SE', '19999,21999,22299', '红色,白色,黑色', './image/Good/6.png', '4+64,6+128,8+256', './image/Good/6.1.jpg,./image/Good/6.2.jpg,./image/Good/6.3.jpg,./image/Good/6.4.jpg', './image/Good/6D1.jpg,./image/Good/6D2.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 INSERT INTO `good` VALUES (7, 'Redmi Note 11 Pro', 20, '天玑920,快速充电,7.92英寸', ' 赠蓝牙耳机Air2 SE', '1599,1899,2199', '红色,白色,黑色', './image/Good/7.png', '4+64,6+128,8+256', './image/Good/7.1.jpg,./image/Good/7.2.jpg,./image/Good/7.3.jpg,./image/Good/7.4.jpg', './image/Good/7D1.jpg,./image/Good/7D2..jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 INSERT INTO `good` VALUES (8, 'Redmi 9A', 20, 'Helio G25,快速充电,7.92英寸', '赠蓝牙耳机Air2 SE', '1799,1899,2199', '红色,白色,黑色', './image/Good/9.png', '4+64,6+128,8+256', './image/Good/9.1.jpg,./image/Good/9.2.jpg,./image/Good/9.3.jpg,./image/Good/9.4.jpg', './image/Good/9D1.jpg,./image/Good/9D2.jpg,./image/Good/9D3.jpg', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (9, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (10, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (11, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (12, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (13, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (14, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (15, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (16, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (17, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (18, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (19, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (20, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (21, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (22, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (23, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (24, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (25, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (26, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (27, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (28, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (29, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (30, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (31, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (32, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (33, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (34, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (35, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (36, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (37, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (38, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (39, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (40, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (41, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (42, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (43, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (44, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (45, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (46, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (47, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (48, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (49, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (50, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (51, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (52, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (53, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `good` VALUES (54, '小米11', 19, '全网通,快速充电,6.6英寸', '官网标配【67W充电套装+晒单红包】', '3799,3999,4399', '红色,白色,黑色', './image/Good/1.png', '4+64,6+128,8+256', './image/Good/1.1.png,./image/Good/1.2.png,./image/Good/1.3.png,./image/Good/1.4.png', './image/Good/1D1.png,./image/Good/1D2.png,./image/Good/1D3.png,./image/Good/1D4.png,./image/Good/1D5.png', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
 
 -- ----------------------------
 -- Table structure for menu
@@ -177,10 +223,10 @@ CREATE TABLE `menu`  (
   `path` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `parentId` int(11) NULL DEFAULT 0,
   `level` int(11) NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu
@@ -206,7 +252,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
@@ -228,19 +274,22 @@ CREATE TABLE `my`  (
   `signature` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `nickName` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `avatarUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `defaultID` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `Status` int(11) NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of my
 -- ----------------------------
-INSERT INTO `my` VALUES (1, '1', '吴亦凡', '男', '', '广东广州', '13710411285', 1, '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `my` VALUES (1, '1', '吴亦凡', '男', NULL, '', '广东广州', NULL, '13710411285', 1, '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `my` VALUES (2, NULL, NULL, NULL, 'Zz112233..', NULL, '[{\"addressName\":\"123\",\"addressPhone\":\"13415001085\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"123\"}]', '0', '13415001085', NULL, '2024-02-18 11:15:31', '2024-02-18 11:16:29');
 
 -- ----------------------------
 -- Table structure for order
@@ -251,21 +300,25 @@ CREATE TABLE `order`  (
   `Userid` int(11) NULL DEFAULT NULL,
   `Goodid` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Num` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `color` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `totalPrice` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `OrderDate` datetime(0) NULL DEFAULT NULL,
+  `OrderDate` datetime NULL DEFAULT NULL,
   `Name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `Phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `condition` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`orderid`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (1, 1, '19', '2', '1000', '2023-09-03 23:38:02', '吴亦凡', '我的地址', '13415001085', '购买成功', '2023-09-03 23:38:02', '2023-09-03 23:38:02');
+INSERT INTO `order` VALUES (7, 2, '9', '1', '0', '0', '3799', '2024-02-26 16:34:05', '123', '天津市天津市河北区123', '13415001085', '确认收货', '2024-02-26 16:34:05', '2024-02-26 17:15:46');
+INSERT INTO `order` VALUES (8, 2, '3,9', '1,1', '2,0', '1,0', '6698', '2024-02-26 16:35:24', '123', '天津市天津市河北区123', '13415001085', '购买成功', '2024-02-26 16:35:24', '2024-02-26 16:35:24');
+INSERT INTO `order` VALUES (9, 2, '3,9', '1,1', '2,0', '1,0', '6698', '2024-02-26 16:35:24', '123', '天津市天津市河北区123', '13415001085', '购买成功', '2024-02-26 16:35:24', '2024-02-26 16:35:24');
 
 -- ----------------------------
 -- Table structure for shopping
@@ -280,15 +333,13 @@ CREATE TABLE `shopping`  (
   `Num` int(11) NULL DEFAULT NULL,
   `isChecked` int(11) NULL DEFAULT NULL,
   `isBuy` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`shoppingid`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of shopping
 -- ----------------------------
-INSERT INTO `shopping` VALUES (1, 1, 1, '0', '0', 1, 0, 'false', NULL, NULL);
-INSERT INTO `shopping` VALUES (2, 2, 1, '0', '0', 1, 0, 'false', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
