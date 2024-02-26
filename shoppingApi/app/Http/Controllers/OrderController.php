@@ -53,13 +53,15 @@ class OrderController extends Controller
         $shoppingid = $request->input('shoppingid');
         $shoppingid = explode(',', $shoppingid);
         $Goodid     = $request->input('Goodid');
+        $color      = $request->input('color');
+        $type       = $request->input('type');
         $Num        = $request->input('Num');
         $totalPrice = $request->input('totalPrice');
         $Name       = $request->input('Name');
         $Address    = $request->input('Address');
         $Phone      = $request->input('Phone');
         Order::insert([
-            'Userid' => $Userid, 'Goodid' => $Goodid, 'Num' => $Num, 'totalPrice' => $totalPrice, 'OrderDate' => date("Y-m-d  H:i:s a "), 'Name' => $Name, 'Address' => $Address, 'Phone' => $Phone, 'condition' => '购买成功',
+            'Userid' => $Userid, 'Goodid' => $Goodid,'color' => $color,'type' => $type, 'Num' => $Num, 'totalPrice' => $totalPrice, 'OrderDate' => date("Y-m-d  H:i:s a "), 'Name' => $Name, 'Address' => $Address, 'Phone' => $Phone, 'condition' => '购买成功',
         ]);
         foreach ($shoppingid as $key => $data) {
             Shopping::find($data)->delete();

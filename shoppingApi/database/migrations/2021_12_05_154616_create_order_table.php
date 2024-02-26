@@ -16,6 +16,8 @@ class CreateOrderTable extends Migration {
 			$table->integer('Userid')->nullable();
 			$table->string('Goodid')->nullable();
 			$table->string('Num')->nullable();
+            $table->string('type')->nullable();
+            $table->string('color')->nullable();
 			$table->string('totalPrice')->nullable();
 			$table->dateTime('OrderDate')->nullable();
 			$table->string('Name')->nullable();
