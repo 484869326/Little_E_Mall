@@ -9,5 +9,5 @@ class Admin extends Model {
 	protected $table = 'admin';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
-	protected $fillable = ['adminName', 'Sex', 'Email', 'Address', 'adminPwd', 'Tel', 'Status', 'created_at'];
+	protected $fillable = ['adminName', 'Sex', 'Email', 'Address', 'adminPwd', 'Tel', 'Status', 'created_at','updated_at'];
 }
