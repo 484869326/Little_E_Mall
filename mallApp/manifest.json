@@ -81,6 +81,9 @@
 	"h5": {
 		"devServer": {
 			"port": 1234
+		},
+		"router": {
+			"base": "/mallApp/"
 		}
 	}
 }

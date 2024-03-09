@@ -43,7 +43,7 @@ const userList = computed(() => {
     {
       text: "头像",
       type: "image",
-      value: avatarUrl || "../../static/user.png",
+      value: avatarUrl || "./static/user.png",
       click: () => {
         // 就这里需要上传图片 后面有时间了再来改
         uni.chooseImage({

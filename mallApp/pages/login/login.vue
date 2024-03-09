@@ -4,13 +4,13 @@
       <!-- #ifndef H5  -->
       <image
         class="image"
-        :src="../../static/logo.png"
+        src="@/static/logo.png"
         :lazy-load="true"
         mode="widthFix"
       ></image>
       <!-- #endif  -->
       <!-- #ifdef H5  -->
-      <img class="image" v-lazy="'../../static/logo.png'" />
+      <img class="image" v-lazy="'static/logo.png'" />
       <!-- #endif  -->
     </view>
     <form class="form" @submit="handleSubmitClick">
@@ -132,7 +132,7 @@ function handleSubmitClick(e) {
 // 点击用户协议
 function handleOpenWebClick() {
   uni.navigateTo({
-    url: "/pages/webview/webview?url=" + "../../static/webview.html",
+    url: "/pages/webview/webview?url=" + "/static/webview.html",
   });
 }
 </script>

@@ -25,7 +25,7 @@ const { userInfo } = storeToRefs(myStore);
 
 const headList = computed(() => {
   const value = userInfo.value;
-  const imgSrc = value.avatarUrl || "../../static/user.png";
+  const imgSrc = value.avatarUrl || "/static/user.png";
   const navigator = value.nickName || value.phone || "登录/注册";
   return {
     imgSrc,

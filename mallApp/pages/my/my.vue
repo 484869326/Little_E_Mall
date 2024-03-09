@@ -102,27 +102,27 @@ function handleGoOrderClick(value) {
 }
 const serviceList = [
   {
-    imgSrc: "../../static/service/vip.png",
+    imgSrc: "./static/service/vip.png",
     text: "会员中心",
   },
   {
-    imgSrc: "../../static/service/cheap.png",
+    imgSrc: "./static/service/cheap.png",
     text: "我的优惠",
   },
   {
-    imgSrc: "../../static/service/centre.png",
+    imgSrc: "./static/service/centre.png",
     text: "服务中心",
   },
   {
-    imgSrc: "../../static/service/shop.png",
+    imgSrc: "./static/service/shop.png",
     text: "小E商城",
   },
   {
-    imgSrc: "../../static/service/f.png",
+    imgSrc: "./static/service/f.png",
     text: "我的F码",
   },
   {
-    imgSrc: "../../static/service/setting.png",
+    imgSrc: "./static/service/setting.png",
     text: "设置",
     click: () => {
       if (!myStore.isLogin) {
