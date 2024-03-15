@@ -82,7 +82,7 @@ class GoodController extends Controller
             //数字隔开
             'price'     => ['required', 'regex:/^\d+(?:,\s*\d+)*$/'],
             //中文 ,, 隔开
-            'color'     => ['required', 'regex:/^[\x{4e00}-\x{9fa5}]{1,10}(?:,\s*[\x{4e00}-\x{9fa5}]{1,10})*$/u'],
+            'Color'     => ['required', 'regex:/^[\x{4e00}-\x{9fa5}]{1,10}(?:,\s*[\x{4e00}-\x{9fa5}]{1,10})*$/u'],
             //4+64
             'Type'      => ['required', 'regex:/^\d+\+\d+(,\d+\+\d+)*$/'],
             'Goodimg'   => ['required', function ($attribute, $value, $fail) use ($request) {
@@ -109,7 +109,7 @@ class GoodController extends Controller
         $Explain   = $request->input('Explain');
         $advertise = $request->input('advertise');
         $price     = $request->input('price');
-        $color     = $request->input('color');
+        $Color     = $request->input('Color');
         $Type      = $request->input('Type');
         $Goodimg   = $request->input('Goodimg');
         $Swiper    = $request->input('Swiper');
@@ -121,7 +121,7 @@ class GoodController extends Controller
             'advertise' => $advertise,
             'price'     => $price,
             'type'      => $Type,
-            'color'     => $color,
+            'Color'     => $Color,
             'Goodimg'   => $Goodimg,
             'Swiper'    => implode(',', $Swiper),
             'Detail'    => implode(',', $Detail),
@@ -146,7 +146,7 @@ class GoodController extends Controller
         $Explain   = $request->input('Explain');
         $advertise = $request->input('advertise');
         $price     = $request->input('price');
-        $color     = $request->input('color');
+        $Color     = $request->input('Color');
         $Goodimg   = $request->input("Goodimg");
         $Type      = $request->input('Type');
         $Swiper    = $request->input('Swiper');
@@ -158,7 +158,7 @@ class GoodController extends Controller
             'advertise' => $advertise,
             'price'     => $price,
             'type'      => $Type,
-            'color'     => $color,
+            'Color'     => $Color,
             'Goodimg'   => $Goodimg,
             'Swiper'    => implode(',', $Swiper),
             'Detail'    => implode(',', $Detail),
@@ -180,9 +180,9 @@ class GoodController extends Controller
         $Goodname    = $request->input('Goodname') ?: "";
         $Cid         = $request->input('Cid') ?: "";
         $price       = $request->input('price') ?: "";
-        $color       = $request->input('color') ?: "";
+        $Color       = $request->input('Color') ?: "";
         $betweenTime = $request->input('betweenTime') ?: "";
-        $good        = Good::where(function ($query) use ($price, $Goodname, $Cid, $offset, $limit, $betweenTime, $color) {
+        $good        = Good::where(function ($query) use ($price, $Goodname, $Cid, $offset, $limit, $betweenTime, $Color) {
             if (!empty($price)) {
                 $query->where('price', 'like', '%' . $price . '%');
             }
@@ -197,8 +197,8 @@ class GoodController extends Controller
             if (!empty($betweenTime)) {
                 $query->whereBetween('created_at', $betweenTime);
             }
-            if (!empty($color)) {
-                $query->where('color', 'like', '%' . $color . '%');
+            if (!empty($Color)) {
+                $query->where('Color', 'like', '%' . $Color . '%');
             }
         })
             ->with('category')
