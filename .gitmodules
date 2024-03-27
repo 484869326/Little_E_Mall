@@ -1,0 +1,3 @@
+[submodule "mallBacked"]
+	path = mallBacked
+	url = git@gitee.com:A484869326/mall-backed.git
