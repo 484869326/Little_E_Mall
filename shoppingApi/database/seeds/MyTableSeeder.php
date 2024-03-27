@@ -11,12 +11,9 @@ class MyTableSeeder extends Seeder {
 	public function run() {
 		//
 		$data = [[
-			'signature' => '1',
 			'nickName' => '吴亦凡',
-			'gender' => '男',
-			'city' => '广东广州',
+			'gender' => '0',
 			'phone' => '13710411285',
-			'Status' => '1',
 		]];
 		DB::table('my')->insert($data);
 	}

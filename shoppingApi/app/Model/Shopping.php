@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shopping extends Model {
 	protected $table = 'shopping';
-	protected $primaryKey = 'shoppingid';
+	protected $primaryKey = 'shoppingId';
 	public $timestamps = true;
-	protected $fillable = ['Goodid', 'Userid', 'type', 'color', 'Num', 'isChecked', 'isBuy'];
+	protected $fillable = ['goodId', 'userId', 'type', 'color', 'num', 'isChecked', 'isBuy'];
 	public function Good() {
-		return $this->belongsTo('App\Model\Good', 'Goodid', 'Goodid');
+		return $this->belongsTo('App\Model\Good', 'goodId', 'goodId');
 	}
+    public function getCreatedAtColumn()
+    {
+        return 'createdAt';
+    }
+    public function getUpdatedAtColumn()
+    {
+        return 'updatedAt';
+    }
 }

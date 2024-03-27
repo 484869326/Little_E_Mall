@@ -9,5 +9,13 @@ class Admin extends Model {
 	protected $table = 'admin';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
-	protected $fillable = ['adminName', 'Sex', 'Email', 'Address', 'adminPwd', 'Tel', 'Status', 'created_at','updated_at'];
+	protected $fillable = ['adminName', 'gender', 'email', 'address', 'adminPwd', 'tel', 'status', 'createdAt','updatedAt'];
+    public function getCreatedAtColumn()
+    {
+        return 'createdAt';
+    }
+    public function getUpdatedAtColumn()
+    {
+        return 'updatedAt';
+    }
 }

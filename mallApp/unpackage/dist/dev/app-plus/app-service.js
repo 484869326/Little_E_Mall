@@ -1,5 +1,5 @@
 if (typeof Promise !== "undefined" && !Promise.prototype.finally) {
-  Promise.prototype.finally = function(callback) {
+  Promise.prototype.finally = function (callback) {
     const promise = this.constructor;
     return this.then(
       (value) => promise.resolve(callback()).then(() => value),
@@ -29,7 +29,7 @@ if (typeof uni !== "undefined" && uni && uni.requireGlobal) {
 if (uni.restoreGlobal) {
   uni.restoreGlobal(Vue, weex, plus, setTimeout, clearTimeout, setInterval, clearInterval);
 }
-(function(vue, shared) {
+(function (vue, shared) {
   "use strict";
   const fontData = [
     {
@@ -958,7 +958,7 @@ if (uni.restoreGlobal) {
     return o && typeof o === "object" && Object.prototype.toString.call(o) === "[object Object]" && typeof o.toJSON !== "function";
   }
   var MutationType;
-  (function(MutationType2) {
+  (function (MutationType2) {
     MutationType2["direct"] = "direct";
     MutationType2["patchObject"] = "patch object";
     MutationType2["patchFunction"] = "patch function";
@@ -976,10 +976,10 @@ if (uni.restoreGlobal) {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.responseType = "blob";
-    xhr.onload = function() {
+    xhr.onload = function () {
       saveAs(xhr.response, name, opts);
     };
-    xhr.onerror = function() {
+    xhr.onerror = function () {
       console.error("could not download file");
     };
     xhr.send();
@@ -1033,10 +1033,10 @@ if (uni.restoreGlobal) {
       }
     } else {
       a.href = URL.createObjectURL(blob);
-      setTimeout(function() {
+      setTimeout(function () {
         URL.revokeObjectURL(a.href);
       }, 4e4);
-      setTimeout(function() {
+      setTimeout(function () {
         click(a);
       }, 0);
     }
@@ -1049,7 +1049,7 @@ if (uni.restoreGlobal) {
         const a = document.createElement("a");
         a.href = blob;
         a.target = "_blank";
-        setTimeout(function() {
+        setTimeout(function () {
           click(a);
         });
       }
@@ -1069,7 +1069,7 @@ if (uni.restoreGlobal) {
     const isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent);
     if ((isChromeIOS || force && isSafari || isMacOSWebView) && typeof FileReader !== "undefined") {
       const reader = new FileReader();
-      reader.onloadend = function() {
+      reader.onloadend = function () {
         let url = reader.result;
         if (typeof url !== "string") {
           popup = null;
@@ -1091,7 +1091,7 @@ if (uni.restoreGlobal) {
       else
         location.href = url;
       popup = null;
-      setTimeout(function() {
+      setTimeout(function () {
         URL.revokeObjectURL(url);
       }, 4e4);
     }
@@ -1662,7 +1662,7 @@ Only state can be modified.`);
       return storeActions;
     }, {});
     for (const actionName in actions) {
-      store[actionName] = function() {
+      store[actionName] = function () {
         const _actionId = runningActionId;
         const trackedStore = new Proxy(store, {
           get(...args) {
@@ -1692,7 +1692,7 @@ Only state can be modified.`);
         Object.keys(options.actions)
       );
       const originalHotUpdate = store._hotUpdate;
-      vue.toRaw(store)._hotUpdate = function(newStore) {
+      vue.toRaw(store)._hotUpdate = function (newStore) {
         originalHotUpdate.apply(this, arguments);
         patchActionForGrouping(store, Object.keys(newStore._hmrPayload.actions));
       };
@@ -1955,7 +1955,7 @@ Only state can be modified.`);
       pinia._s.delete($id);
     }
     function wrapAction(name, action) {
-      return function() {
+      return function () {
         setActivePinia(pinia);
         const args = Array.from(arguments);
         const afterCallbackList = [];
@@ -2075,7 +2075,7 @@ Only state can be modified.`);
           ) : prop;
           if (IS_CLIENT) {
             const getters = setupStore._getters || // @ts-expect-error: same
-            (setupStore._getters = vue.markRaw([]));
+              (setupStore._getters = vue.markRaw([]));
             getters.push(key);
           }
         }
@@ -2209,8 +2209,8 @@ Found in store "${store.$id}".`);
     function useStore(pinia, hot) {
       const currentInstance = vue.getCurrentInstance();
       pinia = // in test mode, ignore the argument provided as we can always retrieve a
-      // pinia instance with getActivePinia()
-      pinia || currentInstance && vue.inject(piniaSymbol, null);
+        // pinia instance with getActivePinia()
+        pinia || currentInstance && vue.inject(piniaSymbol, null);
       if (pinia)
         setActivePinia(pinia);
       if (!activePinia) {
@@ -2239,7 +2239,7 @@ This will fail in production.`);
         pinia._s.delete(hotId);
       }
       if (IS_CLIENT && currentInstance && currentInstance.proxy && // avoid adding stores that are just built for hot module replacement
-      !hot) {
+        !hot) {
         const vm = currentInstance.proxy;
         const cache = "_pStores" in vm ? vm._pStores : vm._pStores = {};
         cache[id] = store;
@@ -2264,7 +2264,7 @@ This will fail in production if not fixed.`);
       stores = stores[0];
     }
     return stores.reduce((reduced, useStore) => {
-      reduced[useStore.$id + mapStoreSuffix] = function() {
+      reduced[useStore.$id + mapStoreSuffix] = function () {
         return useStore(this.$pinia);
       };
       return reduced;
@@ -2272,12 +2272,12 @@ This will fail in production if not fixed.`);
   }
   function mapState(useStore, keysOrMapper) {
     return Array.isArray(keysOrMapper) ? keysOrMapper.reduce((reduced, key) => {
-      reduced[key] = function() {
+      reduced[key] = function () {
         return useStore(this.$pinia)[key];
       };
       return reduced;
     }, {}) : Object.keys(keysOrMapper).reduce((reduced, key) => {
-      reduced[key] = function() {
+      reduced[key] = function () {
         const store = useStore(this.$pinia);
         const storeKey = keysOrMapper[key];
         return typeof storeKey === "function" ? storeKey.call(this, store) : store[storeKey];
@@ -2288,12 +2288,12 @@ This will fail in production if not fixed.`);
   const mapGetters = mapState;
   function mapActions(useStore, keysOrMapper) {
     return Array.isArray(keysOrMapper) ? keysOrMapper.reduce((reduced, key) => {
-      reduced[key] = function(...args) {
+      reduced[key] = function (...args) {
         return useStore(this.$pinia)[key](...args);
       };
       return reduced;
     }, {}) : Object.keys(keysOrMapper).reduce((reduced, key) => {
-      reduced[key] = function(...args) {
+      reduced[key] = function (...args) {
         return useStore(this.$pinia)[keysOrMapper[key]](...args);
       };
       return reduced;
@@ -2330,13 +2330,13 @@ This will fail in production if not fixed.`);
         const value = store[key];
         if (vue.isRef(value) || vue.isReactive(value)) {
           refs[key] = // ---
-          vue.toRef(store, key);
+            vue.toRef(store, key);
         }
       }
       return refs;
     }
   }
-  const PiniaVuePlugin = function(_Vue) {
+  const PiniaVuePlugin = function (_Vue) {
     _Vue.mixin({
       beforeCreate() {
         const options = this.$options;
@@ -2603,7 +2603,7 @@ This will fail in production if not fixed.`);
   function debounce(fn, interval, immediate = true) {
     let timer = null;
     let isInvoke = false;
-    const _debounce = function(...payload) {
+    const _debounce = function (...payload) {
       return new Promise((resolve) => {
         if (timer)
           clearTimeout(timer);
@@ -2719,7 +2719,7 @@ This will fail in production if not fixed.`);
       }
       async function queryElement(index) {
         await new Promise((resolve, reject) => {
-          uni.createSelectorQuery().in(instance).select(`#good-item-${index}`).boundingClientRect(async function(res) {
+          uni.createSelectorQuery().in(instance).select(`#good-item-${index}`).boundingClientRect(async function (res) {
             await updateLayout(res, index);
             resolve();
           }).exec();
@@ -2728,10 +2728,10 @@ This will fail in production if not fixed.`);
       function initValue() {
         new Promise((resolve, reject) => {
           let parentWidth = 0;
-          uni.createSelectorQuery().in(instance).select(".water-fall-good").boundingClientRect(function(res) {
+          uni.createSelectorQuery().in(instance).select(".water-fall-good").boundingClientRect(function (res) {
             parentWidth = res.width;
           }).exec();
-          uni.createSelectorQuery().in(instance).select(".good-content").boundingClientRect(function(res) {
+          uni.createSelectorQuery().in(instance).select(".good-content").boundingClientRect(function (res) {
             const itemWidth = res.width;
             const column = Math.floor(parentWidth / itemWidth);
             remainingSpace = (parentWidth - itemWidth * column) / (column + 1);
@@ -3086,8 +3086,8 @@ This will fail in production if not fixed.`);
     }
   };
   const PagesCategoryCategory = /* @__PURE__ */ _export_sfc(_sfc_main$h, [["__file", "C:/Users/1/Documents/person_file/mallApp/pages/category/category.vue"]]);
-  const getCheckAll = (userid = 1) => {
-    return Request1$1.post("/getAllCheck", { userid });
+  const getCheckAll = (userId = 1) => {
+    return Request1$1.post("/getAllCheck", { userId });
   };
   const getShoppingList = (page) => {
     return Request1$1.post("/getShop/" + page, { signature: "1" });
@@ -3098,8 +3098,8 @@ This will fail in production if not fixed.`);
   const deleteShopping = (id) => {
     return Request1$1.delete(id);
   };
-  const changeChecked = (id, checked, userid = 1) => {
-    return Request1$1.post("/changeChecked", { id, checked, userid });
+  const changeChecked = (id, checked, userId = 1) => {
+    return Request1$1.post("/changeChecked", { id, checked, userId });
   };
   const changeCheckedAll = (checkAll) => {
     return Request1$1.post("/checkedAll", { id: "1", checkAll });
@@ -3285,7 +3285,7 @@ This will fail in production if not fixed.`);
         uni.showModal({
           title: "",
           content: "是否删除",
-          success: function(res) {
+          success: function (res) {
             if (res.confirm) {
               emit("delete", item);
               endX.splice(index, 1);
@@ -3833,7 +3833,7 @@ This will fail in production if not fixed.`);
       });
       function getPaddingBottom() {
         return new Promise((resolve) => {
-          uni.createSelectorQuery().in(instance).select(".detail-bottom").boundingClientRect(function(res) {
+          uni.createSelectorQuery().in(instance).select(".detail-bottom").boundingClientRect(function (res) {
             resolve(res.height);
           }).exec();
         });
@@ -4580,12 +4580,12 @@ This will fail in production if not fixed.`);
     });
     let t2 = (key, values) => {
       if (typeof getApp !== "function") {
-        t2 = function(key2, values2) {
+        t2 = function (key2, values2) {
           return i18n.t(key2, values2);
         };
       } else {
         let isWatchedAppLocale = false;
-        t2 = function(key2, values2) {
+        t2 = function (key2, values2) {
           const appVm = getApp().$vm;
           if (appVm) {
             appVm.$locale;
@@ -4891,7 +4891,7 @@ This will fail in production if not fixed.`);
       function handleRemoveStorageClick() {
         uni.showModal({
           content: "是否删除全部搜索历史记录",
-          success: function(res) {
+          success: function (res) {
             if (res.confirm) {
               uni.removeStorageSync("SEARCH_HISTORY");
               localHistoryList.length = 0;
@@ -5334,13 +5334,13 @@ This will fail in production if not fixed.`);
   __definePage("pages/search/search", PagesSearchSearch);
   __definePage("pages/login/login", PagesLoginLogin);
   const _sfc_main = {
-    onLaunch: function() {
+    onLaunch: function () {
       formatAppLog("log", "at App.vue:4", "App Launch");
     },
-    onShow: function() {
+    onShow: function () {
       formatAppLog("log", "at App.vue:7", "App Show");
     },
-    onHide: function() {
+    onHide: function () {
       formatAppLog("log", "at App.vue:10", "App Hide");
     }
   };

@@ -7,25 +7,25 @@
     <view class="title">{{ title }}</view>
     <view
       v-for="(item, index) in goodList"
-      :key="item.Goodid"
+      :key="item.goodId"
       :id="'good-item-' + index"
       class="good-content"
       :style="{ transform: `translate(${item.x || 0}, ${item.y || 0})` }"
-      @click="handleItemClick(item.Goodid)"
+      @click="handleItemClick(item.goodId)"
     >
       <image
         class="image"
-        :src="item.Goodimg"
+        :src="item.goodImg"
         mode="widthFix"
         :data-index="index"
         @load="loadImage"
       />
       <view class="good-name">
-        {{ item.Goodname }}
+        {{ item.goodName }}
       </view>
       <text class="good-type">
         <!-- .replace(/,/g, "|") app不能用replaceAll -->
-        {{ item.Explain.replace(/,/g, "，") }}
+        {{ item.explain.replace(/,/g, "，") }}
       </text>
       <view class="good-price">￥{{ item.price.split(",")[0] }}</view>
     </view>
@@ -111,10 +111,10 @@ function initValue() {
   });
 }
 //去详情
-function handleItemClick(goodid) {
+function handleItemClick(goodId) {
   if (myStore.isLogin) {
     uni.navigateTo({
-      url: "/pages/detail/detail?goodid=" + goodid,
+      url: "/pages/detail/detail?goodId=" + goodId,
     });
   } else {
     tips("用户未登录", 2000);

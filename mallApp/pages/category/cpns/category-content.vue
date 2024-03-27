@@ -1,26 +1,26 @@
 <!-- 相当于树组件(微信小程序不支持)得去支持递归调用的组件，需要在 globalStyle->usingComponents 中声明。 -->
 <template>
   <view class="category-content">
-    <template v-for="(item, index) in subCategory" :key="item.Cid">
-      <template v-if="item.level !== 1 || item.parentID === Number(parentID)">
-        <template v-if="item.Cimg">
+    <template v-for="(item, index) in subCategory" :key="item.cid">
+      <template v-if="item.level !== 1 || item.parentId === Number(parentId)">
+        <template v-if="item.cImg">
           <view class="content-item">
             <!-- #ifndef H5  -->
             <image
               class="image"
-              :src="item.Cimg"
+              :src="item.cImg"
               :lazy-load="true"
               mode="widthFix"
             ></image>
             <!-- #endif  -->
             <!-- #ifdef H5  -->
-            <img class="image" v-lazy="item.Cimg" />
+            <img class="image" v-lazy="item.cImg" />
             <!-- #endif  -->
-            <text class="title">{{ item.Cname }}</text>
+            <text class="title">{{ item.cName }}</text>
           </view>
         </template>
-        <template v-else-if="item.Cname">
-          <view class="content-item-title">--{{ item.Cname }}--</view>
+        <template v-else-if="item.cName">
+          <view class="content-item-title">--{{ item.cName }}--</view>
         </template>
         <template v-if="item.children && item.children.length !== 0">
           <categoryContent :subCategory="item.children"></categoryContent>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-defineProps(["subCategory", "parentID"]);
+defineProps(["subCategory", "parentId"]);
 const itemClick = (item) => {
   uni.navigateTo({
     url: "/pages/webview/index?link=" + item.link,

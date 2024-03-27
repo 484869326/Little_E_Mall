@@ -13,17 +13,16 @@ class CreateMyTable extends Migration {
     public function up() {
         Schema::create('my', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('signature')->nullable();
             $table->string('nickName')->nullable();
-            $table->string('gender')->nullable();
+            $table->integer('gender')->nullable();
             $table->string('avatarUrl')->nullable();
             $table->string('city')->default("");
-            $table->string('defaultID')->default("");
+            $table->string('defaultId')->default("");
             $table->string('phone')->default("");
             $table->string('password')->default("");
-            $table->integer('Status')->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->integer('status')->nullable();
+            $table->timestamp('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

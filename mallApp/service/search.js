@@ -1,7 +1,7 @@
 import Request1 from "./index.js";
 
-const getSearchList = (Goodname, page, limit = 10) => {
-  return Request1.get("/search", { Goodname, page, limit });
+const getSearchList = (goodName, page, limit = 10) => {
+  return Request1.get("/search", { goodName, page, limit });
 };
 
 export { getSearchList };

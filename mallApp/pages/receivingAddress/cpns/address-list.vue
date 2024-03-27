@@ -14,9 +14,9 @@
           <view class="option">
             <view class="default" @click="handleDefaultAddressClick(index)">
               <uni-icons
-                :type="index == defaultID ? 'checkbox-filled' : 'circle'"
+                :type="index == defaultId ? 'checkbox-filled' : 'circle'"
                 size="40rpx"
-                :color="index == defaultID ? '#f3402b' : '#7e7e7e'"
+                :color="index == defaultId ? '#f3402b' : '#7e7e7e'"
               ></uni-icons
               ><text class="text">设为默认地址</text></view
             >
@@ -52,15 +52,15 @@ const emit = defineEmits(["create", "update"]);
 const myStore = useMyStore();
 const { userInfo } = storeToRefs(myStore);
 const list = ref([]);
-const defaultID = ref(null);
+const defaultId = ref(null);
 watchEffect(() => {
   const value = userInfo.value;
   if (Object.keys(value).length === 0) return;
-  defaultID.value = userInfo.value.defaultID;
+  defaultId.value = userInfo.value.defaultId;
   list.value = value.city;
 });
 function handleDeleteClick(index) {
-  if (index == defaultID.value) {
+  if (index == defaultId.value) {
     tips("默认地址禁止删除");
     return;
   }
@@ -69,13 +69,13 @@ function handleDeleteClick(index) {
     success: function (res) {
       if (res.confirm) {
         list.value.splice(index, 1);
-        if (index < defaultID.value) {
-          defaultID.value--;
-          userInfo.value.defaultID--;
+        if (index < defaultId.value) {
+          defaultId.value--;
+          userInfo.value.defaultId--;
         }
         myStore.fetchUpdateUserInfo(userInfo.value.id, {
           ...userInfo.value,
-          defaultID: defaultID.value,
+          defaultId: defaultId.value,
           city: JSON.stringify(list.value),
         });
       }
@@ -83,16 +83,16 @@ function handleDeleteClick(index) {
   });
 }
 async function handleDefaultAddressClick(index) {
-  defaultID.value = index;
+  defaultId.value = index;
   const res = await myStore.fetchUpdateUserInfo(userInfo.value.id, {
     ...userInfo.value,
-    defaultID: index,
+    defaultId: index,
   });
   if (res !== "更新成功") {
     tips("异常错误");
     return;
   }
-  userInfo.value.defaultID = index;
+  userInfo.value.defaultId = index;
 }
 </script>
 

@@ -4,7 +4,7 @@
     <drawer @close="$emit('close')">
       <view class="good-detail">
         <view class="good-image" @click="handlePreviewImage">
-          <image :src="detail.Goodimg" class="image" mode="widthFix" />
+          <image :src="detail.goodImg" class="image" mode="widthFix" />
         </view>
         <view class="good-info">
           <view class="good-price"
@@ -17,7 +17,7 @@
       <view class="good-type">
         <view class="title">版本</view>
         <view class="item-list">
-          <template v-for="(item, index) in detail.Type" :key="item">
+          <template v-for="(item, index) in detail.type" :key="item">
             <view
               class="item-box"
               :class="{ active: data.typeIndex === index }"
@@ -30,7 +30,7 @@
       <view class="good-color">
         <view class="title">颜色</view>
         <view class="item-list">
-          <template v-for="(item, index) in detail.Color" :key="item">
+          <template v-for="(item, index) in detail.color" :key="item">
             <view
               class="item-box"
               :class="{ active: data.colorIndex === index }"
@@ -71,11 +71,11 @@ watch(data, (newValue) => {
 });
 const goodNameCom = computed(() => {
   return (
-    detail.Goodname +
+    detail.goodName +
     " " +
-    (detail.Type ?? [])[data.typeIndex] +
+    (detail.type ?? [])[data.typeIndex] +
     " " +
-    (detail.Color ?? [])[data.colorIndex]
+    (detail.color ?? [])[data.colorIndex]
   );
 });
 function handlePreviewImage() {
@@ -85,9 +85,9 @@ function handlePreviewImage() {
   });
 }
 function handleConfirmClick() {
-  if (props.detail?.shoppingid) {
+  if (props.detail?.shoppingId) {
     shoppingStore.fetchChangeType({
-      shoppingid: props.detail.shoppingid,
+      shoppingId: props.detail.shoppingId,
       num: data.num,
       color: data.colorIndex,
       type: data.typeIndex,
@@ -95,20 +95,20 @@ function handleConfirmClick() {
     emit("close", data);
     return;
   }
-  const { isBuy, Goodid, Userid } = props.detail;
+  const { isBuy, goodId, userId } = props.detail;
   //购物车加入
   goodStore.fetchAddShop({
-    Goodid,
-    Userid,
+    goodId,
+    userId,
     type: data.typeIndex,
     color: data.colorIndex,
-    Num: data.num,
+    num: data.num,
     isBuy,
   });
   if (isBuy) {
     //立即购买要跳转订单页面
     uni.navigateTo({
-      url: "/pages/order/order?isBuy=true&Goodid=" + Goodid,
+      url: "/pages/order/order?isBuy=true&goodId=" + goodId,
     });
   }
   emit("close");

@@ -1,15 +1,15 @@
 <template>
   <view class="category-menu">
     <scroll-view scroll-y="true" class="category-menu-scroll">
-      <template v-for="item in categories" :key="item.Cid">
+      <template v-for="item in categories" :key="item.cid">
         <view
           :class="[
             'scroll-view-item',
-            currentIndex === item.Cid ? 'active' : '',
+            currentIndex === item.cid ? 'active' : '',
           ]"
-          @click="$emit('update:currentIndex', item.Cid)"
+          @click="$emit('update:currentIndex', item.cid)"
         >
-          {{ item.Cname }}
+          {{ item.cName }}
         </view>
       </template>
     </scroll-view>

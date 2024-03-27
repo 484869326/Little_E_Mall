@@ -76,7 +76,7 @@ const userList = computed(() => {
     },
     {
       text: "性别",
-      value: gender ?? "",
+      value: gender ? "女" : "男",
       click: () => {
         status.value = 2;
       },

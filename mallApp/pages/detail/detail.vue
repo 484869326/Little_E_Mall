@@ -10,13 +10,13 @@
     >
     </page-meta>
     <!-- 轮播图 -->
-    <banner :banners="detail.Swiper" :isPreview="true"></banner>
+    <banner :banners="detail.swiper" :isPreview="true"></banner>
     <!-- 商品信息 -->
     <view class="good-info">
       <view class="good-price"
         >￥{{ (detail.price ?? [])[data.typeIndex] }}</view
       >
-      <view class="good-name">{{ detail.Goodname }}</view>
+      <view class="good-name">{{ detail.goodName }}</view>
       <view class="good-desc">{{ detail.advertise }}</view>
     </view>
     <!-- 活动 -->
@@ -54,7 +54,7 @@
     </view>
     <!-- 商品介绍 -->
     <view class="good-introduction">
-      <template v-for="item in detail.Detail" :key="item">
+      <template v-for="item in detail.detail" :key="item">
         <!-- #ifndef H5  -->
         <image
           class="image"
@@ -120,11 +120,11 @@ const selectName = computed(() => {
   try {
     const obj = detail.value;
     return (
-      obj.Goodname +
+      obj.goodName +
       " " +
-      (obj.Color ?? [])[data.colorIndex] +
+      (obj.color ?? [])[data.colorIndex] +
       " " +
-      (obj.Type ?? [])[data.typeIndex] +
+      (obj.type ?? [])[data.typeIndex] +
       " x" +
       data.num
     );
@@ -137,7 +137,7 @@ onLoad(async (option) => {
     scrollTop: 1, //距离页面顶部的距离
     duration: 0, // 滚动动画时长
   });
-  await goodStore.fetchGoodDetail(option.goodid);
+  await goodStore.fetchGoodDetail(option.goodId);
   paddingBottom.value =
     detailBottomRef.value && (await detailBottomRef.value.getPaddingBottom());
 });
@@ -153,7 +153,7 @@ function updateData(value) {
 function handleShowBuyClick(isBuy = true) {
   childName.value = "buy";
   detail.value.isBuy = isBuy;
-  detail.value.Userid = myStore.userInfo.id;
+  detail.value.userId = myStore.userInfo.id;
 }
 watch(childName, (newVal) => {
   if (newVal) {

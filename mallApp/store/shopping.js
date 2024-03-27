@@ -36,8 +36,8 @@ export const useShoppingStore = defineStore("shopping", {
       this.totalCheck = 0;
       this.total = 0;
     },
-    async fetchCheckAll(userid) {
-      const res = await getCheckAll(userid);
+    async fetchCheckAll(userId) {
+      const res = await getCheckAll(userId);
       this.isCheckAll = res.data.isCheckAll;
       this.totalPrice = res.data.totalPrice;
       this.totalCheck = res.data.totalCheck;
@@ -45,8 +45,8 @@ export const useShoppingStore = defineStore("shopping", {
       this.total = res.data.total;
     },
     //详情
-    async fetchShoppingList(page, userid) {
-      const res = await getShoppingList(page, userid);
+    async fetchShoppingList(page, userId) {
+      const res = await getShoppingList(page, userId);
       this.shoppingList.push(...res.data);
     },
     async fetchChangeShoppingNum(id, num) {
@@ -57,8 +57,8 @@ export const useShoppingStore = defineStore("shopping", {
       const res = await deleteShopping(id);
       return res;
     },
-    async fetchChangeChecked(id, isChecked, userid) {
-      const res = await changeChecked(id, isChecked, userid);
+    async fetchChangeChecked(id, isChecked, userId) {
+      const res = await changeChecked(id, isChecked, userId);
       return res;
     },
     async fetchChangeAllChecked(id, isChecked) {

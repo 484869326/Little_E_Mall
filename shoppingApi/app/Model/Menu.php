@@ -8,5 +8,13 @@ class Menu extends Model {
 	protected $table = 'menu';
 	protected $primaryKey = 'id';
 	public $timestamps = true;
-	protected $fillable = ['text', 'icon', 'path', 'level', 'parentID'];
+	protected $fillable = ['text', 'icon', 'path', 'level', 'parentId'];
+    public function getCreatedAtColumn()
+    {
+        return 'createdAt';
+    }
+    public function getUpdatedAtColumn()
+    {
+        return 'updatedAt';
+    }
 }

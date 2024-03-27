@@ -40,11 +40,11 @@
       >
         <view
           v-for="item in searchList"
-          :key="item.Goodid"
+          :key="item.goodId"
           class="search-content-item"
-          @click="handleItemClick(item.Goodid, item.Goodname)"
+          @click="handleItemClick(item.goodId, item.goodName)"
         >
-          {{ item.Goodname }}
+          {{ item.goodName }}
         </view>
       </view>
     </view>

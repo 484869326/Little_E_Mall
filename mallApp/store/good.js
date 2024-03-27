@@ -22,42 +22,42 @@ export const useGoodStore = defineStore("good", {
     },
     totalPrice() {
       return this.goodList.reduce((pre, cur) => {
-        return pre + Number(cur.price[cur.type]) * Number(cur.Num);
+        return pre + Number(cur.price[cur.type]) * Number(cur.num);
       }, 0);
     },
     totalNum() {
-      return this.goodList.reduce((p, c) => p + Number(c.Num), 0);
+      return this.goodList.reduce((p, c) => p + Number(c.num), 0);
     },
     dataId() {
-      let shoppingid = [];
-      let Goodid = [];
+      let shoppingId = [];
+      let goodId = [];
       let color = [];
       let type = [];
-      let Num = [];
+      let num = [];
       this.goodList.forEach((item) => {
-        shoppingid.push(item.shoppingid);
-        Goodid.push(item.Goodid);
+        shoppingId.push(item.shoppingId);
+        goodId.push(item.goodId);
         color.push(item.color);
         type.push(item.type);
-        Num.push(item.Num);
+        num.push(item.num);
       });
       return {
-        shoppingid: shoppingid.join(","),
-        Goodid: Goodid.join(","),
+        shoppingId: shoppingId.join(","),
+        goodId: goodId.join(","),
         color: color.join(","),
         type: type.join(","),
-        Num: Num.join(","),
+        num: num.join(","),
       };
     },
   },
   // 修改state里面的数据
   actions: {
     //详情
-    async fetchGoodDetail(Goodid) {
-      const { data } = await getGoodDetail(Goodid);
+    async fetchGoodDetail(goodId) {
+      const { data } = await getGoodDetail(goodId);
       data.price = data.price.split(",");
-      data.Color = data.Color.split(",");
-      data.Type = data.Type.split(",");
+      data.color = data.color.split(",");
+      data.type = data.type.split(",");
       data.isBuy = true;
       this.detail = data || {};
     },
@@ -68,11 +68,15 @@ export const useGoodStore = defineStore("good", {
     async fetchGoodList(value) {
       const { data } = await getBuyGoodList(value);
       this.goodList = data.map((item) => {
+        item.good.goodColor = item.good.color;
+        item.good.goodType = item.good.type;
+        delete item.good.color;
+        delete item.good.type;
         Object.assign(item, item.good);
         delete item.good;
         item.price = item.price.split(",");
-        item.Color = item.Color.split(",");
-        item.Type = item.Type.split(",");
+        item.goodColor = item.goodColor.split(",");
+        item.goodType = item.goodType.split(",");
         return item;
       });
     },
@@ -86,7 +90,7 @@ export const useGoodStore = defineStore("good", {
         ...value.map((item) => {
           item.type = item.type.split(",");
           item.color = item.color.split(",");
-          item.totalNum = item.Num.split(",").reduce((pre, cur) => {
+          item.totalNum = item.num.split(",").reduce((pre, cur) => {
             return pre + Number(cur);
           }, 0);
           return item;

@@ -6,7 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model {
 	protected $table = 'order';
-	protected $primaryKey = 'orderid';
+	protected $primaryKey = 'orderId';
 	public $timestamps = true;
-	protected $fillable = ['Userid', 'Goodid', 'color','type','Num', 'totalPrice', 'OrderDate', 'Name', 'Address', 'Phone', 'condition'];
+	protected $fillable = ['userId', 'goodId', 'color','type','num', 'totalPrice','name', 'address', 'phone', 'condition'];
+    public function getCreatedAtColumn()
+    {
+        return 'createdAt';
+    }
+    public function getUpdatedAtColumn()
+    {
+        return 'updatedAt';
+    }
 }

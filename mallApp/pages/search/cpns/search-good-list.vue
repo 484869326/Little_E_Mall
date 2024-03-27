@@ -22,17 +22,17 @@
         <view
           class="good-item"
           v-for="item in localSearchList"
-          :key="item.Goodid"
-          @click="handleGoToDetail(item.Goodid)"
+          :key="item.goodId"
+          @click="handleGoToDetail(item.goodId)"
         >
           <view class="good-image">
-            <img :src="item.Goodimg" class="image" />
+            <img :src="item.goodImg" class="image" />
           </view>
           <view class="good-info">
-            <view class="good-title">{{ item.Goodname }}</view>
+            <view class="good-title">{{ item.goodName }}</view>
             <view class="good-advertise">{{ item.advertise }}</view>
             <view class="good-explain">{{
-              item.Explain.replace(/,/g, " | ")
+              item.explain.replace(/,/g, " | ")
             }}</view>
             <view class="good-price">￥{{ item.price.split(",")[0] }}起</view>
           </view>
@@ -95,7 +95,7 @@ const tabList = [
 // 去详细页
 function handleGoToDetail(id) {
   uni.navigateTo({
-    url: `/pages/detail/detail?goodid=${id}`,
+    url: `/pages/detail/detail?goodId=${id}`,
   });
 }
 async function loadMore() {

@@ -11,13 +11,13 @@ class ShoppingController extends Controller
 {
     public function getAllCheck(Request $request)
     {
-        $Userid = $request->input('userid');
-        $shoppingList = Shopping::with(['Good'])->where('isBuy', '=', '0')->where('Userid', '=', $Userid)->get();
+        $userId = $request->input('userId');
+        $shoppingList = Shopping::with(['Good'])->where('isBuy', '=', '0')->where('userId', '=', $userId)->get();
         $data['totalPrice']=0;
         $data['totalCheck']=0;
         $data['totalCheckPrice']=0;
         foreach ($shoppingList as $key=>$model) {
-            $price=(float)explode(',', $model['good']['price'])[$model['type']]*$model['Num'];
+            $price=(float)explode(',', $model['good']['price'])[$model['type']]*$model['num'];
             if ($model['isChecked']) {
                 $data['totalCheck']++;
                 $data['totalCheckPrice']+=$price;
@@ -31,16 +31,16 @@ class ShoppingController extends Controller
     }
     public function getBuyGoodList(Request $request)
     {
-        $Goodid=$request->input('Goodid');
-        $Userid=$request->input('Userid');
+        $goodId=$request->input('goodId');
+        $userId=$request->input('userId');
         $isBuy=$request->input('isBuy')?'1':'0';
-        $sql=Shopping::with(['Good'])->where('isBuy', '=', $isBuy)->where('isChecked', '=', '1')->Where('Userid', '=', $Userid);
-        if ($Goodid) {
-            $sql->where('Goodid', '=', $Goodid);
+        $sql=Shopping::with(['Good'])->where('isBuy', '=', $isBuy)->where('isChecked', '=', '1')->Where('userId', '=', $userId);
+        if ($goodId) {
+            $sql->where('goodId', '=', $goodId);
         }
         $data=$sql->get();
         foreach ($data as $Key => $model) {
-            $model["good"]["Goodimg"] = env('APP_URL') . substr_replace($model["good"]["Goodimg"], "", 0, 1);
+            $model["good"]["goodImg"] = env('APP_URL') . substr_replace($model["good"]["goodImg"], "", 0, 1);
         }
         $result['data']=$data;
         Total::json($result);
@@ -48,42 +48,42 @@ class ShoppingController extends Controller
     public function getShop($page, Request $request)
     {
         $offset=($page-1)*10;
-        $Userid = $request->input('userid');
-        $data = Shopping::with(['Good'])->where('isBuy', '=', '0')->Where('Userid', '=', $Userid)->orderBy('shoppingid', 'desc')->offset($offset)->limit(10)->get();
+        $userId = $request->input('userId');
+        $data = Shopping::with(['Good'])->where('isBuy', '=', '0')->Where('userId', '=', $userId)->orderBy('shoppingId', 'desc')->offset($offset)->limit(10)->get();
         foreach ($data as $Key => $model) {
-            $model["good"]["Goodimg"] = env('APP_URL') . substr_replace($model["good"]["Goodimg"], "", 0, 1);
+            $model["good"]["goodImg"] = env('APP_URL') . substr_replace($model["good"]["goodImg"], "", 0, 1);
         }
         $result['data']=$data;
         Total::json($result);
     }
-    public function changeNum(Request $request)
+    public function changenum(Request $request)
     {
-        $shoppingid = $request->input('id');
-        $Num=$request->input('num');
-        $data = Shopping::where('shoppingid', '=', $shoppingid)->update(
+        $shoppingId = $request->input('id');
+        $num=$request->input('num');
+        $data = Shopping::where('shoppingId', '=', $shoppingId)->update(
             [
-                'Num' => $Num,
+                'num' => $num,
             ]
         );
         Total::json('success');
     }
-    public function DeleteShop($shoppingid)
+    public function DeleteShop($shoppingId)
     {
-        $data = Shopping::find($shoppingid);
+        $data = Shopping::find($shoppingId);
         $data = $data->delete();
         Total::json('success');
     }
     public function changeType(Request $request)
     {
-        $shoppingid = $request->input('shoppingid');
+        $shoppingId = $request->input('shoppingId');
         $type = $request->input('type');
         $color = $request->input('color');
         $num = $request->input('num');
-        $data = Shopping::where('shoppingid', '=', $shoppingid)->update(
+        $data = Shopping::where('shoppingId', '=', $shoppingId)->update(
             [
                 'type' => $type,
                 'color' => $color,
-                'Num'=>$num
+                'num'=>$num
             ]
         );
         if ($data) {
@@ -94,23 +94,23 @@ class ShoppingController extends Controller
     }
     public function changeChecked(Request $request)
     {
-        $shoppingid = $request->input('id');
+        $shoppingId = $request->input('id');
         $isChecked = $request->input('checked');
-        $Userid = $request->input('userid');
-        $data = Shopping::where('shoppingid', '=', $shoppingid)->where('isBuy', '=', '0')->where('Userid', '=', $Userid)->update(
+        $userId = $request->input('userId');
+        $data = Shopping::where('shoppingId', '=', $shoppingId)->where('isBuy', '=', '0')->where('userId', '=', $userId)->update(
             [
                 'isChecked' => $isChecked,
             ]
         );
         //是否下面的也是全选
-        $result['data'] = Shopping::where('isChecked', '=', 0)->where('isBuy', '=', '0')->where('Userid', '=', $Userid)->count() === 0;
+        $result['data'] = Shopping::where('isChecked', '=', 0)->where('isBuy', '=', '0')->where('userId', '=', $userId)->count() === 0;
         Total::json($result);
     }
     public function CheckedAll(Request $request)
     {
-        $Userid = $request->input('userid');
+        $userId = $request->input('userId');
         $checkAll = $request->input('checkAll');
-        $data = Shopping::where('Userid', '=', $Userid)->where('isBuy', '=', '0')->update(
+        $data = Shopping::where('userId', '=', $userId)->where('isBuy', '=', '0')->update(
             [
                 'isChecked' => $checkAll,
             ]
@@ -119,28 +119,28 @@ class ShoppingController extends Controller
     }
     public function AddShop(Request $request)
     {
-        $Goodid = $request->input('Goodid');
-        $Userid = $request->input('Userid');
+        $goodId = $request->input('goodId');
+        $userId = $request->input('userId');
         $type = $request->input('type');
         $color = $request->input('color');
-        $Num = $request->input('Num');
+        $num = $request->input('num');
         $isBuy=$request->input('isBuy');
-        $result = Shopping::where('Goodid', '=', $Goodid)->where('Userid', $Userid)->where('isBuy', '=', $isBuy)->first();
+        $result = Shopping::where('goodId', '=', $goodId)->where('userId', $userId)->where('isBuy', '=', $isBuy)->first();
         if ($result) {
-            Shopping::where('Goodid', '=', $Goodid)->where('Userid', $Userid)->update(
+            Shopping::where('goodId', '=', $goodId)->where('userId', $userId)->update(
                 [
                     'type' => $type,
                     'color' => $color,
-                    'Num' => $Num,
+                    'num' => $num,
                 ]
             );
         } else {
             Shopping::insert([
-                'Goodid' => $Goodid,
-                'Userid' => $Userid,
+                'goodId' => $goodId,
+                'userId' => $userId,
                 'type' => $type,
                 'color' => $color,
-                'Num' => $Num,
+                'num' => $num,
                 'isChecked' => $isBuy,
                 'isBuy' => $isBuy,
             ]);

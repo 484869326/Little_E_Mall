@@ -44,10 +44,10 @@ class MenuController extends Controller {
 					}
 				}
 			}],
-			'parentID' => ['required_unless:level,0', function ($attribute, $value, $fail) use ($request, $id) {
+			'parentId' => ['required_unless:level,0', function ($attribute, $value, $fail) use ($request, $id) {
 				if ($request->input('level')) {
 					if (!is_numeric($value)) {
-						$fail('parentID 必须是数字');
+						$fail('parentId 必须是数字');
 					} elseif ($id == $value) {
 						$fail('父亲ID不能和自身相同');
 					}
@@ -67,20 +67,20 @@ class MenuController extends Controller {
 		$icon = $request->input('icon');
 		$level = $request->input('level');
 		$path = $request->input('path');
-		$parentID = $request->input('parentID');
+		$parentId = $request->input('parentId');
 		//分层级再进行验证
 		if ($level === 0) {
-			$parentID = 0;
-		} elseif ($parentID === 0) {
+			$parentId = 0;
+		} elseif ($parentId === 0) {
 			Total::json('上级菜单错误', -1);
 		} else {
-			$hasChildren = Menu::where('parentID', '=', $id)->count();
+			$hasChildren = Menu::where('parentId', '=', $id)->count();
 			if ($hasChildren > 0) {
 				Total::json('父节点有子节点', -1);
 			}
 
-			$hasParentID = Menu::where('id', '=', $parentID)->where('level', '=', '0')->count();
-			if ($hasParentID === 0) {
+			$hasparentId = Menu::where('id', '=', $parentId)->where('level', '=', '0')->count();
+			if ($hasparentId === 0) {
 				Total::json('上级菜单不存在', -1);
 			}
 		}
@@ -90,7 +90,7 @@ class MenuController extends Controller {
 			'icon' => $icon,
 			'path' => $path,
 			'level' => $level,
-			'parentID' => $parentID,
+			'parentId' => $parentId,
 		];
 		$result = Menu::where('id', $id)->update($data);
 		if ($result) {
@@ -109,13 +109,13 @@ class MenuController extends Controller {
 		$icon = $request->input('icon');
 		$path = $request->input('path');
 		$level = $request->input('level');
-		$parentID = $request->input('parentID');
+		$parentId = $request->input('parentId');
 
 		//分层级再进行验证
 		if ($level === 0) {
-			$parentID = 0;
+			$parentId = 0;
 			$path = null;
-		} elseif ($parentID === 0) {
+		} elseif ($parentId === 0) {
 			Total::json('上级菜单错误', -1);
 		} else {
 			$icon = null;
@@ -125,7 +125,7 @@ class MenuController extends Controller {
 			'icon' => $icon,
 			'path' => $path,
 			'level' => $level,
-			'parentID' => $parentID,
+			'parentId' => $parentId,
 		];
 		$result = Menu::insert($data);
 		if ($result) {
@@ -138,8 +138,8 @@ class MenuController extends Controller {
 	public function likeSelect(Request $request) {
 		$menu = Menu::where('level', '=', '0')->get();
 		foreach ($menu as $key => $children) {
-			$parentID = $children["id"];
-			$children["children"] = Menu::where('parentID', '=', $parentID)->get();
+			$parentId = $children["id"];
+			$children["children"] = Menu::where('parentId', '=', $parentId)->get();
 		}
 		$data["data"] = $menu;
 		Total::json($data);

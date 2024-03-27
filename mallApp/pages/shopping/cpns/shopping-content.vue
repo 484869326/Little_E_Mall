@@ -1,6 +1,6 @@
 <template>
   <view class="shopping-content">
-    <template v-for="(item, index) in shoppingList" :key="item.shoppingid">
+    <template v-for="(item, index) in shoppingList" :key="item.shoppingId">
       <view class="shopping-item-box">
         <view
           class="shopping-item"
@@ -20,27 +20,27 @@
             <!-- #ifndef H5  -->
             <image
               class="image"
-              :src="item.good.Goodimg"
+              :src="item.good.goodImg"
               :lazy-load="true"
               mode="widthFix"
             ></image>
             <!-- #endif  -->
             <!-- #ifdef H5  -->
-            <img class="image" v-lazy="item.good.Goodimg" />
+            <img class="image" v-lazy="item.good.goodImg" />
             <!-- #endif -->
           </view>
           <view class="item-info">
-            <view class="item-name">{{ item.good.Goodname }}</view>
+            <view class="item-name">{{ item.good.goodName }}</view>
             <view class="item-type" @click="handkeChangeTypeClick(item, index)"
               >{{
-                item.good.Type[item.type] + " " + item.good.Color[item.color]
+                item.good.type[item.type] + " " + item.good.color[item.color]
               }}
               <uni-icons type="down" size="28rpx" color="#7e7e7e"></uni-icons>
             </view>
             <view class="item-price">
               <text class="text">￥{{ item.good.price[item.type] }}</text>
               <numEdit
-                v-model="item.Num"
+                v-model="item.num"
                 @change="$emit('changeNum', $event, item, index)"
               ></numEdit>
             </view>
@@ -98,8 +98,8 @@ watch(
     shoppingList.push(
       ...data.map((item) => {
         item.good.price = item.good.price.split(",");
-        item.good.Type = item.good.Type.split(",");
-        item.good.Color = item.good.Color.split(",");
+        item.good.type = item.good.type.split(",");
+        item.good.color = item.good.color.split(",");
         return item;
       })
     );
@@ -194,7 +194,7 @@ function handleCasualClick() {
 function handkeChangeTypeClick(item, index) {
   changeIndex.value = index;
   changeItem.value = item;
-  detail.value = { ...item.good, shoppingid: item.shoppingid };
+  detail.value = { ...item.good, shoppingId: item.shoppingId };
   changeType.value = true;
 }
 function handleLoadClick() {

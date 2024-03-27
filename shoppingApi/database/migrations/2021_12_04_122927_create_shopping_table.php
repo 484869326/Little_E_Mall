@@ -12,15 +12,16 @@ class CreateShoppingTable extends Migration {
 	 */
 	public function up() {
 		Schema::create('shopping', function (Blueprint $table) {
-			$table->increments('shoppingid');
-			$table->integer('Goodid')->nullable();
-			$table->integer('Userid')->nullable();
+			$table->increments('shoppingId');
+			$table->integer('goodId')->nullable();
+			$table->integer('userId')->nullable();
 			$table->string('type')->nullable();
 			$table->string('color')->nullable();
-			$table->integer('Num')->nullable();
+			$table->integer('num')->nullable();
 			$table->integer('isChecked')->nullable();
 			$table->string('isBuy')->nullable();
-			$table->timestamps();
+			$table->timestamp('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}
 

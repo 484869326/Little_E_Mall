@@ -3,14 +3,14 @@
     <view class="select">
       <view
         class="option"
-        :class="{ active: gender === '男' }"
-        @click="handleChangeGenderClick('男')"
+        :class="{ active: !gender }"
+        @click="handleChangeGenderClick(0)"
         >男</view
       >
       <view
         class="option"
-        :class="{ active: gender === '女' }"
-        @click="handleChangeGenderClick('女')"
+        :class="{ active: gender }"
+        @click="handleChangeGenderClick(1)"
         >女</view
       >
     </view>

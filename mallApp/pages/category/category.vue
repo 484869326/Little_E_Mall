@@ -3,13 +3,13 @@
     <!-- 左边 -->
     <categoryMenu
       :categories="categoryList"
-      v-model:currentIndex="parentID"
+      v-model:currentIndex="parentId"
     ></categoryMenu>
     <!-- 右边 -->
     <scroll-view class="content-scroll" scroll-y="true" :scroll-top="scrollTop">
       <categoryContent
         :subCategory="subCategory"
-        :parentID="parentID"
+        :parentId="parentId"
       ></categoryContent>
     </scroll-view>
   </view>
@@ -25,15 +25,12 @@ import categoryContent from "./cpns/category-content.vue";
 
 const categoryStore = useCategoryStore();
 const { categoryList, subCategory } = storeToRefs(categoryStore);
-const parentID = ref(0);
+const parentId = ref(0);
 onLoad(async () => {
   await categoryStore.fetchCategoryList();
-  parentID.value = categoryList.value[0].Cid;
+  parentId.value = categoryList.value[0].cid;
 });
 const scrollTop = ref(0);
-watch(parentID, () => {
-  console.log(scrollTop.value);
-});
 </script>
 
 <style lang="scss">

@@ -97,7 +97,7 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     // 数据展示
     Route::prefix('statistics')->group(function () {
         Route::get('categoryGoodsCount', "GoodController@categoryGoodsCount");
-        Route::get('adminSexCount', "AdminController@adminSexCount");
+        Route::get('adminGenderCount', "AdminController@adminGenderCount");
         Route::get('orderCount', "OrderController@orderCount");
         Route::get('monthPriceCount', "OrderController@monthPriceCount");
     });

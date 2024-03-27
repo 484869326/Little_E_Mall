@@ -1,7 +1,7 @@
 import Request1 from "./index.js";
 
-const getGoodDetail = (Goodid) => {
-  return Request1.get("/goodDetail", { Goodid });
+const getGoodDetail = (goodId) => {
+  return Request1.get("/goodDetail", { goodId });
 };
 const addShop = (data) => {
   return Request1.post("/addShop", data);

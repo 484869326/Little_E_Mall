@@ -24,16 +24,16 @@ export const useMyStore = defineStore("my", {
     },
     address() {
       try {
-        const { city, defaultID } = this.userInfo;
-        return city[defaultID];
+        const { city, defaultId } = this.userInfo;
+        return city[defaultId];
       } catch (e) {
         return null;
       }
     },
     addressRegionText() {
       try {
-        const { defaultID, city } = this.userInfo;
-        return city[defaultID].addressRegionText;
+        const { defaultId, city } = this.userInfo;
+        return city[defaultId].addressRegionText;
       } catch (e) {
         return "请你选择地址";
       }

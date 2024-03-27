@@ -14,21 +14,21 @@ class GoodController extends Controller
     //图表展示，分类商品数量
     public function categoryGoodsCount()
     {
-        $counts = Good::select('parentID')
+        $counts = Good::select('parentId')
             ->selectRaw('COUNT(*) as count')
             ->fromSub(function ($query) {
-                $query->select('parentID AS number')
+                $query->select('parentId AS number')
                     ->from('good')
                     ->join('category', 'good.cid', '=', 'category.cid');
             }, 'subquery')
             ->join('category', 'category.cid', '=', 'subquery.number')
             ->groupBy('subquery.number')
             ->get();
-        $categories = Category::where('level', '=', '0')->get(['Cid', 'Cname']);
+        $categories = Category::where('level', '=', '0')->get(['cid', 'cName']);
         foreach ($categories as $category) {
             $category['count'] = 0;
             foreach ($counts as $count) {
-                if ($category['Cid'] === $count['parentID']) {
+                if ($category['cid'] === $count['parentId']) {
                     $category['count'] = $count['count'];
                 }
             }
@@ -36,13 +36,13 @@ class GoodController extends Controller
         $result["data"] = $categories;
         Total::json($result);
     }
-    public function goodDetail(Request $request)
+    public function gooddetail(Request $request)
     {
-        $Goodid=$request->input('Goodid');
-        $data= Good::where('Goodid', '=', $Goodid)->first();
-        $data["Goodimg"] =env('APP_URL') . substr_replace($data["Goodimg"], "", 0, 1);
-        $data["Swiper"] = Total::envImg($data["Swiper"]);
-        $data["Detail"] = Total::envImg($data["Detail"]);
+        $goodId=$request->input('goodId');
+        $data= Good::where('goodId', '=', $goodId)->first();
+        $data["goodImg"] =env('APP_URL') . substr_replace($data["goodImg"], "", 0, 1);
+        $data["swiper"] = Total::envImg($data["swiper"]);
+        $data["detail"] = Total::envImg($data["detail"]);
         $result['data']=$data;
         Total::json($result);
     }
@@ -54,7 +54,7 @@ class GoodController extends Controller
         // 获取总条数
         $result["count"] = Good::count();
         foreach ($result["data"] as $key => $model) {
-            $model["Goodimg"] = env('APP_URL') . substr_replace($model["Goodimg"], "", 0, 1);
+            $model["goodImg"] = env('APP_URL') . substr_replace($model["goodImg"], "", 0, 1);
         }
         Total::json($result);
     }
@@ -62,12 +62,12 @@ class GoodController extends Controller
     public function validateData(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'Goodname'  => ['required', 'regex:/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]{1,15}$/u',
+            'goodName'  => ['required', 'regex:/^[\x{4e00}-\x{9fa5}a-zA-Z0-9]{1,15}$/u',
                 function ($attribute, $value, $fail) use ($request, $id) {
-                    //判断重复goodname
-                    $exists = Good::where('Goodname', $request->input('Goodname'));
+                    //判断重复goodName
+                    $exists = Good::where('goodName', $request->input('goodName'));
                     if ($id !== null) {
-                        $exists->where('Goodid', '!=', $id);
+                        $exists->where('goodId', '!=', $id);
                     }
                     $ifExists = $exists->count();
                     if ($ifExists > 0) {
@@ -75,25 +75,25 @@ class GoodController extends Controller
                     }
                 },
             ],
-            'Cid'       => ['required', 'numeric', Rule::exists('category', 'Cid')->where('level', 2)],
+            'cid'       => ['required', 'numeric', Rule::exists('category', 'cid')->where('level', 2)],
 
-            'Explain'   => ['required', 'regex:/[^,]+/'],
+            'explain'   => ['required', 'regex:/[^,]+/'],
             'advertise' => 'required',
             //数字隔开
             'price'     => ['required', 'regex:/^\d+(?:,\s*\d+)*$/'],
             //中文 ,, 隔开
-            'Color'     => ['required', 'regex:/^[\x{4e00}-\x{9fa5}]{1,10}(?:,\s*[\x{4e00}-\x{9fa5}]{1,10})*$/u'],
+            'color'     => ['required', 'regex:/^[\x{4e00}-\x{9fa5}]{1,10}(?:,\s*[\x{4e00}-\x{9fa5}]{1,10})*$/u'],
             //4+64
-            'Type'      => ['required', 'regex:/^\d+\+\d+(,\d+\+\d+)*$/'],
-            'Goodimg'   => ['required', function ($attribute, $value, $fail) use ($request) {
+            'type'      => ['required', 'regex:/^\d+\+\d+(,\d+\+\d+)*$/'],
+            'goodImg'   => ['required', function ($attribute, $value, $fail) use ($request) {
                 if (!preg_match('/\/+/', $value)) {
                     $fail('路径不符合要求');
                 }
             }],
-            'Swiper'    => ['required', 'array'],
-            'Swiper.*'  => ['required', 'string', 'regex:/^\.?\/[\w\/.-]+\.\w+$/'],
-            'Detail'    => ['required', 'array'],
-            'Detail.*'  => ['required', 'string', 'regex:/^\.?\/[\w\/.-]+\.\w+$/'],
+            'swiper'    => ['required', 'array'],
+            'swiper.*'  => ['required', 'string', 'regex:/^\.?\/[\w\/.-]+\.\w+$/'],
+            'detail'    => ['required', 'array'],
+            'detail.*'  => ['required', 'string', 'regex:/^\.?\/[\w\/.-]+\.\w+$/'],
         ]);
         return $validator;
     }
@@ -104,29 +104,29 @@ class GoodController extends Controller
         if ($validator->fails()) {
             Total::json('校验失败', -1);
         }
-        $Goodname  = $request->input('Goodname');
-        $Cid       = $request->input('Cid');
-        $Explain   = $request->input('Explain');
+        $goodName  = $request->input('goodName');
+        $cid       = $request->input('cid');
+        $explain   = $request->input('explain');
         $advertise = $request->input('advertise');
         $price     = $request->input('price');
-        $Color     = $request->input('Color');
-        $Type      = $request->input('Type');
-        $Goodimg   = $request->input('Goodimg');
-        $Swiper    = $request->input('Swiper');
-        $Detail    = $request->input('Detail');
+        $color     = $request->input('color');
+        $type      = $request->input('type');
+        $goodImg   = $request->input('goodImg');
+        $swiper    = $request->input('swiper');
+        $detail    = $request->input('detail');
         $data      = [
-            'Goodname'  => $Goodname,
-            'Explain'   => $Explain,
-            'Cid'       => $Cid,
+            'goodName'  => $goodName,
+            'explain'   => $explain,
+            'cid'       => $cid,
             'advertise' => $advertise,
             'price'     => $price,
-            'type'      => $Type,
-            'Color'     => $Color,
-            'Goodimg'   => $Goodimg,
-            'Swiper'    => implode(',', $Swiper),
-            'Detail'    => implode(',', $Detail),
+            'type'      => $type,
+            'color'     => $color,
+            'goodImg'   => $goodImg,
+            'swiper'    => implode(',', $swiper),
+            'detail'    => implode(',', $detail),
         ];
-        $result = Good::where('Goodid', $id)->update($data);
+        $result = Good::where('goodId', $id)->update($data);
         if ($result) {
             Total::json('更新成功');
         } else {
@@ -140,28 +140,28 @@ class GoodController extends Controller
         if ($validator->fails()) {
             Total::json('校验失败', -1);
         }
-        $Goodname  = $request->input('Goodname');
-        $CName     = $request->input('CName');
-        $Cid       = $request->input('Cid');
-        $Explain   = $request->input('Explain');
+        $goodName  = $request->input('goodName');
+        $cName     = $request->input('cName');
+        $cid       = $request->input('cid');
+        $explain   = $request->input('explain');
         $advertise = $request->input('advertise');
         $price     = $request->input('price');
-        $Color     = $request->input('Color');
-        $Goodimg   = $request->input("Goodimg");
-        $Type      = $request->input('Type');
-        $Swiper    = $request->input('Swiper');
-        $Detail    = $request->input("Detail");
+        $color     = $request->input('color');
+        $goodImg   = $request->input("goodImg");
+        $type      = $request->input('type');
+        $swiper    = $request->input('swiper');
+        $detail    = $request->input("detail");
         $data      = [
-            'Goodname'  => $Goodname,
-            'Explain'   => $Explain,
-            'Cid'       => $Cid,
+            'goodName'  => $goodName,
+            'explain'   => $explain,
+            'cid'       => $cid,
             'advertise' => $advertise,
             'price'     => $price,
-            'type'      => $Type,
-            'Color'     => $Color,
-            'Goodimg'   => $Goodimg,
-            'Swiper'    => implode(',', $Swiper),
-            'Detail'    => implode(',', $Detail),
+            'type'      => $type,
+            'color'     => $color,
+            'goodImg'   => $goodImg,
+            'swiper'    => implode(',', $swiper),
+            'detail'    => implode(',', $detail),
         ];
         $result = Good::insert($data);
         if ($result) {
@@ -177,28 +177,28 @@ class GoodController extends Controller
         $page        = $request->input('page');
         $limit       = $request->input('limit');
         $offset      = ($page - 1) * $limit;
-        $Goodname    = $request->input('Goodname') ?: "";
-        $Cid         = $request->input('Cid') ?: "";
+        $goodName    = $request->input('goodName') ?: "";
+        $cid         = $request->input('cid') ?: "";
         $price       = $request->input('price') ?: "";
-        $Color       = $request->input('Color') ?: "";
+        $color       = $request->input('color') ?: "";
         $betweenTime = $request->input('betweenTime') ?: "";
-        $good        = Good::where(function ($query) use ($price, $Goodname, $Cid, $offset, $limit, $betweenTime, $Color) {
+        $good        = Good::where(function ($query) use ($price, $goodName, $cid, $offset, $limit, $betweenTime, $color) {
             if (!empty($price)) {
                 $query->where('price', 'like', '%' . $price . '%');
             }
-            if (!empty($Goodname)) {
-                $query->where('Goodname', 'like', '%' . $Goodname . '%');
+            if (!empty($goodName)) {
+                $query->where('goodName', 'like', '%' . $goodName . '%');
             }
-            if (!empty($Cid)) {
-                $query->whereHas('category', function ($query) use ($Cid) {
-                    $query->where('cid', 'like', '%' . $Cid . '%');
+            if (!empty($cid)) {
+                $query->whereHas('category', function ($query) use ($cid) {
+                    $query->where('cid', 'like', '%' . $cid . '%');
                 });
             }
             if (!empty($betweenTime)) {
                 $query->whereBetween('created_at', $betweenTime);
             }
-            if (!empty($Color)) {
-                $query->where('Color', 'like', '%' . $Color . '%');
+            if (!empty($color)) {
+                $query->where('color', 'like', '%' . $color . '%');
             }
         })
             ->with('category')
@@ -210,16 +210,16 @@ class GoodController extends Controller
             ->get();
 
         foreach ($good as $key => $model) {
-            $model["Cname"]   = Category::where('Cid', $model["Cid"])->first()['Cname'];
-            $model["Goodimg"] = env('APP_URL') . substr_replace($model["Goodimg"], "", 0, 1);
-            // $model["Swiper"] = explode(",", $model["Swiper"]);
-            if ($model["Swiper"]) {
-                $model["Swiper"] = Total::envImg($model["Swiper"]);
+            $model["cName"]   = Category::where('cid', $model["cid"])->first()['cName'];
+            $model["goodImg"] = env('APP_URL') . substr_replace($model["goodImg"], "", 0, 1);
+            // $model["swiper"] = explode(",", $model["swiper"]);
+            if ($model["swiper"]) {
+                $model["swiper"] = Total::envImg($model["swiper"]);
             }
-            if ($model["Detail"]) {
-                $model["Detail"] = Total::envImg($model["Detail"]);
+            if ($model["detail"]) {
+                $model["detail"] = Total::envImg($model["detail"]);
             }
-            // $model["Detail"]=explode(",",$model["Detail"]);
+            // $model["detail"]=explode(",",$model["detail"]);
         }
         $data["data"] = $good;
         Total::json($data);
@@ -227,7 +227,7 @@ class GoodController extends Controller
     //删除
     public function Delete($id)
     {
-        $data = Good::where('Goodid', $id)->delete();
+        $data = Good::where('goodId', $id)->delete();
         if ($data) {
             Total::json('删除成功');
         } else {

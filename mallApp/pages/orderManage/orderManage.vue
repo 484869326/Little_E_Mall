@@ -30,15 +30,15 @@
           <template v-for="(sonItem, sonIndex) in item.goods" :key="item">
             <view class="son-good">
               <view class="good-image">
-                <image class="image" :src="sonItem.Goodimg" mode="widthFix"
+                <image class="image" :src="sonItem.goodImg" mode="widthFix"
               /></view>
               <view class="good-name">
                 {{
-                  sonItem.Goodname +
+                  sonItem.goodName +
                   " " +
-                  sonItem.Type.split(",")[item.type[sonIndex]] +
+                  sonItem.type.split(",")[item.type[sonIndex]] +
                   " " +
-                  sonItem.Color.split(",")[item.color[sonIndex]]
+                  sonItem.color.split(",")[item.color[sonIndex]]
                 }}</view
               >
               <view class="good-liquidation">
@@ -46,7 +46,7 @@
                   >￥{{ sonItem.price.split(",")[item.type[sonIndex]] }}</view
                 >
                 <view class="good-num"
-                  >x{{ item.Num.split(",")[sonIndex] }}</view
+                  >x{{ item.num.split(",")[sonIndex] }}</view
                 >
               </view>
             </view>
@@ -54,7 +54,7 @@
         </view>
         <view class="bottom">
           <view class="left">
-            {{ item.OrderDate }}
+            {{ item.createdAt }}
           </view>
           <view class="right">
             共{{ item.totalNum }}件商品 实付金额：<text class="price">
@@ -66,7 +66,7 @@
           <view class="button">查看物流</view>
           <view
             class="button confirm-btn"
-            @click="handleConfirmClick(item.condition, item.orderid, index)"
+            @click="handleConfirmClick(item.condition, item.orderId, index)"
             >确认收货</view
           >
         </view>
@@ -118,12 +118,12 @@ watchEffect(() => {
   goodStore.fetchgetOrderList({
     page: page.value,
     limit: 10,
-    Userid: myStore.userInfo.id,
+    userId: myStore.userInfo.id,
     condition: type.value,
   });
 });
 //确认收货按钮
-function handleConfirmClick(condition, orderid, index) {
+function handleConfirmClick(condition, orderId, index) {
   if (condition === "购买成功") {
     tips("未发货");
     return;
@@ -133,8 +133,8 @@ function handleConfirmClick(condition, orderid, index) {
     success: async function (res) {
       if (res.confirm) {
         await goodStore.fetchReceived({
-          Userid: myStore.userInfo.id,
-          orderid,
+          userId: myStore.userInfo.id,
+          orderId,
         });
         orderList.value.splice(index, 1);
       }

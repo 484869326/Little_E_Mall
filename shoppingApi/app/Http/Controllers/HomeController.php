@@ -15,7 +15,7 @@ class HomeController extends Controller
         }
         $recommend = Category::where('level', '=', '0')->orderByRaw('RAND()')->take(10)->get();
         foreach ($recommend as  $key =>$model) {
-            $model['Cimg']=env('APP_URL') . substr_replace($model["Cimg"], "", 0, 1);
+            $model['cImg']=env('APP_URL') . substr_replace($model["cImg"], "", 0, 1);
         }
         $data['recommend'] =$recommend;
         $data['banner']=$banner;

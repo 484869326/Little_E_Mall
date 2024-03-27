@@ -24,7 +24,7 @@ const goodIdArr =
   uni.getStorageSync("GOOD_ID").length === 0
     ? []
     : uni.getStorageSync("GOOD_ID").split(",");
-const goodid = ref(0);
+const goodId = ref(0);
 defineEmits(["add"]);
 const iconArr = reactive([
   {
@@ -39,12 +39,12 @@ const iconArr = reactive([
     text: "收藏",
     click: () => {
       //后端暂时没开发收藏功能，先用本地存储代替
-      if (goodIdArr.includes(goodid.value)) {
-        goodIdArr.splice(goodIdArr.indexOf(goodid.value), 1);
+      if (goodIdArr.includes(goodId.value)) {
+        goodIdArr.splice(goodIdArr.indexOf(goodId.value), 1);
         uni.setStorageSync("GOOD_ID", goodIdArr.join(","));
         iconArr[1].type = "star";
       } else {
-        goodIdArr.push(goodid.value);
+        goodIdArr.push(goodId.value);
         uni.setStorageSync("GOOD_ID", goodIdArr.join(","));
         iconArr[1].type = "star-filled";
       }
@@ -61,8 +61,8 @@ const iconArr = reactive([
   },
 ]);
 onLoad((option) => {
-  goodid.value = option.goodid;
-  if (goodIdArr.includes(option.goodid)) {
+  goodId.value = option.goodId;
+  if (goodIdArr.includes(option.goodId)) {
     iconArr[1].type = "star-filled";
   }
 });

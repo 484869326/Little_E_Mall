@@ -12,19 +12,19 @@ class CreateGoodTable extends Migration {
 	 */
 	public function up() {
 		Schema::create('good', function (Blueprint $table) {
-			$table->increments('Goodid');
-			$table->string('Goodname');
-			$table->integer('Cid')->nullable();
-			$table->string('Explain')->nullable();
+			$table->increments('goodId');
+			$table->string('goodName');
+			$table->integer('cid')->nullable();
+			$table->string('explain')->nullable();
 			$table->string('advertise')->nullable();
 			$table->string('price')->nullable();
-			$table->string('Color')->nullable();
-			$table->string('Goodimg')->nullable();
-			$table->string('Type')->nullable();
-			$table->string('Swiper')->nullable();
-			$table->string('Detail')->nullable();
-			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->string('color')->nullable();
+			$table->string('goodImg')->nullable();
+			$table->string('type')->nullable();
+			$table->string('swiper')->nullable();
+			$table->string('detail')->nullable();
+			$table->timestamp('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}
 

@@ -12,20 +12,19 @@ class CreateOrderTable extends Migration {
 	 */
 	public function up() {
 		Schema::create('order', function (Blueprint $table) {
-			$table->increments('orderid');
-			$table->integer('Userid')->nullable();
-			$table->string('Goodid')->nullable();
-			$table->string('Num')->nullable();
+			$table->increments('orderId');
+			$table->integer('userId')->nullable();
+			$table->string('goodId')->nullable();
+			$table->string('num')->nullable();
             $table->string('type')->nullable();
             $table->string('color')->nullable();
 			$table->string('totalPrice')->nullable();
-			$table->dateTime('OrderDate')->nullable();
-			$table->string('Name')->nullable();
-			$table->string('Address')->nullable();
-			$table->string('Phone')->nullable();
+			$table->string('name')->nullable();
+			$table->string('address')->nullable();
+			$table->string('phone')->nullable();
 			$table->string('condition')->nullable();
-			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+			$table->timestamp('updatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}
 

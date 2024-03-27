@@ -2,17 +2,17 @@
   <view class="order">
     <orderAddress></orderAddress>
     <view class="order-good">
-      <template v-for="(item, index) in goodList" :key="item.Goodid">
+      <template v-for="(item, index) in goodList" :key="item.goodId">
         <view class="order-good-info">
           <view class="good-image">
-            <img v-lazy="item.Goodimg" class="image" />
+            <img v-lazy="item.goodImg" class="image" />
           </view>
           <view class="good-info">
-            <view>{{ item.Goodname + " " + item.Type[item.type] }}</view>
-            <view class="color">{{ item.Color[item.color] }}</view>
+            <view>{{ item.goodName + " " + item.goodType[item.type] }}</view>
+            <view class="color">{{ item.goodColor[item.color] }}</view>
             <view class="price-num">
               <text class="price">￥{{ item.price[item.type] }}</text>
-              <text class="num">x {{ item.Num }}</text>
+              <text class="num">x {{ item.num }}</text>
             </view>
           </view>
         </view>
@@ -83,21 +83,21 @@ const myStore = useMyStore();
 const { goodList } = storeToRefs(goodStore);
 
 const data = {
-  Goodid: 0,
+  goodId: 0,
   isBuy: 0,
 };
 onLoad((option) => {
   goodList.value = [];
-  let { Goodid, isBuy } = option;
-  Object.assign(data, { Goodid, isBuy: isBuy === "true" });
-  if (data.isBuy && !Goodid) {
+  let { goodId, isBuy } = option;
+  Object.assign(data, { goodId, isBuy: isBuy === "true" });
+  if (data.isBuy && !goodId) {
     uni.switchTab({
       url: "/pages/home/home",
     });
   }
   watchEffect(() => {
     if (!myStore.isLogin) return;
-    goodStore.fetchGoodList({ ...data, Userid: myStore.userInfo.id });
+    goodStore.fetchGoodList({ ...data, userId: myStore.userInfo.id });
   });
 });
 
@@ -117,16 +117,16 @@ function getNextDay() {
 }
 
 async function hanleGoPayClick() {
-  const { id, city, defaultID } = myStore.userInfo;
-  const address = city[defaultID];
+  const { id, city, defaultId } = myStore.userInfo;
+  const address = city[defaultId];
   const res = await goodStore.fetchBuy({
     ...goodStore.dataId,
-    Userid: id,
+    userId: id,
     totalPrice: goodStore.totalPrice,
-    Name: address.addressName,
-    Address:
+    name: address.addressName,
+    address:
       address.addressRegionText.replace(/\//g, "") + address.addressDetail,
-    Phone: address.addressPhone,
+    phone: address.addressPhone,
   });
   if (res === "success") {
     tips("购买成功");

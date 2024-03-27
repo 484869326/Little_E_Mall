@@ -15,17 +15,17 @@ class CategoryController extends Controller {
 		$category = Category::where('level', '=', '0')->get();
 		$children = Category::where('level', '=', '1')->get();
 		foreach ($children as $key => $data) {
-			$parentID = $data["Cid"];
-			$data["children"] = Category::where('parentID', '=', $parentID)->get();
+			$parentId = $data["cid"];
+			$data["children"] = Category::where('parentId', '=', $parentId)->get();
 			foreach ($data["children"] as $Index => $datas) {
-				$datas["Cimg"] = env('APP_URL') . substr_replace($datas["Cimg"], "", 0, 1);
+				$datas["cImg"] = env('APP_URL') . substr_replace($datas["cImg"], "", 0, 1);
 			}
 		}
 		foreach ($category as $key => $data) {
-			$parentID = $data["Cid"];
+			$parentId = $data["cid"];
 			$newArr = [];
 			foreach ($children as $index => $data1) {
-				if ($parentID == $data1["parentID"]) {
+				if ($parentId == $data1["parentId"]) {
 					array_push($newArr, $data1);
 				}
 				$data["children"] = $newArr;
@@ -35,35 +35,35 @@ class CategoryController extends Controller {
 		Total::json($result);
 	}
 	public function selectCategory($level) {
-		$category["data"] = Category::where('level', $level)->get(['Cid', 'Cname']);
+		$category["data"] = Category::where('level', $level)->get(['cid', 'cName']);
 		Total::json($category);
 	}
 	// public function getSelf(Request $request) {
 	// 	$id = $request->input('dataId');
-	// 	$data = Category::where('Cid', $id)->first();
+	// 	$data = Category::where('cid', $id)->first();
 	// 	if ($data["parentimg"] != "") {
 	// 		$data["parentimg"] = env('APP_URL') . substr_replace($data["parentimg"], "", 0, 1);
 	// 	}
-	// 	if ($data["Cimg"] != "") {
-	// 		$data["Cimg"] = env('APP_URL') . substr_replace($data["Cimg"], "", 0, 1);
+	// 	if ($data["cImg"] != "") {
+	// 		$data["cImg"] = env('APP_URL') . substr_replace($data["cImg"], "", 0, 1);
 	// 	}
 	// 	echo json_encode($data, JSON_UNESCAPED_UNICODE);
 	// }
 	//验证规则
 	public function validateData($request, $id) {
 		$validator = Validator::make($request->all(), [
-			'Cname' => ['required', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{1,10}$/u'],
+			'cName' => ['required', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{1,10}$/u'],
 			'level' => 'required|numeric|in:0,1,2',
-			'parentID' => ['required_unless:level,0', function ($attribute, $value, $fail) use ($request, $id) {
+			'parentId' => ['required_unless:level,0', function ($attribute, $value, $fail) use ($request, $id) {
 				if ($request->input('level')) {
 					if (!is_numeric($value)) {
-						$fail('parentID 必须是数字');
+						$fail('parentId 必须是数字');
 					} elseif ($id == $value) {
 						$fail('父亲ID不能和自身相同');
 					}
 				}
 			}],
-			'Cimg' => ['required_unless:level,1', function ($attribute, $value, $fail) use ($request) {
+			'cImg' => ['required_unless:level,1', function ($attribute, $value, $fail) use ($request) {
 				if ($request->input('level') != 1) {
 					if (!preg_match('/\/+/', $value)) {
 						$fail('路径不符合要求');
@@ -78,37 +78,37 @@ class CategoryController extends Controller {
 		if ($validator->fails()) {
 			Total::json('校验失败', -1);
 		}
-		$Cname = $request->input('Cname');
-		$parentID = $request->input('parentID');
+		$cName = $request->input('cName');
+		$parentId = $request->input('parentId');
 		$level = $request->input('level');
-		$Cimg = $request->input('Cimg');
+		$cImg = $request->input('cImg');
 		//分层级再进行验证
 		if ($level === 0) {
-			$parentID = 0;
-		} elseif ($parentID === 0) {
+			$parentId = 0;
+		} elseif ($parentId === 0) {
 			Total::json('上级菜单错误', -1);
 		} else {
-			$hasParentID = Category::where('Cid', '=', $parentID)->where('level', '=', $level - 1)->count();
-			if ($hasParentID === 0) {
+			$hasparentId = Category::where('cid', '=', $parentId)->where('level', '=', $level - 1)->count();
+			if ($hasparentId === 0) {
 				Total::json('上级菜单不存在', -1);
 			}
 			//判断是不是 有孙子节点
-			$children = Category::where('parentID', '=', $id)->get();
+			$children = Category::where('parentId', '=', $id)->get();
 			foreach ($children as $key => $value) {
-				$parentIDS = $value['Cid'];
-				$grandson = Category::where('parentID', '=', $parentIDS)->get();
+				$parentIdS = $value['cid'];
+				$grandson = Category::where('parentId', '=', $parentIdS)->get();
 				if (count($grandson) != 0) {
 					Total::json('父节点有孙子节点', -1);
 					break;
 				}
 			}
 		}
-		$result = Category::where('Cid', '=', $id)->update(
+		$result = Category::where('cid', '=', $id)->update(
 			[
-				'Cname' => $Cname,
-				'parentID' => $parentID,
+				'cName' => $cName,
+				'parentId' => $parentId,
 				'level' => $level,
-				'Cimg' => $Cimg,
+				'cImg' => $cImg,
 			]
 		);
 		if ($result) {
@@ -122,27 +122,27 @@ class CategoryController extends Controller {
 		if ($validator->fails()) {
 			Total::json('校验失败', -1);
 		}
-		$Cname = $request->input('Cname');
-		$parentID = $request->input('parentID');
+		$cName = $request->input('cName');
+		$parentId = $request->input('parentId');
 		$level = $request->input('level');
-		$Cimg = $request->input('Cimg');
+		$cImg = $request->input('cImg');
 		//分层级再进行验证
 		if ($level === 0) {
-			$parentID = 0;
-		} elseif ($parentID === 0) {
+			$parentId = 0;
+		} elseif ($parentId === 0) {
 			Total::json('上级菜单错误', -1);
 		} else {
-			$hasParentID = Category::where('Cid', '=', $parentID)->where('level', '=', $level - 1)->count();
-			if ($hasParentID === 0) {
+			$hasparentId = Category::where('cid', '=', $parentId)->where('level', '=', $level - 1)->count();
+			if ($hasparentId === 0) {
 				Total::json('上级菜单不存在', -1);
 			}
 		}
 		$result = Category::insert(
 			[
-				'Cname' => $Cname,
-				'parentID' => $parentID,
+				'cName' => $cName,
+				'parentId' => $parentId,
 				'level' => $level,
-				'Cimg' => $Cimg,
+				'cImg' => $cImg,
 			]
 		);
 		if ($result) {
@@ -155,14 +155,14 @@ class CategoryController extends Controller {
 	public function likeSelect(Request $request) {
 		$category = Category::where('level', '=', '0')->get();
 		foreach ($category as $key1 => $children) {
-			$parentID = $children["Cid"];
-			$children["Cimg"] = env('APP_URL') . substr_replace($children["Cimg"], "", 0, 1);
-			$children["children"] = Category::where('parentID', '=', $parentID)->get();
+			$parentId = $children["cid"];
+			$children["cImg"] = env('APP_URL') . substr_replace($children["cImg"], "", 0, 1);
+			$children["children"] = Category::where('parentId', '=', $parentId)->get();
 			foreach ($children["children"] as $key2 => $value) {
-				$parentID = $value['Cid'];
-				$value['children'] = Category::where('parentID', '=', $parentID)->get();
+				$parentId = $value['cid'];
+				$value['children'] = Category::where('parentId', '=', $parentId)->get();
 				foreach ($value['children'] as $key3 => $value2) {
-					$value2["Cimg"] = env('APP_URL') . substr_replace($value2["Cimg"], "", 0, 1);
+					$value2["cImg"] = env('APP_URL') . substr_replace($value2["cImg"], "", 0, 1);
 				}
 			}
 		}
@@ -170,7 +170,7 @@ class CategoryController extends Controller {
 		Total::json($data);
 	}
 	public function Delete($id) {
-		$data = Category::where('Cid', $id)->delete();
+		$data = Category::where('cid', $id)->delete();
 		if ($data) {
 			Total::json('删除成功');
 		} else {

@@ -10,10 +10,10 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller {
 	//图表展示：管理员性别
-	public function adminSexCount() {
-		$counts = Admin::select('sex')
+	public function adminGenderCount() {
+		$counts = Admin::select('gender')
 			->selectRaw('COUNT(*) as count')
-			->groupBy('sex')
+			->groupBy('gender')
 			->get();
 		$result["data"] = $counts;
 		Total::json($result);
@@ -42,12 +42,12 @@ class AdminController extends Controller {
 		$validator = Validator::make($request->all(), [
 			// adminName,adminPwd 5-10个数字或者英文
 			'adminName' => ['required', 'regex:/^[a-zA-Z0-9]{5,10}$/'],
-			'Sex' => ['required', Rule::in(['男', '女'])],
-			'Email' => ['required', 'regex:/^\S+@\S+\.\S+$/i'],
-			'Address' => 'required',
+			'gender' => ['required', Rule::in([0, 1])],
+			'email' => ['required', 'regex:/^\S+@\S+\.\S+$/i'],
+			'address' => 'required',
 			'adminPwd' => ['required', 'regex:/^[a-zA-Z0-9]{5,10}$/'],
-			'Tel' => ['required', 'regex:/^1[0-9]{10}$/'],
-			'Status' => [
+			'tel' => ['required', 'regex:/^1[0-9]{10}$/'],
+			'status' => [
 				'required',
 				'numeric',
 				Rule::in(['0', '1']),
@@ -62,19 +62,19 @@ class AdminController extends Controller {
 			Total::json('校验失败', -1);
 		}
 		$adminName = $request->input('adminName');
-		$Sex = $request->input('Sex');
-		$Email = $request->input('Email');
-		$Address = $request->input('Address');
-		$Tel = $request->input('Tel');
-		$Status = $request->input('Status');
+		$gender = $request->input('gender');
+		$email = $request->input('email');
+		$address = $request->input('address');
+		$tel = $request->input('tel');
+		$status = $request->input('status');
 		$data = Admin::where('id', '=', $id)->update(
 			[
 				'adminName' => $adminName,
-				'Sex' => $Sex,
-				'Email' => $Email,
-				'Address' => $Address,
-				'Tel' => $Tel,
-				'Status' => $Status,
+				'gender' => $gender,
+				'email' => $email,
+				'address' => $address,
+				'tel' => $tel,
+				'status' => $status,
 			]
 		);
 		if ($data) {
@@ -90,21 +90,21 @@ class AdminController extends Controller {
 			Total::json('校验失败', -1);
 		}
 		$adminName = $request->input('adminName');
-		$Sex = $request->input('Sex');
-		$Email = $request->input('Email');
-		$Address = $request->input('Address');
+		$gender = $request->input('gender');
+		$email = $request->input('email');
+		$address = $request->input('address');
 		$adminPwd = $request->input('adminPwd');
-		$Tel = $request->input('Tel');
-		$Status = $request->input('Status');
+		$tel = $request->input('tel');
+		$status = $request->input('status');
 		$data = Admin::insert(
 			[
 				'adminName' => $adminName,
-				'Sex' => $Sex,
-				'Email' => $Email,
-				'Address' => $Address,
+				'gender' => $gender,
+				'email' => $email,
+				'address' => $address,
 				'adminPwd' => $adminPwd,
-				'Tel' => $Tel,
-				'Status' => $Status,
+				'tel' => $tel,
+				'status' => $status,
 			]
 		);
 		if ($data) {
@@ -119,26 +119,26 @@ class AdminController extends Controller {
 		$limit = $request->input('limit');
 		$offset = ($page - 1) * $limit;
 		$adminName = $request->input('adminName') ?: "";
-		$Sex = $request->input('sex') ?: "";
-		$Email = $request->input('email') ?: "";
-		$Address = $request->input('address') ?: "";
-		$Tel = $request->input('telephone') ?: "";
+		$gender = $request->input('gender') ?: "";
+		$email = $request->input('email') ?: "";
+		$address = $request->input('address') ?: "";
+		$tel = $request->input('telephone') ?: "";
 		$betweenTime = $request->input('betweenTime') ?: "";
-		$result["data"] = Admin::where(function ($query) use ($adminName, $Sex, $Email, $Address, $Tel, $betweenTime) {
+		$result["data"] = Admin::where(function ($query) use ($adminName, $gender, $email, $address, $tel, $betweenTime) {
 			if (!empty($adminName)) {
 				$query->where('adminName', 'like', '%' . $adminName . '%');
 			}
-			if (!empty($Sex)) {
-				$query->where('Sex', 'like', '%' . $Sex . '%');
+			if (!empty($gender)) {
+				$query->where('gender', 'like', '%' . $gender . '%');
 			}
-			if (!empty($Email)) {
-				$query->where('Email', 'like', '%' . $Email . '%');
+			if (!empty($email)) {
+				$query->where('email', 'like', '%' . $email . '%');
 			}
-			if (!empty($Address)) {
-				$query->where('Address', 'like', '%' . $Address . '%');
+			if (!empty($address)) {
+				$query->where('address', 'like', '%' . $address . '%');
 			}
-			if (!empty($Tel)) {
-				$query->where('Tel', 'like', '%' . $Tel . '%');
+			if (!empty($tel)) {
+				$query->where('tel', 'like', '%' . $tel . '%');
 			}
 			if (!empty($betweenTime)) {
 				$query->whereBetween('created_at', $betweenTime);

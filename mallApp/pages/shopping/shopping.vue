@@ -87,13 +87,13 @@ onHide(() => {
 });
 //选中单个
 function handleChangeCheckedClick(item) {
-  const id = item.shoppingid;
+  const id = item.shoppingId;
   const checked = item.isChecked;
   const price = parseFloat(item.good.price[item.type]).toFixed(2);
   const totalCheckValue = totalCheck.value;
   totalCheckPrice.value = checked
-    ? totalCheckPrice.value + price * item.Num
-    : totalCheckPrice.value - price * item.Num;
+    ? totalCheckPrice.value + price * item.num
+    : totalCheckPrice.value - price * item.num;
   totalCheck.value = checked ? totalCheckValue + 1 : totalCheckValue - 1;
   isAllChecked.value = 2;
   debounceFn("fetchChangeChecked", id, checked, userInfo.value.id).then(
@@ -104,13 +104,13 @@ function handleChangeCheckedClick(item) {
 }
 //改变数量
 function handleChangeNumClick(event, item, index) {
-  const id = item.shoppingid;
-  const num = item.Num;
-  const oldNum = localShoppingList[index].Num;
+  const id = item.shoppingId;
+  const num = item.num;
+  const oldNum = localShoppingList[index].num;
   const price = parseFloat(item.good.price[item.type]).toFixed(2);
   if (item.isChecked) {
     totalCheckPrice.value = totalCheckPrice.value + price * (num - oldNum);
-    localShoppingList[index].Num = num;
+    localShoppingList[index].num = num;
   }
   totalPrice.value = totalPrice.value + price * event;
   debounceFn("fetchChangeShoppingNum", id, num);
@@ -122,8 +122,8 @@ function handleCheckAllClick(checkAll) {
 }
 //删除
 function handleDeleteClick(item) {
-  const id = item.shoppingid;
-  const price = parseFloat(item.good.price[item.type]).toFixed(2) * item.Num;
+  const id = item.shoppingId;
+  const price = parseFloat(item.good.price[item.type]).toFixed(2) * item.num;
   total.value = total.value - 1;
   totalCheck.value = totalCheck.value - 1;
   totalPrice.value = totalPrice.value - price;

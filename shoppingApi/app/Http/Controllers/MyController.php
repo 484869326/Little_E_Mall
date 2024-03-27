@@ -96,7 +96,7 @@ class MyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nickName'  => ['nullable', 'regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{4,10}$/u'],
-            'gender'    => ['nullable', Rule::in(['男', '女'])],
+            'gender'    => ['nullable', Rule::in([0, 1])],
             'avatarUrl' => ['nullable', function ($attribute, $value, $fail) {
                 if ($value) {
                     if (!preg_match('/\/+/', $value)) {
@@ -106,10 +106,10 @@ class MyController extends Controller
             }],
             'city'      => 'nullable',
             'phone'     => ['required', 'regex:/^1[0-9]{10}$/'],
-            'Status'    => [
+            'status'    => [
                 'nullable',
                 'numeric',
-                Rule::in(['0', '1']),
+                Rule::in([0, 1]),
             ],
         ]);
         return $validator;
@@ -125,10 +125,10 @@ class MyController extends Controller
         $gender    = $request->input('gender');
         $avatarUrl = $request->input('avatarUrl');
         $city      = $request->input('city');
-        $defaultID = $request->input('defaultID');
+        $defaultId = $request->input('defaultId');
         $phone     = $request->input('phone');
-        $Status    = $request->input('Status');
-        $data = My::find($id);
+        $status    = $request->input('status');
+        $data = My::where('id', '=', $id);
         //暂时偷懒 为了只传文件后台系统后面在看要不要传
         if ($request->filled('isField')) {
             $data->update(['avatarUrl' => $avatarUrl]);
@@ -138,9 +138,9 @@ class MyController extends Controller
                     'nickName'  => $nickName,
                     'gender'    => $gender,
                     'city'      => $city,
-                    'defaultID' => $defaultID,
+                    'defaultId' => $defaultId,
                     'phone'     => $phone,
-                    'Status'    => $Status,
+                    'status'    => $status,
                 ]
             );
         }
@@ -162,7 +162,7 @@ class MyController extends Controller
         $avatarUrl = $request->input('avatarUrl');
         $city      = $request->input('city');
         $phone     = $request->input('phone');
-        $Status    = $request->input('Status');
+        $status    = $request->input('status');
         $data      = My::insert(
             [
                 'signature' => $signature,
@@ -171,7 +171,7 @@ class MyController extends Controller
                 'avatarUrl' => $avatarUrl,
                 'city'      => $city,
                 'phone'     => $phone,
-                'Status'    => $Status,
+                'status'    => $status,
             ]
         );
         if ($data) {
@@ -205,7 +205,7 @@ class MyController extends Controller
                 $query->where('phone', 'like', '%' . $phone . '%');
             }
             if (!empty($betweenTime)) {
-                $query->whereBetween('created_at', $betweenTime);
+                $query->whereBetween('createdAt', $betweenTime);
             }
         })->tap(function ($query) use (&$data) {
             $data["count"] = $query->count();

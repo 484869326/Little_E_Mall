@@ -3,21 +3,21 @@
     <view
       class="recommend-item"
       v-for="item in recommends"
-      :key="item.Cid"
-      @click="handleClick(item.Cname)"
+      :key="item.cid"
+      @click="handleClick(item.cName)"
     >
       <!-- #ifndef H5 -->
       <image
-        :src="item.Cimg"
+        :src="item.cImg"
         mode="widthFix"
         class="image"
         :lazy-load="true"
       ></image>
       <!-- #endif -->
       <!-- #ifdef H5 -->
-      <img v-lazy="item.Cimg" class="image" />
+      <img v-lazy="item.cImg" class="image" />
       <!-- #endif -->
-      <text class="text">{{ item.Cname }}</text>
+      <text class="text">{{ item.cName }}</text>
     </view>
   </view>
 </template>

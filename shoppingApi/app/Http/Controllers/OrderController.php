@@ -19,7 +19,7 @@ class OrderController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $startOfMonth = $currentYear . '-' . str_pad($i, 2, '0', STR_PAD_LEFT) . '-01';
             $endOfMonth   = date('Y-m-t', strtotime($startOfMonth));
-            $price        = Order::whereBetween('orderDate', [$startOfMonth, $endOfMonth])->sum('totalPrice');
+            $price        = Order::whereBetween('createdAt', [$startOfMonth, $endOfMonth])->sum('totalPrice');
             $data[]       = [
                 "month" => $i . '月',
                 "price" => $price,
@@ -38,7 +38,7 @@ class OrderController extends Controller
             $date[$i] = date("Y-m-d", strtotime('+' . ($i - 7) . ' days', $time));
         }
         for ($i = 1; $i <= 7; $i++) {
-            $count  = Order::where('OrderDate', 'like', '%' . $date[$i] . '%')->count();
+            $count  = Order::where('createdAt', 'like', '%' . $date[$i] . '%')->count();
             $data[] = [
                 "date"  => $date[$i],
                 "count" => $count,
@@ -49,30 +49,30 @@ class OrderController extends Controller
     }
     public function Buy(Request $request)
     {
-        $Userid     = $request->input('Userid');
-        $shoppingid = $request->input('shoppingid');
-        $shoppingid = explode(',', $shoppingid);
-        $Goodid     = $request->input('Goodid');
+        $userId     = $request->input('userId');
+        $shoppingId = $request->input('shoppingId');
+        $newShoppingId = explode(',', $shoppingId);
+        $goodId     = $request->input('goodId');
         $color      = $request->input('color');
         $type       = $request->input('type');
-        $Num        = $request->input('Num');
+        $num        = $request->input('num');
         $totalPrice = $request->input('totalPrice');
-        $Name       = $request->input('Name');
-        $Address    = $request->input('Address');
-        $Phone      = $request->input('Phone');
+        $name       = $request->input('name');
+        $address    = $request->input('address');
+        $phone      = $request->input('phone');
         Order::insert([
-            'Userid' => $Userid, 'Goodid' => $Goodid,'color' => $color,'type' => $type, 'Num' => $Num, 'totalPrice' => $totalPrice, 'OrderDate' => date("Y-m-d  H:i:s a "), 'Name' => $Name, 'Address' => $Address, 'Phone' => $Phone, 'condition' => '购买成功',
+            'userId' => $userId, 'goodId' => $goodId,'color' => $color,'type' => $type, 'num' => $num, 'totalPrice' => $totalPrice, 'createdAt' => date("Y-m-d  H:i:s a "), 'name' => $name, 'address' => $address, 'phone' => $phone, 'condition' => '购买成功',
         ]);
-        foreach ($shoppingid as $key => $data) {
+        foreach ($newShoppingId as $key => $data) {
             Shopping::find($data)->delete();
         }
         Total::json("success");
     }
     public function received(Request $request)
     {
-        $Userid = $request->input('Userid');
-        $orderid = $request->input('orderid');
-        $sql=Order::where('orderid', $orderid)->where('Userid',$Userid);
+        $userId = $request->input('userId');
+        $orderId = $request->input('orderId');
+        $sql=Order::where('orderId', $orderId)->where('userId',$userId);
         $condition=$sql->first()['condition'];
         if($condition==='购买成功'){
             Total::json('fail');
@@ -87,18 +87,25 @@ class OrderController extends Controller
         $page=$request->input('page');
         $limit=$request->input('limit');
         $offset        = ($page - 1) * $limit;
-        $Userid=$request->input('Userid');
+        $userId=$request->input('userId');
         $condition=$request->input('condition');
-        $sql = Order::where('Userid', '=', $Userid);
+        $orderId=$request->input('orderId');
+        $sql = Order::where('userId', '=', $userId);
+        if($orderId){
+            $sql->where('orderId','=',$orderId);
+        }
         if($condition ==='toBeReceived'){
             $sql->where('condition', '=', '购买成功')->orWhere('condition','=','已发货');
         }
-        $data['data']=$sql->offset($offset)->limit($limit)->get();
+        if($offset && $limit){
+            $sql->offset($offset)->limit($limit);
+        }
+        $data['data']=$sql->get();
         foreach ($data["data"] as $order) {
-         $goodIds = explode(',', $order['Goodid']);
-        $order['goods']=Good::whereIn('Goodid', $goodIds)->get();
+         $goodIds = explode(',', $order['goodId']);
+        $order['goods']=Good::whereIn('goodId', $goodIds)->get();
         foreach ($order['goods'] as $Good) {
-            $Good["Goodimg"] = env('APP_URL') . substr_replace($Good["Goodimg"], "", 0, 1);
+            $Good["goodImg"] = env('APP_URL') . substr_replace($Good["goodImg"], "", 0, 1);
         }
         }
         Total::json($data);
@@ -108,19 +115,19 @@ class OrderController extends Controller
         $page          = $request->input('page');
         $limit         = $request->input('limit');
         $offset        = ($page - 1) * $limit;
-        $orderid       = $request->input('orderid') ? $request->input('orderid') : "";
-        $Userid        = $request->input('Userid') ? $request->input('Userid') : "";
-        $Goodid        = $request->input('Goodid') ? $request->input('Goodid') : "";
-        $Name          = $request->input('Name') ? $request->input('Name') : "";
-        $Address       = $request->input('Address') ? $request->input('Address') : "";
+        $orderId       = $request->input('orderId') ? $request->input('orderId') : "";
+        $userId        = $request->input('userId') ? $request->input('userId') : "";
+        $goodId        = $request->input('goodId') ? $request->input('goodId') : "";
+        $name          = $request->input('name') ? $request->input('name') : "";
+        $address       = $request->input('address') ? $request->input('address') : "";
         $phone         = $request->input('phone') ? $request->input('phone') : "";
-        $data["data"]  = Order::where('orderid', 'like', '%' . $orderid . '%')->where('Userid', 'like', '%' . $Userid . '%')->where('Goodid', 'like', '%' . $Goodid . '%')->where('Name', 'like', '%' . $Name . '%')->where('Address', 'like', '%' . $Address . '%')->where('phone', 'like', '%' . $phone . '%')->offset($offset)->limit($limit)->get();
+        $data["data"]  = Order::where('orderId', 'like', '%' . $orderId . '%')->where('userId', 'like', '%' . $userId . '%')->where('goodId', 'like', '%' . $goodId . '%')->where('name', 'like', '%' . $name . '%')->where('address', 'like', '%' . $address . '%')->where('phone', 'like', '%' . $phone . '%')->offset($offset)->limit($limit)->get();
         $data["count"] = Order::count();
         Total::json($data);
     }
     public function Update($id)
     {
-        $data = Order::where('orderid', $id)->update([
+        $data = Order::where('orderId', $id)->update([
             'condition' => '已发货',
         ]);
         if ($data) {
