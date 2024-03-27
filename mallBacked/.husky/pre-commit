@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "类型检查开始";
+echo "-----------";
+npm run type-check
+echo "类型检查结束";
+echo "-----------";
+echo "代码格式检查开始";
+echo "-----------";
+npm run lint
+echo "代码格式检查结束"
+echo "-----------";
