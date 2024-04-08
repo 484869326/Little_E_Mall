@@ -156,7 +156,6 @@ class MyController extends Controller
         if ($validator->fails()) {
             Total::json('校验失败', -1);
         }
-        $signature = $request->input('signature');
         $nickName  = $request->input('nickName');
         $gender    = $request->input('gender');
         $avatarUrl = $request->input('avatarUrl');
@@ -165,7 +164,6 @@ class MyController extends Controller
         $status    = $request->input('status');
         $data      = My::insert(
             [
-                'signature' => $signature,
                 'nickName'  => $nickName,
                 'gender'    => $gender,
                 'avatarUrl' => $avatarUrl,

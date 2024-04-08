@@ -82,7 +82,8 @@ import type { PropType } from "vue";
 import type { IFormItem } from "@/types/baseUI";
 import DiyUpload from "@/base-ui/UpLoadUI.vue";
 import type { FormInstance } from "element-plus";
-// import { useVModel } from '@/hook/useVModel';
+import { useVModel } from '@/hook/useVModel';
+
 const props = defineProps({
   modelValue: {
     type: Object,
@@ -125,16 +126,15 @@ function validateData() {
 const formItemsRef = ref([...props.formItems]);
 //响应式,避免不是单向数据流
 //第一种方法
-const formData = ref({ ...props.modelValue });
-watch(
-  formData,
-  (newValue) => {
-    emit("update:modelValue", newValue);
-  },
-  { deep: true }
-);
-//第二种,computed。第三种 vue use  这种有bug  数组有问题，到时候再来解决
-// const formData = useVModel(props, 'modelValue', emit);
+// const formData = ref({ ...props.modelValue });
+// watch(
+//   formData,
+//   (newValue) => {
+//     emit("update:modelValue", newValue);
+//   },
+//   { deep: true }
+// );
+const formData = useVModel(props, 'modelValue', emit);
 defineExpose({
   validateData
 });
