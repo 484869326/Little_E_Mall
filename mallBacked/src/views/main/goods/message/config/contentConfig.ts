@@ -19,13 +19,13 @@ export const contentTableConfig = {
     { prop: "detail", label: "详细图", minWidth: "100px", slotName: "detail" },
     {
       prop: "createdAt",
-      label: "创建时间",
+      label: "录入时间",
       minWidth: "100px"
       // slotName: 'created_at'
     },
     {
       prop: "updatedAt",
-      label: "更新时间",
+      label: "变更时间",
       minWidth: "100px"
       // slotName: 'updated_at'
     },

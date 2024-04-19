@@ -7,12 +7,12 @@ export const contentTableConfig = {
     { prop: "path", label: "路径", minWidth: "100px" },
     {
       prop: "createdAt",
-      label: "创建时间",
+      label: "提交时间",
       minWidth: "100px"
     },
     {
       prop: "updatedAt",
-      label: "更新时间",
+      label: "变更时间",
       minWidth: "100px"
     },
     {

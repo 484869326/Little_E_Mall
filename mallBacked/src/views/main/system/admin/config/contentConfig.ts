@@ -11,12 +11,12 @@ export const contentTableConfig = {
     { prop: "status", label: "状态", minWidth: "60px", slotName: "status" },
     {
       prop: "createdAt",
-      label: "创建时间",
+      label: "录入时间",
       minWidth: "100px"
     },
     {
       prop: "updatedAt",
-      label: "更新时间",
+      label: "变更时间",
       minWidth: "100px"
     },
     {

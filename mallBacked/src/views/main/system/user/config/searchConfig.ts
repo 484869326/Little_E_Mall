@@ -37,7 +37,7 @@ export const SearchFormConfig: IForm = {
     {
       field: "betweenTime",
       type: "datepicker",
-      label: "时间",
+      label: "入驻时间",
       rules: [],
       dataOptions: {
         type: "daterange",

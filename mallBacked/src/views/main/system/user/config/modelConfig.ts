@@ -42,9 +42,9 @@ export const modelConfig: IForm = {
     {
       field: "city",
       type: "input",
-      label: "城市",
-      rules: [{ required: true, message: "请输入城市", trigger: "blur" }],
-      placeholder: "请输入城市"
+      label: "地址",
+      rules: [{ required: true, message: "请输入地址", trigger: "blur" }],
+      placeholder: "请输入地址"
     },
     {
       field: "phone",

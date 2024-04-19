@@ -6,12 +6,12 @@ export const contentTableConfig = {
     { prop: "cImg", label: "图片", minWidth: "40px", slotName: "cImg" },
     {
       prop: "createdAt",
-      label: "创建时间",
+      label: "录入时间",
       minWidth: "60px"
     },
     {
       prop: "updatedAt",
-      label: "更新时间",
+      label: "变更时间",
       minWidth: "60px"
     },
     {
