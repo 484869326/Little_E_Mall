@@ -12,6 +12,7 @@
  File Encoding         : 65001
 
  Date: 27/03/2024 12:58:41
+ 密码都加密了  默认都是admin(明文)
 */
 
 SET NAMES utf8mb4;
@@ -38,8 +39,8 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'admin1', 0, '1657447830@qq.com', '广东广州', 'admin', '13410001000', 1, '2024-03-27 10:15:16', '2024-03-27 10:53:11');
-INSERT INTO `admin` VALUES (2, 'admin1', 0, '1657447831@qq.com', '广东广州', 'admin1', '13410001001', 1, '2024-03-27 10:15:16', '2024-03-27 10:15:16');
+INSERT INTO `admin` VALUES (1, 'admin1', 0, '1657447830@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001000', 1, '2024-03-27 10:15:16', '2024-03-27 10:53:11');
+INSERT INTO `admin` VALUES (2, 'admin1', 0, '1657447831@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001001', 1, '2024-03-27 10:15:16', '2024-03-27 10:15:16');
 
 -- ----------------------------
 -- Table structure for category
@@ -197,11 +198,11 @@ CREATE TABLE `my`  (
   `nickName` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `gender` int(11) NULL DEFAULT NULL,
   `avatarUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  DEFAULT '',
   `defaultId` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `status` int(11) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL DEFAULT '1',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
@@ -210,7 +211,7 @@ CREATE TABLE `my`  (
 -- ----------------------------
 -- Records of my
 -- ----------------------------
-INSERT INTO `my` VALUES (1, '吴亦凡1221', 0, './image/other/5a283638123dc1f826c6c63da645e179.jpg', '[{\"addressName\":\"吴彦祖\",\"addressPhone\":\"14710001000\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"213\"}]', '0', '13710411285', 'admin', NULL, '2024-03-27 10:15:16', '2024-03-27 11:14:47');
+INSERT INTO `my` VALUES (1, '吴亦凡1221', 0, './image/other/5a283638123dc1f826c6c63da645e179.jpg', '[{\"addressName\":\"吴彦祖\",\"addressPhone\":\"14710001000\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"213\"}]', '0', '13710411285', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2024-03-27 10:15:16', '2024-03-27 11:14:47');
 
 -- ----------------------------
 -- Table structure for order
@@ -236,7 +237,7 @@ CREATE TABLE `order`  (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (2, 1, '1', '1', '0', '0', '3799', '吴彦祖', '天津市天津市河北区213', '14710001000', '确认收货', '2024-03-27 12:09:00', '2024-03-27 12:54:42');
+INSERT INTO `order` VALUES (null, 1, '1', '1', '0', '0', '3799', '吴彦祖', '天津市天津市河北区213', '14710001000', '确认收货', '2024-03-27 12:09:00', '2024-03-27 12:54:42');
 
 -- ----------------------------
 -- Table structure for shopping

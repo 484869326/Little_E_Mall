@@ -146,11 +146,16 @@ class MenuController extends Controller {
 	}
 	//删除
 	public function Delete($id) {
-		$data = Menu::where('id', $id)->delete();
-		if ($data) {
-			Total::json('删除成功');
-		} else {
-			Total::json('删除失败', -1);
-		}
+        $sonMenu=Menu::where('parentId',$id)->first();
+        if($sonMenu){
+            Total::json('无法删除该菜单，因为它具有下级菜单。', -1);
+        }
+        $deletedRows  = Menu::where('id', $id)->delete();
+        if ($deletedRows) {
+        	Total::json('删除成功');
+        } else {
+        	Total::json('删除失败', -1);
+        }
+
 	}
 }

@@ -21,8 +21,8 @@ class AdminController extends Controller {
 	//登录
 	public function login(Request $request) {
 		$adminName = $request->input('username');
-		$adminPwd = $request->input('password');
-		$data = Admin::where('adminName', $adminName)->where('adminPwd', $adminPwd)->first();
+		$adminPwd = hash('sha256', $request->input('password'));
+		$data = Admin::where('adminName', $adminName)->where('adminPwd', $adminPwd)->where('status',1)->first();
 		if (is_null($data)) {
 			Total::json('登录失败', -1);
 		} else {
@@ -38,26 +38,24 @@ class AdminController extends Controller {
 		// Total::json(200, '获取成功', $data, '');
 	}
 	//验证规则
-	public function validateData(Request $request) {
-		$validator = Validator::make($request->all(), [
-			// adminName,adminPwd 5-10个数字或者英文
-			'adminName' => ['required', 'regex:/^[a-zA-Z0-9]{5,10}$/'],
-			'gender' => ['required', Rule::in([0, 1])],
-			'email' => ['required', 'regex:/^\S+@\S+\.\S+$/i'],
-			'address' => 'required',
-			'adminPwd' => ['required', 'regex:/^[a-zA-Z0-9]{5,10}$/'],
-			'tel' => ['required', 'regex:/^1[0-9]{10}$/'],
-			'status' => [
-				'required',
-				'numeric',
-				Rule::in(['0', '1']),
-			],
-		]);
+	public function validateData(Request $request,$isInsert = true) {
+         $rules = [
+                'adminName' => ['required', 'regex:/^[a-zA-Z0-9]{5,10}$/'],
+                'gender' => ['required', Rule::in([0, 1])],
+                'email' => ['required', 'regex:/^\S+@\S+\.\S+$/i'],
+                'address' => 'required',
+                'tel' => ['required', 'regex:/^1[0-9]{10}$/'],
+                'status' => ['required', 'numeric', Rule::in(['0', '1'])],
+            ];
+              if ($isInsert) {
+                    $rules['adminPwd'] = ['required', 'regex:/^[a-zA-Z0-9]{5,10}$/'];
+                }
+    $validator = Validator::make($request->all(), $rules);
 		return $validator;
 	}
 	//更新
 	public function Update($id, Request $request) {
-		$validator = $this->validateData($request);
+		$validator = $this->validateData($request,false);
 		if ($validator->fails()) {
 			Total::json('校验失败', -1);
 		}
@@ -93,7 +91,7 @@ class AdminController extends Controller {
 		$gender = $request->input('gender');
 		$email = $request->input('email');
 		$address = $request->input('address');
-		$adminPwd = $request->input('adminPwd');
+		$adminPwd = hash('sha256',$request->input('adminPwd'));
 		$tel = $request->input('tel');
 		$status = $request->input('status');
 		$data = Admin::insert(

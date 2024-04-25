@@ -59,7 +59,7 @@ class MyController extends Controller
         }
         $data=My::where('phone', '=', $phone)->first();
         if (is_null($data)) {
-            $password=$request->input('password');
+            $password=hash('sha256',$request->input('password'));
             $result= My::insert([
                 'password'      => $password,
                 'phone'     => $phone,
@@ -72,7 +72,7 @@ class MyController extends Controller
     public function Login(Request $request)
     {
         $phone = $request->input('phone');
-        $password=$request->input('password');
+        $password=hash('sha256',$request->input('password'));
         $data = My::where('phone', '=', $phone)->where('password', '=', $password)->first();
         if ($data) {
             Total::json('success');

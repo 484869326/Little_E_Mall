@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Model\Category;
+use App\Model\Good;
 use App\Total;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -73,6 +74,7 @@ class CategoryController extends Controller {
 		]);
 		return $validator;
 	}
+
 	public function Update($id, Request $request) {
 		$validator = $this->validateData($request, $id);
 		if ($validator->fails()) {
@@ -170,6 +172,19 @@ class CategoryController extends Controller {
 		Total::json($data);
 	}
 	public function Delete($id) {
+        $category=Category::where('cid', $id)->first();
+        if($category['level']===2){
+            $good=Good::where('cid',$id)->first();
+            if($good){
+                Total::json('此类别与商品有关联，不允许删除', -1);
+            }
+        }else{
+            $sonCategory=Category::where('parentId',$id)->first();
+            if($sonCategory){
+                 Total::json('无法删除该类别，因为它具有下级类别。', -1);
+            }
+        }
+
 		$data = Category::where('cid', $id)->delete();
 		if ($data) {
 			Total::json('删除成功');
