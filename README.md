@@ -3,7 +3,7 @@
 
 ![PHP 7.4 badge](https://img.shields.io/badge/PHP-7.4-blue)  ![MySQL 5.7.26 badge](https://img.shields.io/badge/MySQL-5.7.26-blue)    ![Laravel 5.7.29 badge](https://img.shields.io/badge/Laravel-5.7.29-red)         ![WeChat Mini Program v3.0.0 badge](https://img.shields.io/badge/WeChat%20Mini%20Program-v3.0.0-brightgreen) ![Vue 3](https://img.shields.io/badge/Vue-3.0.0-brightgreen) ![Element Plus](https://img.shields.io/badge/Element%20Plus-v1.0.0-brightgreen)   ![Vuex](https://img.shields.io/badge/Vuex-v3.6.0-brightgreen)  ![Echarts](https://img.shields.io/badge/Echarts-v5.2.2-brightgreen) ![Webpack](https://img.shields.io/badge/Webpack-v5.50.0-brightgreen)
 
- - [在线访问网站（不兼容电脑端）](http://20.255.60.222:3333/)
+ - [在线访问网站](http://20.255.60.222:3333/)
  
  - 服务器系统Ubuntu。用jenkins使用自动化部署，1g1核服务器很容易崩，望见谅
 
