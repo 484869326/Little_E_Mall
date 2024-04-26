@@ -1,5 +1,4 @@
 import { computed } from "vue";
-//双向绑定，避免不是单向数据流 暂时不适用 还有bug
 export function useVModel(props: any, propName: string, emit: any) {
   const weakMap = new WeakMap();
 

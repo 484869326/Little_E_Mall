@@ -12,8 +12,9 @@ function bubbleCreate() {
     // 设置泡泡的宽高
     bubble.style.width = r + "px";
     bubble.style.height = r + "px";
+    const randomX = Math.random() * innerWidth - 2 * r;
     // b设置泡泡的随机起点
-    bubble.style.left = Math.random() * innerWidth + "px";
+    bubble.style.left = randomX + "px";
     // 为body添加bubble元素
     body.append(bubble);
     // 4s清除一次泡泡
@@ -27,7 +28,6 @@ let setIntervalTime: null | number = null;
 export const bubbleDom: { mount: () => void; unmount: () => void } = {
   //定时生成泡泡
   mount: (seconds: number = 200) => {
-    bubbleCreate();
     setIntervalTime = setInterval(() => {
       bubbleCreate();
     }, seconds);

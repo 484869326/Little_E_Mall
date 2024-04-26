@@ -42,6 +42,5 @@ export const SearchFormConfig: IForm = {
         endPlaceholder: "结束时间"
       }
     }
-  ],
-  labelWidth: "120px"
+  ]
 };

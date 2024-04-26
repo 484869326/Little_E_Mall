@@ -40,10 +40,11 @@ const modelConfigComputed = computed(() => {
     let menuList = mainStore.menuList.map((item) => {
       return { label: item.text, value: item.id };
     });
-    menuItem.options = [{ label: " ", value: 0 }, ...menuList];
+    menuItem.options = [...menuList];
   }
   return modelConfig;
 });
+
 //默认 disabled为false
 const addCallback = () => {
   const levelItem: any = modelConfig.formItems.find((item: any) => {
@@ -63,6 +64,9 @@ const editCallback = () => {
   });
   //默认设置为false
   levelItem.disabled = false;
+  (defaultInfo.value as any)["parentId"] === 0
+    ? ((defaultInfo.value as any)["parentId"] = "")
+    : void 0;
   //获取 传过来的编辑数据
   const formData: any = defaultInfo.value;
   const level = formData["level"];

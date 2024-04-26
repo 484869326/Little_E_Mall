@@ -101,7 +101,6 @@ export const modelConfig: IForm = {
       rules: []
     }
   ],
-  labelWidth: "100px",
   colLayout: {
     span: 24
   },

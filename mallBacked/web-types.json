@@ -10,7 +10,7 @@
         {
           "name": "v-code",
           "description": "代码高亮显示,目前该系统只导入bash,其他支持的语言详细观看此文档:https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md"
-      }
+        }
       ]
     }
   }

@@ -50,7 +50,7 @@ export const SearchFormConfig: IForm = {
     {
       field: "betweenTime",
       type: "datepicker",
-      label: "录入时间",
+      label: "时间",
       rules: [],
       dataOptions: {
         type: "daterange",
@@ -58,6 +58,5 @@ export const SearchFormConfig: IForm = {
         endPlaceholder: "结束时间"
       }
     }
-  ],
-  labelWidth: "120px"
+  ]
 };

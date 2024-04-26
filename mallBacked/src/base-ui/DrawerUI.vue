@@ -43,6 +43,15 @@ const visible = defineModel("visible", { default: false });
         cursor: pointer;
       }
     }
+    @include responseTo("notebook") {
+      width: 50% !important;
+    }
+    @include responseTo("pad") {
+      width: 60% !important;
+    }
+    @include responseTo("phone") {
+      width: 80% !important;
+    }
   }
 }
 </style>

@@ -7,8 +7,8 @@
     </DiyCard>
     <DiyCard title="技术栈">
       <DiyLink :textArrays="textArrays"></DiyLink>
-      <DiyDesc title="生产环境依赖" :column="2" :table-data="dependencies"></DiyDesc>
-      <DiyDesc title="开发环境依赖" :column="2" :table-data="devDependencies"></DiyDesc>
+      <DiyDesc title="生产环境依赖" :column="column" :table-data="dependencies"></DiyDesc>
+      <DiyDesc title="开发环境依赖" :column="column" :table-data="devDependencies"></DiyDesc>
     </DiyCard>
     <DiyCard title="项目结构">
       <div v-code:[`bash`]="projectTree" class="v-code"></div>
@@ -35,12 +35,20 @@ import {
   component,
   git
 } from "./config";
+import { useMediaStore } from "@/store/media";
+import { storeToRefs } from "pinia";
+
+const mediaStore = useMediaStore();
+const { column } = storeToRefs(mediaStore);
 </script>
 
 <style scoped lang="scss">
 .technology-view {
   .el-card {
     margin-bottom: 25px;
+  }
+  .c-left {
+    line-height: 24px;
   }
 }
 </style>

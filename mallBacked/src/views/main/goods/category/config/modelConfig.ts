@@ -1,8 +1,9 @@
 import type { IForm } from "@/types/baseUI";
 import { getPageListData } from "@/service/main";
 import { validateSelect } from "@/utils/dataFormat";
+import { reactive } from "vue";
 
-export const modelConfig: IForm = {
+export const modelConfig: IForm = reactive({
   formItems: [
     {
       field: "cName",
@@ -58,11 +59,9 @@ export const modelConfig: IForm = {
           categoryParentItem.isHidden = false;
         }
         const { data } = await getPageListData(`/good/selectCategory/${value - 1}`, {});
-        categoryParentItem.options = [{ label: " ", value: 0 }].concat(
-          data.map((item: any) => {
-            return { label: item.cName, value: item.cid };
-          })
-        );
+        categoryParentItem.options = data.map((item: any) => {
+          return { label: item.cName, value: item.cid };
+        });
       }
     },
     {
@@ -84,11 +83,10 @@ export const modelConfig: IForm = {
       listType: "text"
     }
   ],
-  labelWidth: "100px",
   colLayout: {
     span: 24
   },
   itemStyle: {
     padding: "5px"
   }
-};
+});

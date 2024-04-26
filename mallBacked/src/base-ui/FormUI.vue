@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <ElForm :label-width="labelWidth" :model="formData" ref="ruleFormRef">
+    <ElForm :label-width="labelWidth" :model="formData" ref="ruleFormRef" :size="'default'">
       <ElRow>
         <template v-for="item in formItemsRef" :key="item.label">
           <ElCol v-bind="colLayout">
@@ -38,6 +38,7 @@
                   v-bind="item.dataOptions"
                   style="width: 100%"
                   v-model="formData[`${item.field}`]"
+                  value-format="YYYY-MM-DD"
                 />
               </template>
               <template v-else-if="item.type === 'switch'">
@@ -82,7 +83,7 @@ import type { PropType } from "vue";
 import type { IFormItem } from "@/types/baseUI";
 import DiyUpload from "@/base-ui/UpLoadUI.vue";
 import type { FormInstance } from "element-plus";
-import { useVModel } from '@/hook/useVModel';
+import { useVModel } from "@/hook/useVModel";
 
 const props = defineProps({
   modelValue: {
@@ -95,7 +96,7 @@ const props = defineProps({
   },
   labelWidth: {
     type: String,
-    default: "100px"
+    default: "auto"
   },
   colLayout: {
     type: Object,
@@ -125,16 +126,18 @@ function validateData() {
 
 const formItemsRef = ref([...props.formItems]);
 //响应式,避免不是单向数据流
-//第一种方法
-// const formData = ref({ ...props.modelValue });
-// watch(
-//   formData,
-//   (newValue) => {
-//     emit("update:modelValue", newValue);
-//   },
-//   { deep: true }
-// );
-const formData = useVModel(props, 'modelValue', emit);
+// //第一种方法
+const formData = ref({ ...props.modelValue });
+watch(
+  formData,
+  (newValue) => {
+    emit("update:modelValue", newValue);
+  },
+  { deep: true }
+);
+//第二种方法
+// const formData = useVModel(props, "modelValue", emit);
+
 defineExpose({
   validateData
 });

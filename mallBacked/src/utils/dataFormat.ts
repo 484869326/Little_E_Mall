@@ -1,10 +1,5 @@
 // 数据格式校验工具类
 
-import dayjs from "dayjs";
-//格式化时间
-export function formatUtcToString(utcString: string, format = "YYYY-MM-DD HH:mm") {
-  return dayjs(utcString).format(format);
-}
 //格式化图片路径
 export function formatProcessUrl(url: string) {
   if (!url) return "";

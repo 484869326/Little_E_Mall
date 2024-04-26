@@ -40,13 +40,6 @@ export const modelConfig: IForm = {
       listType: "text"
     },
     {
-      field: "city",
-      type: "input",
-      label: "地址",
-      rules: [{ required: true, message: "请输入地址", trigger: "blur" }],
-      placeholder: "请输入地址"
-    },
-    {
       field: "phone",
       type: "input",
       label: "手机号",
@@ -71,7 +64,6 @@ export const modelConfig: IForm = {
       rules: []
     }
   ],
-  labelWidth: "100px",
   colLayout: {
     span: 24
   },

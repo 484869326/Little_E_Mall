@@ -111,6 +111,7 @@ export default defineConfig(({ mode }) => {
           additionalData: `
           @import './src/assets/sass/global.sass';
           @import './src/assets/sass/theme.scss';
+          @import './src/assets/sass/media.scss';
           `
         }
       }

@@ -56,10 +56,10 @@ import type { ITable } from "@/types/baseUI";
 
 const props = defineProps({
   title: { type: String, default: "" },
-  showSelectColumn: { type: Boolean, default: true },
+  showSelectColumn: { type: Boolean, default: false },
   showIndexColumn: {
     type: Boolean,
-    default: true
+    default: false
   },
   data: {
     type: Array,
@@ -130,6 +130,24 @@ $distance: 20px;
     display: flex;
     justify-content: right;
     margin-top: $distance;
+    :deep(.el-pagination) {
+      @include responseTo("pad") {
+        flex-wrap: wrap;
+        padding-top: 30px;
+        margin-top: -20px;
+        & > * {
+          margin-bottom: 20px;
+        }
+      }
+      @include responseTo("phone") {
+        flex-wrap: wrap;
+        padding-top: 15px;
+        margin-top: -15px;
+        & > * {
+          margin-bottom: 15px;
+        }
+      }
+    }
   }
 }
 </style>

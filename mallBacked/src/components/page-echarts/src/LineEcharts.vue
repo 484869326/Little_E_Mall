@@ -37,8 +37,8 @@ const options = computed<EChartsOption>(() => ({
     }
   },
   grid: {
-    left: "2%",
-    right: "5%",
+    left: "5%",
+    right: "8%",
     bottom: "3%",
     containLabel: true
   },

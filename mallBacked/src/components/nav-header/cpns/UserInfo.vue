@@ -29,7 +29,7 @@
       </span>
       <template #dropdown>
         <ElDropdownMenu>
-          <ElDropdownItem>我的资料</ElDropdownItem>
+          <!--          <ElDropdownItem>我的资料</ElDropdownItem>-->
           <ElDropdownItem @click="handleLogoutClick">退出登录</ElDropdownItem>
         </ElDropdownMenu>
       </template>

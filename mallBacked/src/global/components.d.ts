@@ -54,6 +54,8 @@ declare module 'vue' {
     IEpClose: typeof import('~icons/ep/close')['default']
     IEpDelete: typeof import('~icons/ep/delete')['default']
     IEpEdit: typeof import('~icons/ep/edit')['default']
+    IEpExpand: typeof import('~icons/ep/expand')['default']
+    IEpFold: typeof import('~icons/ep/fold')['default']
     IEpFullScreen: typeof import('~icons/ep/full-screen')['default']
     IEpHide: typeof import('~icons/ep/hide')['default']
     IEpPlus: typeof import('~icons/ep/plus')['default']

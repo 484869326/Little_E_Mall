@@ -23,6 +23,8 @@
 
 <script lang="ts" setup>
 import DiyForm from "@/base-ui/FormUI.vue";
+import { deepClone } from "@/utils";
+
 const props = defineProps({
   SearchFormConfig: {
     type: Object,
@@ -43,7 +45,7 @@ const handleResetClick = () => {
   emit("resetBtnClick");
 };
 const handleQueryClick = () => {
-  emit("queryBtnClick", formData.value);
+  emit("queryBtnClick", deepClone(formData.value));
 };
 </script>
 

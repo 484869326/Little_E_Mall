@@ -52,7 +52,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useLoginStore } from "@/store/login";
 import { pathMapToMenu } from "@/utils/mapMenus";
 
-defineProps({
+const props = defineProps({
   collapse: {
     type: Boolean,
     default: false
@@ -61,6 +61,7 @@ defineProps({
 const router = useRouter();
 const route = useRoute();
 const loginStore = useLoginStore();
+const collapse = ref(props.collapse);
 const getMenu = computed(() => loginStore.getMenu);
 const handleMenuItemClick = (children: any) => {
   //执行跳转的路由
@@ -71,6 +72,9 @@ const handleMenuItemClick = (children: any) => {
 const currentPath = route.path;
 const menu = pathMapToMenu(getMenu.value, currentPath);
 const defaultActive = ref(menu.id + "");
+watchEffect(() => {
+  collapse.value = props.collapse;
+});
 </script>
 
 <style scoped lang="scss">

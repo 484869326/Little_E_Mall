@@ -1,9 +1,10 @@
 export const contentTableConfig = {
   title: "商品列表",
   addTitle: "新增商品",
+  showIndexColumn: true,
   propList: [
-    { prop: "goodName", label: "商品名", minWidth: "60px" },
-    { prop: "cName", label: "类别", minWidth: "40px" },
+    { prop: "goodName", label: "商品名", minWidth: "100px" },
+    { prop: "cName", label: "类别", minWidth: "100px" },
     { prop: "explain", label: "描述", minWidth: "100px" },
     { prop: "advertise", label: "广告词", minWidth: "100px" },
     { prop: "price", label: "价格", minWidth: "100px" },
@@ -20,18 +21,18 @@ export const contentTableConfig = {
     {
       prop: "createdAt",
       label: "录入时间",
-      minWidth: "100px"
+      minWidth: "180px"
       // slotName: 'created_at'
     },
     {
       prop: "updatedAt",
       label: "变更时间",
-      minWidth: "100px"
+      minWidth: "180px"
       // slotName: 'updated_at'
     },
     {
       label: "操作",
-      minWidth: "100px",
+      minWidth: "120px",
       slotName: "operate"
     }
   ]

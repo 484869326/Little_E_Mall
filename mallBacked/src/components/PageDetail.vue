@@ -103,6 +103,9 @@ defineExpose({
         rgb(161 161 161) 100%
       );
     }
+    @include responseTo("phone") {
+      padding: 0 20px;
+    }
   }
   .table {
     ul {

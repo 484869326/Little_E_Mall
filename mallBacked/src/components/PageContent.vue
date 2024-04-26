@@ -13,8 +13,8 @@
       </template>
       <!-- 状态 -->
       <template #status="scope">
-        <ElButton plain size="small" :type="scope.row.Status ? 'success' : 'danger'">{{
-          scope.row.Status ? "启用" : "禁用"
+        <ElButton plain size="small" :type="scope.row.status ? 'success' : 'danger'">{{
+          scope.row.status ? "启用" : "禁用"
         }}</ElButton>
       </template>
       <!-- 编辑删除操作 -->
@@ -56,7 +56,6 @@ import { ref, watch } from "vue";
 import type { PropType } from "vue";
 import DiyTable from "@/base-ui/TableUI.vue";
 import { useMainStore } from "@/store/main";
-import { formatUtcToString } from "@/utils/dataFormat";
 import type { ITable } from "@/types/baseUI";
 
 const props = defineProps({
@@ -96,8 +95,8 @@ const initPagination = () => {
 const getPageData = (queryInfo: any = {}) => {
   if (queryInfo["betweenTime"]) {
     const betweenTime = queryInfo["betweenTime"];
-    betweenTime[0] = formatUtcToString(betweenTime[0]);
-    betweenTime[1] = formatUtcToString(betweenTime[1]);
+    betweenTime[0] = betweenTime[0] + " 00:00";
+    betweenTime[1] = betweenTime[1] + " 23:59";
   }
   mainStore.getPageListAction(props.pageName, {
     page: pagination.value.currentPage,
@@ -132,10 +131,10 @@ const handleDeleteClick = async (item: any) => {
       message: "删除成功"
     });
     getPageData(props.getFormData);
-  } catch (error) {
+  } catch (error: any) {
     ElMessage({
       type: "info",
-      message: "删除失败"
+      message: error.message || "删除失败"
     });
   }
 };

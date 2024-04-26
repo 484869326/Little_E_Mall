@@ -113,7 +113,6 @@ export const modelConfig: IForm = {
       listType: "picture-card"
     }
   ],
-  labelWidth: "100px",
   colLayout: {
     span: 24
   },

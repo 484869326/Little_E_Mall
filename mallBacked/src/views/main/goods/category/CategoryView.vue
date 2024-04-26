@@ -20,7 +20,7 @@
     </PageContent>
     <PageModal
       :title="title"
-      :modelConfig="modelConfigComputed"
+      :modelConfig="modelConfig"
       pageName="category"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
@@ -36,9 +36,6 @@ import { usePageModal } from "@/hook/usePageModal";
 import PageContent from "@/components/PageContent.vue";
 
 const pageContentRef = ref<InstanceType<typeof PageContent>>();
-const modelConfigComputed = computed(() => {
-  return modelConfig;
-});
 //默认 disabled为false
 const addCallback = () => {
   const levelItem: any = modelConfig.formItems.find((item: any) => {
@@ -51,10 +48,12 @@ const editCallback = async () => {
   const levelItem: any = modelConfig.formItems.find((item: any) => {
     return item.field === "level";
   });
+  (defaultInfo.value as any)["parentId"] === 0
+    ? ((defaultInfo.value as any)["parentId"] = "")
+    : void 0;
   const formData: any = defaultInfo.value;
   const level = formData["level"];
   await levelItem?.isChange(modelConfig.formItems, level);
-  levelItem.disabled = false;
   if (formData["children"] && formData["children"].length !== 0) {
     const children = formData["children"];
     const grandson = children.some((item: any) => {
@@ -63,6 +62,8 @@ const editCallback = async () => {
       }
     });
     grandson && (levelItem.disabled = true);
+  } else {
+    levelItem.disabled = false;
   }
 };
 const { handleAddData, handleEditData, defaultInfo, pageModalRef, title } = usePageModal(
@@ -71,4 +72,10 @@ const { handleAddData, handleEditData, defaultInfo, pageModalRef, title } = useP
 );
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+:deep(.el-image) {
+  img {
+    max-width: 100px;
+  }
+}
+</style>

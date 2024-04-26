@@ -1,24 +1,24 @@
 <template>
   <div class="statistics-view">
-    <ElRow :gutter="30" class="elRow">
-      <ElCol :span="12">
+    <ElRow :gutter="30" class="el-row">
+      <ElCol :md="12">
         <DiyCard title="管理员性别比例">
           <PieEcharts :pieData="adminSexCount" :isDark="isDark"></PieEcharts>
         </DiyCard>
       </ElCol>
-      <ElCol :span="12">
+      <ElCol :md="12">
         <DiyCard title="近7日订单数">
           <LineEcharts v-bind="orderCount" :isDark="isDark"></LineEcharts>
         </DiyCard>
       </ElCol>
     </ElRow>
     <ElRow :gutter="30">
-      <ElCol :span="12">
+      <ElCol :md="12">
         <DiyCard title="分类商品数量">
           <BarEcharts v-bind="categoryGoodsCount" :isDark="isDark"></BarEcharts>
         </DiyCard>
       </ElCol>
-      <ElCol :span="12">
+      <ElCol :md="12">
         <DiyCard title="十二个月的销售额">
           <LineBarEcharts v-bind="monthPriceCount" :isDark="isDark"></LineBarEcharts>
         </DiyCard>
@@ -75,8 +75,15 @@ const monthPriceCount = computed(() => {
 
 <style scoped lang="scss">
 .statistics-view {
-  .elRow {
-    margin-bottom: 20px;
+  .el-row {
+    &:first-child {
+      margin-bottom: 20px;
+    }
+    .el-col {
+      &:first-child {
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 </style>

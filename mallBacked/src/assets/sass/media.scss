@@ -1,0 +1,35 @@
+//媒体简介
+$devices-size: (
+  "phone": (
+    320px,
+    480px
+  ),
+  "pad": (
+    481px,
+    768px
+  ),
+  "notebook": (
+    769px,
+    1024px
+  ),
+  "desktop": (
+    1025px,
+    1200px
+  ),
+  "tv": 1201px
+);
+
+@mixin responseTo($device) {
+  $size: map-get($devices-size, $device);
+  @if type-of($size) == "list" {
+    $min: nth($size, 1);
+    $max: nth($size, 2);
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+}

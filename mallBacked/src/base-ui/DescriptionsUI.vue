@@ -61,6 +61,15 @@ defineProps({
             background: getVar("buttonHoverBgColor");
             border-color: getVar("buttonHoverBorderColor");
           }
+          @include responseTo("phone") {
+            height: fit-content;
+          }
+          .el-tag__content {
+            @include responseTo("phone") {
+              line-height: 24px;
+              white-space: pre-wrap;
+            }
+          }
         }
       }
     }

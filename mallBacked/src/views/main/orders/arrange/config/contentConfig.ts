@@ -1,5 +1,6 @@
 export const contentTableConfig = {
   title: "订单列表",
+  showIndexColumn: true,
   propList: [
     { prop: "userId", label: "用户id", minWidth: "60px" },
     { prop: "totalPrice", label: "总价格", minWidth: "100px" },
@@ -15,7 +16,7 @@ export const contentTableConfig = {
     {
       prop: "option",
       label: "操作",
-      minWidth: "60px",
+      minWidth: "120px",
       slotName: "option"
     }
   ],

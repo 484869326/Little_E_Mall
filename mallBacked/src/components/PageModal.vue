@@ -6,6 +6,7 @@
       :title="title"
       width="30%"
       center
+      :z-index="3"
     >
       <DiyForm v-bind="modelConfig" v-model="formData" ref="diyFormRef"> </DiyForm>
       <template #footer>
@@ -67,12 +68,11 @@ const handleConfirmClick = async () => {
           const id = props.defaultInfo.id ?? props.defaultInfo.goodId ?? props.defaultInfo.cid;
           await mainStore.editPageDataAction(props.pageName, { ...formData.value }, id);
           ElMessage.success("修改成功");
-          emit("success");
         } else {
           await mainStore.addPageDataAction(props.pageName, { ...formData.value });
           ElMessage.success("增加成功");
-          emit("success");
         }
+        emit("success");
         centerDialogVisible.value = false;
       } catch (error: any) {
         ElMessage.error(error.message);
@@ -90,12 +90,22 @@ defineExpose({
 <style scoped lang="scss">
 .page-modal {
   :deep(.el-overlay) {
-    z-index: 3 !important;
     .el-dialog {
+      @include responseTo("desktop") {
+        --el-dialog-width: 56% !important;
+      }
+      @include responseTo("notebook") {
+        --el-dialog-width: 60% !important;
+      }
+      @include responseTo("pad") {
+        --el-dialog-width: 70% !important;
+      }
+      @include responseTo("phone") {
+        --el-dialog-width: 90% !important;
+      }
       @include useTheme {
         background: getVar("bgColor");
       }
-
       .el-dialog__title {
         @include useTheme {
           color: getVar("textColor");

@@ -48,17 +48,26 @@ export const useMainStore = defineStore("main", {
     //修改
     async editPageDataAction(pageName: string, data: any, id: string) {
       const url = `/${pageName}/${id}`;
-      await editPageData(url, data);
+      const { code, msg } = await editPageData(url, data);
+      if (code === -1) {
+        throw new Error(msg);
+      }
     },
     // 增加
     async addPageDataAction(pageName: string, data: any) {
       const url = `/${pageName}/Insert`;
-      await addPageData(url, data);
+      const { code, msg } = await addPageData(url, data);
+      if (code === -1) {
+        throw new Error(msg);
+      }
     },
     // 删除
     async deletePageDataAction(pageName: string, id: string) {
       const url = `/${pageName}/${id}`;
-      await deletePageData(url);
+      const { code, msg } = await deletePageData(url);
+      if (code === -1) {
+        throw new Error(msg);
+      }
     }
   }
 });
