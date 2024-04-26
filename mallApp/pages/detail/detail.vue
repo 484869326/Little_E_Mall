@@ -99,6 +99,7 @@ import detailBottom from "./cpns/detail-bottom.vue";
 import detailBox from "./cpns/detail-box.vue";
 import detailBuy from "./cpns/detail-buy.vue";
 import detailService from "./cpns/detail-service.vue";
+import { tips } from "@/utils/tips";
 
 const goodStore = useGoodStore();
 const myStore = useMyStore();
@@ -133,6 +134,11 @@ const selectName = computed(() => {
   }
 });
 onLoad(async (option) => {
+  if (!myStore.isLogin) {
+    uni.navigateBack();
+    tips("请先进行登录");
+    return;
+  }
   uni.pageScrollTo({
     scrollTop: 1, //距离页面顶部的距离
     duration: 0, // 滚动动画时长

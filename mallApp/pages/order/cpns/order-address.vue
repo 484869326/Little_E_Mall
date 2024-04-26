@@ -1,19 +1,22 @@
 <template>
   <view class="order-address" @click="handleOpenClick">
-    <view class="address-region">{{
-      address?.addressRegionText.replace(/\//g, "")
-    }}</view>
-    <view class="address-detail">
-      {{ address?.addressDetail }}
-    </view>
-    <view class="address-user-info">
-      <text class="text">
-        {{ address?.addressName }}
-      </text>
-      <text>
-        {{ address?.addressPhone }}
-      </text>
-    </view>
+    <template v-if="address">
+      <view class="address-region">{{
+        address?.addressRegionText.replace(/\//g, "")
+      }}</view>
+      <view class="address-detail">
+        {{ address?.addressDetail }}
+      </view>
+      <view class="address-user-info">
+        <text class="text">
+          {{ address?.addressName }}
+        </text>
+        <text>
+          {{ address?.addressPhone }}
+        </text>
+      </view>
+    </template>
+    <template v-else>请先填写收货地址</template>
     <view class="icon">
       <uni-icons type="right" size="40rpx"></uni-icons>
     </view>

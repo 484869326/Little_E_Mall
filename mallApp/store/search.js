@@ -10,8 +10,8 @@ export const useSearchStore = defineStore("search", {
   // 修改state里面的数据
   actions: {
     //详情
-    async fetchSearchList(GoodName, page) {
-      const res = await getSearchList(GoodName, page);
+    async fetchSearchList(searchValue, page) {
+      const res = await getSearchList(searchValue, page);
       this.searchList = res.data || [];
     },
   },

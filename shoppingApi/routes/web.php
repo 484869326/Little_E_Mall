@@ -48,7 +48,7 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     Route::post('changeChecked', "ShoppingController@changeChecked");
     Route::post('checkedAll', "ShoppingController@CheckedAll");
     //搜索
-    Route::get('search', "GoodController@likeSelect");
+    Route::get('search', "GoodController@Search");
     //后台api路由
     //管理员
     Route::prefix('admin')->group(function () {

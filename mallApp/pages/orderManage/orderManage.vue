@@ -1,5 +1,11 @@
 <template>
   <view class="order-manage">
+    <navigation
+      url="/pages/my/my"
+      :title="`订单管理`"
+      :isTab="true"
+    ></navigation>
+
     <!-- 选项栏 -->
     <view class="option">
       <template v-for="item in orderFormList" :key="item.field">
@@ -81,6 +87,7 @@ import { onLoad, onReachBottom } from "@dcloudio/uni-app";
 import { storeToRefs } from "pinia";
 import { useMyStore } from "@/store/my.js";
 import { useGoodStore } from "@/store/good.js";
+import navigation from "@/components/navigation.vue";
 import { tips } from "@/utils/tips.js";
 
 const myStore = useMyStore();

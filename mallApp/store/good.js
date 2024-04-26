@@ -86,6 +86,7 @@ export const useGoodStore = defineStore("good", {
     },
     async fetchgetOrderList(data) {
       const { data: value } = await getOrderList(data);
+      this.orderList.length = 0;
       this.orderList.push(
         ...value.map((item) => {
           item.type = item.type.split(",");

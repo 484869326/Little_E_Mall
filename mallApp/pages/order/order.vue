@@ -117,26 +117,30 @@ function getNextDay() {
 }
 
 async function hanleGoPayClick() {
-  const { id, city, defaultId } = myStore.userInfo;
-  const address = city[defaultId];
-  const res = await goodStore.fetchBuy({
-    ...goodStore.dataId,
-    userId: id,
-    totalPrice: goodStore.totalPrice,
-    name: address.addressName,
-    address:
-      address.addressRegionText.replace(/\//g, "") + address.addressDetail,
-    phone: address.addressPhone,
-  });
-  if (res === "success") {
-    tips("购买成功");
-    setTimeout(() => {
-      uni.navigateTo({
-        url: "/pages/orderManage/orderManage?type=toBeReceived",
-      });
-    }, 1000);
-  } else {
-    tips("购买失败");
+  try {
+    const { id, city, defaultId } = myStore.userInfo;
+    const address = city[defaultId];
+    const res = await goodStore.fetchBuy({
+      ...goodStore.dataId,
+      userId: id,
+      totalPrice: goodStore.totalPrice,
+      name: address.addressName,
+      address:
+        address.addressRegionText.replace(/\//g, "") + address.addressDetail,
+      phone: address.addressPhone,
+    });
+    if (res === "success") {
+      tips("购买成功");
+      setTimeout(() => {
+        uni.navigateTo({
+          url: "/pages/orderManage/orderManage?type=toBeReceived",
+        });
+      }, 1000);
+    } else {
+      tips("购买失败");
+    }
+  } catch {
+    tips("请先填写收货地址");
   }
 }
 </script>

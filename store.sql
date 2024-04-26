@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `adminName` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `gender` int(11) NULL DEFAULT NULL,
+  `gender` int(11) NULL DEFAULT 0,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `adminPwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
@@ -209,10 +209,10 @@ DROP TABLE IF EXISTS `my`;
 CREATE TABLE `my`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nickName` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `gender` int(11) NULL DEFAULT NULL,
+  `gender` int(11) NULL DEFAULT 0,
   `avatarUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
-  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci  DEFAULT '',
-  `defaultId` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `city` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci  DEFAULT '',
+  `defaultId` int(11) NOT NULL DEFAULT 0,
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `status` int(11) NULL DEFAULT NULL DEFAULT '1',
@@ -224,7 +224,7 @@ CREATE TABLE `my`  (
 -- ----------------------------
 -- Records of my
 -- ----------------------------
-INSERT INTO `my` VALUES (1, '吴彦祖', 0, './image/other/5a283638123dc1f826c6c63da645e179.jpg', '[{\"addressName\":\"吴彦祖\",\"addressPhone\":\"14710001000\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"213\"}]', '0', '13710411285', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2024-03-27 10:15:16', '2024-03-27 11:14:47');
+INSERT INTO `my` VALUES (1, '吴彦祖', 0, './image/User/d83dae72a15be6e3dc9f465e252ad527.jpg', '[{\"addressName\":\"吴彦祖\",\"addressPhone\":\"14710001000\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"213\"}]', '0', '13710411285', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2024-03-27 10:15:16', '2024-03-27 11:14:47');
 
 -- ----------------------------
 -- Table structure for order

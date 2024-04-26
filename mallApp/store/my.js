@@ -78,12 +78,18 @@ export const useMyStore = defineStore("my", {
       return msg;
     },
     async fetchUserInfo(data) {
-      const res = await getUserInfo(data);
-      res.data.city =
-        !res.data.city || res.data.city.length === 0
-          ? []
-          : JSON.parse(res.data.city);
-      this.userInfo = res.data || {};
+      try {
+        const res = await getUserInfo(data);
+        res.data.city =
+          !res.data.city || res.data.city.length === 0
+            ? []
+            : JSON.parse(res.data.city);
+        this.userInfo = res.data || {};
+      } catch {
+        //没有此用户信息
+        uni.removeStorageSync("isLogin");
+        uni.removeStorageSync("phone");
+      }
     },
     async fetchUpdateUserInfo(id, data) {
       const newCity =

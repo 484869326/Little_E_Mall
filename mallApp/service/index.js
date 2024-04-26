@@ -1,5 +1,6 @@
 const TIME_OUT = 60000;
-const BASE_URL = "http://20.255.60.222:3333/api";
+const BASE_URL = "http://localhost:3333/api";
+// const BASE_URL = "http://20.255.60.222:3333/api";
 
 class Request1 {
 	request(url, method, data) {

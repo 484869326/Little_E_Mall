@@ -57,6 +57,7 @@ const localSearchList = reactive([]);
 watch(
   searchList,
   (newValue) => {
+    localSearchList.length = 0;
     if (newValue.length > 0) {
       localSearchList.push(...newValue);
     }

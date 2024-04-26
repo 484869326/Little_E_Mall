@@ -4,7 +4,7 @@
     <template v-for="(item, index) in subCategory" :key="item.cid">
       <template v-if="item.level !== 1 || item.parentId === Number(parentId)">
         <template v-if="item.cImg">
-          <view class="content-item">
+          <view class="content-item" @click="handleItemClick(item.cName)">
             <!-- #ifndef H5  -->
             <image
               class="image"
@@ -32,12 +32,9 @@
 
 <script setup>
 defineProps(["subCategory", "parentId"]);
-const itemClick = (item) => {
+const handleItemClick = (searchValue) => {
   uni.navigateTo({
-    url: "/pages/webview/index?link=" + item.link,
-    fail: (err) => {
-      console.log(err);
-    },
+    url: "/pages/search/search?searchValue=" + searchValue,
   });
 };
 </script>

@@ -31,7 +31,7 @@ import { useShoppingStore } from "@/store/shopping.js";
 import { useMyStore } from "@/store/my.js";
 import shoppingContent from "./cpns/shopping-content.vue";
 import shoppingBalance from "./cpns/shopping-balance.vue";
-import { debounce } from "@/utils/index.js";
+import { debounce, deepClone } from "@/utils/index.js";
 
 const isAllChecked = ref(2);
 const localShoppingList = reactive([]);
@@ -77,7 +77,7 @@ onShow(() => {
       await shoppingStore.fetchShoppingList(page, userInfo.value.id);
       await shoppingStore.fetchCheckAll(userInfo.value.id);
       localShoppingList.length = 0;
-      localShoppingList.push(...shoppingList.value);
+      localShoppingList.push(...deepClone(shoppingList.value));
     }
   });
 });
@@ -136,7 +136,7 @@ function handleDeleteClick(item) {
 onReachBottom(async () => {
   await shoppingStore.fetchShoppingList(++page, userInfo.value.id);
   localShoppingList.length = 0;
-  localShoppingList.push(...shoppingList.value);
+  localShoppingList.push(...deepClone(shoppingList.value));
 });
 function handleGoLoginClick() {
   uni.navigateTo({
