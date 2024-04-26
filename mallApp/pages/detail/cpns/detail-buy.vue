@@ -88,7 +88,6 @@ function handleConfirmClick() {
   if (props.detail?.shoppingId) {
     shoppingStore.fetchChangeType({
       shoppingId: props.detail.shoppingId,
-      num: data.num,
       color: data.colorIndex,
       type: data.typeIndex,
     });

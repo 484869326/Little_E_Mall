@@ -78,12 +78,10 @@ class ShoppingController extends Controller
         $shoppingId = $request->input('shoppingId');
         $type = $request->input('type');
         $color = $request->input('color');
-        $num = $request->input('num');
         $data = Shopping::where('shoppingId', '=', $shoppingId)->update(
             [
                 'type' => $type,
                 'color' => $color,
-                'num'=>$num
             ]
         );
         if ($data) {

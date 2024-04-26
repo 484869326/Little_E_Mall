@@ -133,7 +133,7 @@ CREATE TABLE `good`  (
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`goodId`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of good
@@ -250,7 +250,7 @@ CREATE TABLE `order`  (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (null, 1, '1', '1', '0', '0', '3799', '吴彦祖', '天津市天津市河北区213', '14710001000', '确认收货', '2024-03-27 12:09:00', '2024-03-27 12:54:42');
+INSERT INTO `order` VALUES (null, 1, '1', '3', '0', '0', '3799', '吴彦祖', '天津市天津市河北区213', '14710001000', '确认收货', '2024-03-27 12:09:00', '2024-03-27 12:54:42');
 
 -- ----------------------------
 -- Table structure for shopping
