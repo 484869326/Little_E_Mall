@@ -234,4 +234,44 @@ class GoodController extends Controller
             Total::json('删除失败', -1);
         }
     }
+    //查找
+    public function Search(Request $request)
+    {
+        $page        = $request->input('page');
+        $limit       = $request->input('limit');
+        $offset      = ($page - 1) * $limit;
+        $searchValue    = $request->input('searchValue') ?: "";
+        $category=Category::where('cName','=',$searchValue)->first();
+        $cid=array_map('intval', explode(',', $category['cid']))?:[];
+        if($category&&$category['level']===0){
+            $sonCategory=Category::where('parentId','=',$cid[0])->get();
+            $cid=[];
+            foreach ($sonCategory as $key => $model) {
+                $grandson=Category::where('parentId','=',$model['cid'])->get();
+                 foreach ($grandson as $key2 => $model2) {
+                     array_push($cid, $model2['cid']);
+                 }
+            }
+        }
+        $good        = Good::where(function ($query) use ($searchValue,$cid) {
+            if (!empty($searchValue)) {
+                $query->where('goodName', 'like', '%' . $searchValue . '%');
+            }
+            if (!empty($cid)) {
+                $query->orWhereIn('cid',$cid);
+            }
+        })
+            ->with('category')
+            ->tap(function ($query) use (&$data) {
+                $data["count"] = $query->count();
+            })
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+        foreach ($good as $key => $model) {
+            $model["goodImg"] = env('APP_URL') . substr_replace($model["goodImg"], "", 0, 1);
+        }
+        $data["data"] = $good;
+        Total::json($data);
+    }
 }
