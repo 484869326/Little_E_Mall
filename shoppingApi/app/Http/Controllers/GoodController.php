@@ -195,7 +195,7 @@ class GoodController extends Controller
                 });
             }
             if (!empty($betweenTime)) {
-                $query->whereBetween('created_at', $betweenTime);
+                $query->whereBetween('createdAt', $betweenTime);
             }
             if (!empty($color)) {
                 $query->where('color', 'like', '%' . $color . '%');

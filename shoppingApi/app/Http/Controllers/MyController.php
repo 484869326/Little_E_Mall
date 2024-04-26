@@ -184,17 +184,16 @@ class MyController extends Controller
         $limit       = $request->input('limit');
         $offset      = ($page - 1) * $limit;
         $nickName    = $request->input('nickName') ?: "";
-        $gender      = $request->input('gender') ?: "";
+        $gender      = $request->input('gender');
         $city        = $request->input('city') ?: "";
         $phone       = $request->input('phone') ?: "";
         $betweenTime = $request->input('betweenTime') ?: "";
-
         $data["data"] = My::where(function ($query) use ($nickName, $gender, $city, $phone, $betweenTime) {
             if (!empty($nickName)) {
                 $query->where('nickName', 'like', '%' . $nickName . '%');
             }
-            if (!empty($gender)) {
-                $query->where('gender', 'like', '%' . $gender . '%');
+            if (isset($gender)) {
+              $query->where('gender', 'like', '%' . $gender . '%');
             }
             if (!empty($city)) {
                 $query->where('city', 'like', '%' . $city . '%');

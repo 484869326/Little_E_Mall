@@ -117,17 +117,17 @@ class AdminController extends Controller {
 		$limit = $request->input('limit');
 		$offset = ($page - 1) * $limit;
 		$adminName = $request->input('adminName') ?: "";
-		$gender = $request->input('gender') ?: "";
+		$gender = $request->input('gender');
 		$email = $request->input('email') ?: "";
 		$address = $request->input('address') ?: "";
-		$tel = $request->input('telephone') ?: "";
+		$tel = $request->input('tel') ?: "";
 		$betweenTime = $request->input('betweenTime') ?: "";
 		$result["data"] = Admin::where(function ($query) use ($adminName, $gender, $email, $address, $tel, $betweenTime) {
 			if (!empty($adminName)) {
 				$query->where('adminName', 'like', '%' . $adminName . '%');
 			}
-			if (!empty($gender)) {
-				$query->where('gender', 'like', '%' . $gender . '%');
+			if (isset($gender)) {
+			  $query->where('gender', 'like', '%' . $gender . '%');
 			}
 			if (!empty($email)) {
 				$query->where('email', 'like', '%' . $email . '%');
@@ -139,7 +139,7 @@ class AdminController extends Controller {
 				$query->where('tel', 'like', '%' . $tel . '%');
 			}
 			if (!empty($betweenTime)) {
-				$query->whereBetween('created_at', $betweenTime);
+				$query->whereBetween('createdAt', $betweenTime);
 			}
 		})
 			->tap(function ($query) use (&$result) {

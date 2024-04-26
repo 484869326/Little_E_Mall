@@ -39,8 +39,19 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'admin1', 0, '1657447830@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001000', 1, '2024-03-27 10:15:16', '2024-03-27 10:53:11');
-INSERT INTO `admin` VALUES (2, 'admin1', 0, '1657447831@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001001', 1, '2024-03-27 10:15:16', '2024-03-27 10:15:16');
+INSERT INTO `admin` VALUES (1, 'admin', 0, '1657447830@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001000', 1, '2024-03-27 10:15:16', '2024-03-27 10:53:11');
+INSERT INTO `admin` VALUES (2, 'admin1', 1, '1657447831@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001001', 0, '2024-03-27 10:15:16', '2024-03-27 10:15:16');
+INSERT INTO `admin` VALUES (3, 'baiyun', 0, '1657447832@qq.com', '广东广州白云', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001002', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (4, 'tianhe', 0, '1657447833@qq.com', '广东广州天河', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001003', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (5, 'liwan', 0, '1657447834@qq.com', '广东广州荔湾', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001004', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (6, 'huangpu', 0, '1657447835@qq.com', '广东广州黄埔', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001005', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (7, 'huadu', 0, '1657447836@qq.com', '广东广州花都', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001006', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (8, 'conghua', 0, '1657447837@qq.com', '广东广州从化', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001007', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (9, 'zengcheng', 0, '1657447838@qq.com', '广东广州增城', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001008', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (10, 'haizhu', 0, '1657447839@qq.com', '广东广州海珠', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001009', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (11, 'yuexiu', 0, '1657447840@qq.com', '广东广州越秀', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001010', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (12, 'nansha', 0, '1657447841@qq.com', '广东广州南沙', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001011', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (13, 'panyu', 0, '1657447842@qq.com', '广东广州番禺', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001012', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
 
 -- ----------------------------
 -- Table structure for category
@@ -211,7 +222,7 @@ CREATE TABLE `my`  (
 -- ----------------------------
 -- Records of my
 -- ----------------------------
-INSERT INTO `my` VALUES (1, '吴亦凡1221', 0, './image/other/5a283638123dc1f826c6c63da645e179.jpg', '[{\"addressName\":\"吴彦祖\",\"addressPhone\":\"14710001000\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"213\"}]', '0', '13710411285', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2024-03-27 10:15:16', '2024-03-27 11:14:47');
+INSERT INTO `my` VALUES (1, '吴彦祖', 0, './image/other/5a283638123dc1f826c6c63da645e179.jpg', '[{\"addressName\":\"吴彦祖\",\"addressPhone\":\"14710001000\",\"addressRegion\":\"120105\",\"addressRegionText\":\"天津市/天津市/河北区\",\"addressDetail\":\"213\"}]', '0', '13710411285', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2024-03-27 10:15:16', '2024-03-27 11:14:47');
 
 -- ----------------------------
 -- Table structure for order
