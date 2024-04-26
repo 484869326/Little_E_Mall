@@ -50,7 +50,13 @@
 </template>
 
 <script setup>
-import { onLoad, onReachBottom, onShow } from "@dcloudio/uni-app";
+import {
+  onLoad,
+  onReachBottom,
+  onShow,
+  onHide,
+  onPageScroll,
+} from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useMyStore } from "@/store/my.js";
@@ -138,6 +144,7 @@ const serviceList = [
   },
 ];
 let page = 1;
+const scrollTop = ref(0);
 onLoad(async () => {
   //获取数据
   await myStore.fetchMyBanner();
@@ -148,6 +155,10 @@ onReachBottom(async () => {
   await myStore.fetchGoodList(++page);
 });
 onShow(() => {
+  uni.pageScrollTo({
+    scrollTop: 0,
+    duration: 0,
+  });
   const phone = uni.getStorageSync("phone");
   if (uni.getStorageSync("isLogin") && !myStore.isLogin) {
     myStore.fetchUserInfo({ phone });

@@ -17,7 +17,7 @@
 
 <script setup>
 import { onLoad } from "@dcloudio/uni-app";
-import { ref, watch } from "vue";
+import { ref, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import { useCategoryStore } from "@/store/category.js";
 import categoryMenu from "./cpns/category-menu.vue";
@@ -31,6 +31,11 @@ onLoad(async () => {
   parentId.value = categoryList.value[0].cid;
 });
 const scrollTop = ref(0);
+watchEffect(() => {
+  //变化的时候跳转到顶部
+  parentId.value;
+  scrollTop.value === 0 ? (scrollTop.value = 1) : (scrollTop.value = 0);
+});
 </script>
 
 <style lang="scss">

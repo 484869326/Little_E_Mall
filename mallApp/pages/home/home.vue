@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { onLoad, onReachBottom, onPageScroll } from "@dcloudio/uni-app";
+import { onLoad, onShow, onReachBottom, onPageScroll } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useHomeStore } from "@/store/home.js";
@@ -50,6 +50,14 @@ onLoad(async () => {
   await homeStore.fetchHomeMutidata();
   await homeStore.fetchGoodList(page);
   await (waterFallGoodRef.value && waterFallGoodRef.value.initValue());
+});
+onShow(() => {
+  homeSearchBg.value = "transpant";
+  homeSearchColor.value = "#ffffff";
+  uni.pageScrollTo({
+    scrollTop: 0,
+    duration: 0,
+  });
 });
 // 资质文案
 const qualificationsList = [
