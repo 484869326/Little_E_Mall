@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "drawer": "../../../components/drawer",
-    "num-edit": "../../../components/num-edit"
-  }
-}

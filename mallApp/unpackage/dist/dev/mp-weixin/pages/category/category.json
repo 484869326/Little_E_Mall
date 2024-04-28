@@ -1,8 +1,0 @@
-{
-  "enablePullDownRefresh": false,
-  "navigationBarTitleText": "分类",
-  "usingComponents": {
-    "category-menu": "./cpns/category-menu",
-    "category-content": "./cpns/category-content"
-  }
-}

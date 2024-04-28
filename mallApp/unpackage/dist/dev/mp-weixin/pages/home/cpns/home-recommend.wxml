@@ -1,1 +1,0 @@
-<view class="home-recommend"><view wx:for="{{a}}" wx:for-item="item" wx:key="c" class="recommend-item" bindtap="{{item.d}}"><image src="{{item.a}}" mode="widthFix" class="image" lazy-load="{{true}}"></image><text class="text">{{item.b}}</text></view></view>

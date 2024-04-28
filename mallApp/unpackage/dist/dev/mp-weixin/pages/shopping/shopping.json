@@ -1,8 +1,0 @@
-{
-  "enablePullDownRefresh": false,
-  "navigationBarTitleText": "购物车",
-  "usingComponents": {
-    "shopping-content": "./cpns/shopping-content",
-    "shopping-balance": "./cpns/shopping-balance"
-  }
-}
