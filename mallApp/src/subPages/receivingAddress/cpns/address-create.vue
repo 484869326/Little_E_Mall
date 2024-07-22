@@ -186,7 +186,7 @@ function handleChange({ detail }: { detail: { value: any[] } }) {
     &:first-child {
       border-radius: 20rpx 20rpx 0 0;
     }
-    &:nth-last-child(2) {
+    &:nth-last-child(3) {
       padding-bottom: 40rpx;
       border-radius: 0 0 20rpx 20rpx;
     }
@@ -197,6 +197,12 @@ function handleChange({ detail }: { detail: { value: any[] } }) {
       flex-grow: 1;
       font-weight: normal;
     }
+    /* #ifdef MP-WEIXIN */
+    uni-data-picker {
+      flex-grow: 1;
+      padding: 0 40rpx;
+    }
+    /* #endif */
     :deep(.uni-data-tree) {
       .input-value {
         height: 60rpx;
