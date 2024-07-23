@@ -4,7 +4,11 @@ let BASE_URL: any;
 BASE_URL = import.meta.env.VITE_API_URL;
 // #endif
 // #ifndef H5
-BASE_URL = import.meta.env.VITE_API_WXURL;
+if (import.meta.env.MODE === "development") {
+  BASE_URL = import.meta.env.VITE_API_WXURL;
+} else {
+  BASE_URL = import.meta.env.VITE_API_URL;
+}
 // #endif
 
 class Request1 {

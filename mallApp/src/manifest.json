@@ -58,7 +58,9 @@
     // 开启分包
     "optimization": {
       "subPackages": true
-    }
+    },
+    // 组件按需引入
+    "lazyCodeLoading": "requiredComponents"
   },
   "mp-alipay": {
     "usingComponents": true

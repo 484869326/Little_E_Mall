@@ -124,7 +124,8 @@ function handleSubmitClick(e: any) {
 // 点击用户协议
 function handleOpenWebClick() {
   uni.navigateTo({
-    url: "/subPages/webview/webview?url=" + "/static/webview.html",
+    url:
+      "/subPages/webview/webview?url=" + "https://484869326.github.io/tool/webview.html",
   });
 }
 </script>
