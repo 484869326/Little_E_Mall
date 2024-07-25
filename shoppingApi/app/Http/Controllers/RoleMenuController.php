@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Admin;
 use App\Model\RoleMenu;
 use App\Model\Role;
 use App\Total;
@@ -143,12 +144,17 @@ class RoleMenuController extends Controller
             Total::json('数据项小于3，不允许删除。如果需要删除，请跟开发者联系');
             return;
         }
-        $role = Role::where('id', $id)->delete();
-        $rolemenu= RoleMenu::where('roleId', $id)->delete();
-        if ($role && $rolemenu) {
-            Total::json('删除成功');
-        } else {
+        $hasAdmin=Admin::where('roleId', $id)->first();
+        if ($hasAdmin) {
             Total::json('删除失败', -1);
+        } else {
+            $role = Role::where('id', $id)->delete();
+            $rolemenu= RoleMenu::where('roleId', $id)->delete();
+            if ($role && $rolemenu) {
+                Total::json('删除成功');
+            } else {
+                Total::json('删除失败', -1);
+            }
         }
     }
 }

@@ -103,6 +103,7 @@ class AdminController extends Controller
         $adminPwd = hash('sha256', $request->input('adminPwd'));
         $tel = $request->input('tel');
         $status = $request->input('status');
+        $roleId = $request->input('roleId');
         $data = Admin::insert(
             [
                 'adminName' => $adminName,
@@ -112,6 +113,7 @@ class AdminController extends Controller
                 'adminPwd' => $adminPwd,
                 'tel' => $tel,
                 'status' => $status,
+                'roleId'=>$roleId
             ]
         );
         if ($data) {
