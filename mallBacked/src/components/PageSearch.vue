@@ -53,9 +53,6 @@ const handleQueryClick = () => {
 .page-search {
   border-radius: 5px;
   box-shadow: 0 6px 18px 0 rgb(60 70 79 / 10%);
-  @include useTheme {
-    border: 1px solid getVar("borderColor");
-  }
   .buttons {
     text-align: right;
     padding: 0 30px 18px;

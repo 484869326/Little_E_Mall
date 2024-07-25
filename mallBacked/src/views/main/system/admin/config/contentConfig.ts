@@ -5,6 +5,7 @@ export const contentTableConfig = {
   propList: [
     { prop: "adminName", label: "管理员名", minWidth: "100px" },
     { prop: "gender", label: "性别", minWidth: "40px", slotName: "gender" },
+    { prop: "roleName", label: "角色", minWidth: "100px", slotName: "roleName" },
     { prop: "email", label: "邮箱", minWidth: "100px" },
     { prop: "address", label: "地址", minWidth: "100px" },
     // { prop: "adminPwd", label: "密码", minWidth: "60px" },

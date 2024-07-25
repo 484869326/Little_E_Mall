@@ -1,3 +1,5 @@
+import type { IMenu } from "./login";
+
 interface IAdmin {
   address: string;
   email: string;
@@ -7,8 +9,10 @@ interface IAdmin {
   adminName: string;
   adminPwd: string;
   id: number;
+  roleId: number;
   createdAt: string;
   updatedAt: string;
+  role: IRole;
 }
 
 interface IGood {
@@ -61,4 +65,27 @@ interface IOrder {
   updatedAt: string;
 }
 
-export type { IAdmin, IGood, ICategory, IGoodCategory, IOrder };
+interface IUser {
+  id: number;
+  nickName: string;
+  gender: number;
+  avatarUrl: string;
+  city: string;
+  defaultId: number;
+  phone: string;
+  password: string;
+  status: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface IRole {
+  id: number;
+  name: string;
+  intro: string;
+  createdAt: string;
+  updatedAt: string;
+  rolemenus?: IMenu[];
+}
+
+export type { IAdmin, IUser, IGood, ICategory, IGoodCategory, IOrder, IRole };

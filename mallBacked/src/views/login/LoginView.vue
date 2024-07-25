@@ -12,6 +12,8 @@ import LoginPanel from "./cpns/LoginPanel.vue";
 .login-view {
   position: relative;
   height: 100%;
-  background: linear-gradient(to right, rgb(191, 227, 241), rgb(170 221 241));
+  @include useTheme {
+    background: getVar("loginBgColor");
+  }
 }
 </style>

@@ -32,9 +32,6 @@ const visible = defineModel("visible", { default: false });
 <style scoped lang="scss">
 .drawer-ui {
   :deep(.el-drawer) {
-    @include useTheme {
-      background: getVar("bgColor");
-    }
     .el-drawer__body {
       position: relative;
       .close-icon {

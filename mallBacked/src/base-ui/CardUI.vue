@@ -30,16 +30,8 @@ export default defineComponent({
 <style scoped lang="scss">
 .card-ui {
   transition: none;
-  @include useTheme {
-    background: getVar("bgColor");
-    color: getVar("textColor");
-    border-color: getVar("borderColor");
-  }
   :deep(.el-card__header) {
     padding: 10px 20px !important;
-    @include useTheme {
-      border-color: getVar("borderColor");
-    }
     .card-header {
       display: flex;
       justify-content: space-between;

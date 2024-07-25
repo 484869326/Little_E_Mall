@@ -19,7 +19,7 @@
     </PageContent>
     <PageModal
       :title="title"
-      :modelConfig="modelConfig"
+      :modalConfig="modalConfig"
       pageName="user"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
@@ -32,7 +32,7 @@
 import { SearchFormConfig } from "./config/searchConfig";
 import { contentTableConfig } from "./config/contentConfig";
 import { usePageSearch } from "@/hook/usePageSearch";
-import { modelConfig } from "./config/modelConfig";
+import { modalConfig } from "./config/modalConfig";
 import { usePageModal } from "@/hook/usePageModal";
 
 const { pageContentRef, handleResetClick, handleQueryClick, getFormData } = usePageSearch();

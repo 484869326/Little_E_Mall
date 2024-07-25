@@ -3,7 +3,7 @@ import { getPageListData } from "@/service/main";
 import { validateSelect } from "@/utils/dataFormat";
 import { reactive } from "vue";
 
-export const modelConfig: IForm = reactive({
+export const modalConfig: IForm = reactive({
   formItems: [
     {
       field: "cName",

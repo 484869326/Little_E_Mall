@@ -11,70 +11,70 @@
               :rules="!item.isHidden ? item.rules : undefined"
               :style="itemStyle"
             >
-              <template v-if="item.type === 'input'">
-                <ElInput
-                  :placeholder="item.placeholder"
-                  v-model="formData[`${item.field}`]"
-                ></ElInput>
-              </template>
-              <template v-else-if="item.type === 'select'">
-                <ElSelect
-                  :disabled="item.disabled"
-                  :placeholder="item.placeholder"
-                  v-model="formData[`${item.field}`]"
-                  @change="
-                    item.isChange ? item.isChange(formItemsRef, formData[`${item.field}`]) : ''
-                  "
-                  clearable
-                  :remote="item.remote"
-                >
-                  <template v-for="option in item.options" :key="option.label">
-                    <ElOption :label="option.label" :value="option.value"></ElOption>
-                  </template>
-                </ElSelect>
-              </template>
-              <template v-else-if="item.type === 'datepicker'">
-                <ElDatePicker
-                  v-bind="item.dataOptions"
-                  style="width: 100%"
-                  v-model="formData[`${item.field}`]"
-                  value-format="YYYY-MM-DD"
-                />
-              </template>
-              <template v-else-if="item.type === 'switch'">
-                <ElSwitch
-                  :active-value="1"
-                  :inactive-value="0"
-                  v-model="formData[`${item.field}`]"
-                />
-              </template>
-              <template v-else-if="item.type === 'checkbox'">
-                <ElCheckboxGroup v-model="formData[`${item.field}`]">
-                  <ElCheckbox label="Online activities" name="type" />
-                  <ElCheckbox label="Promotion activities" name="type" />
-                  <ElCheckbox label="Offline activities" name="type" />
-                  <ElCheckbox label="Simple brand exposure" name="type" />
-                </ElCheckboxGroup>
-              </template>
-              <template v-else-if="item.type === 'radio'">
-                <ElRadioGroup v-model="formData[`${item.field}`]">
-                  <ElRadio label="Sponsor" />
-                  <ElRadio label="Venue" />
-                </ElRadioGroup>
-              </template>
-              <!-- 图片展示上传 -->
-              <template v-else-if="item.type === 'upload'">
-                <DiyUpload v-model="formData[`${item.field}`]" :list-type="item.listType as any">
-                </DiyUpload>
-              </template>
+              <slot :name="item.slotName">
+                <template v-if="item.type === 'input'">
+                  <ElInput
+                    :placeholder="item.placeholder"
+                    v-model="formData[`${item.field}`]"
+                  ></ElInput>
+                </template>
+                <template v-else-if="item.type === 'select'">
+                  <ElSelect
+                    :disabled="item.disabled"
+                    :placeholder="item.placeholder"
+                    v-model="formData[`${item.field}`]"
+                    @change="
+                      item.isChange ? item.isChange(formItemsRef, formData[`${item.field}`]) : ''
+                    "
+                    clearable
+                    :remote="item.remote"
+                  >
+                    <template v-for="option in item.options" :key="option.label">
+                      <ElOption :label="option.label" :value="option.value"></ElOption>
+                    </template>
+                  </ElSelect>
+                </template>
+                <template v-else-if="item.type === 'datepicker'">
+                  <ElDatePicker
+                    v-bind="item.dataOptions"
+                    style="width: 100%"
+                    v-model="formData[`${item.field}`]"
+                    value-format="YYYY-MM-DD"
+                  />
+                </template>
+                <template v-else-if="item.type === 'switch'">
+                  <ElSwitch
+                    :active-value="1"
+                    :inactive-value="0"
+                    v-model="formData[`${item.field}`]"
+                  />
+                </template>
+                <template v-else-if="item.type === 'checkbox'">
+                  <ElCheckboxGroup v-model="formData[`${item.field}`]">
+                    <ElCheckbox label="Online activities" name="type" />
+                    <ElCheckbox label="Promotion activities" name="type" />
+                    <ElCheckbox label="Offline activities" name="type" />
+                    <ElCheckbox label="Simple brand exposure" name="type" />
+                  </ElCheckboxGroup>
+                </template>
+                <template v-else-if="item.type === 'radio'">
+                  <ElRadioGroup v-model="formData[`${item.field}`]">
+                    <ElRadio label="Sponsor" />
+                    <ElRadio label="Venue" />
+                  </ElRadioGroup>
+                </template>
+                <!-- 图片展示上传 -->
+                <template v-else-if="item.type === 'upload'">
+                  <DiyUpload v-model="formData[`${item.field}`]" :list-type="item.listType as any">
+                  </DiyUpload>
+                </template>
+              </slot>
             </ElFormItem>
           </ElCol>
         </template>
       </ElRow>
-    </ElForm>
-    <div class="footer">
       <slot name="footer"></slot>
-    </div>
+    </ElForm>
   </div>
 </template>
 
@@ -146,13 +146,5 @@ defineExpose({
 <style scoped lang="scss">
 .form {
   padding-top: 18px;
-  :deep(.el-form) {
-    label,
-    .el-form-item__label {
-      @include useTheme {
-        color: getVar("regularTextColor");
-      }
-    }
-  }
 }
 </style>

@@ -1,6 +1,6 @@
 import type { IForm } from "@/types/baseUI";
 
-export const modelConfig: IForm = {
+export const modalConfig: IForm = {
   formItems: [
     {
       field: "adminName",
@@ -32,6 +32,14 @@ export const modelConfig: IForm = {
           value: 1
         }
       ]
+    },
+    {
+      field: "roleId",
+      type: "select",
+      label: "角色",
+      rules: [{ required: true, message: "请选择角色", trigger: "change" }],
+      placeholder: "请选择角色",
+      options: []
     },
     {
       field: "email",

@@ -16,7 +16,7 @@ import { useRoute } from "vue-router";
 import { useLoginStore } from "@/store/login";
 import UserInfo from "./cpns/UserInfo.vue";
 import Breadcrumb from "@/base-ui/BreadCrumbUI.vue";
-import { pathMenuToBread } from "@/utils/mapMenus";
+import { pathMenuToBread } from "@/router/mapMenus";
 
 defineProps(["collapse"]);
 defineEmits(["update:collapse"]);
@@ -42,34 +42,7 @@ const breadCrumbs = computed(() => pathMenuToBread(loginStore.getMenu, route.pat
     flex: 1;
     justify-content: space-between;
     align-items: center;
-    :deep(.el-breadcrumb) {
-      & > span {
-        &:first-child {
-          .is-link {
-            @include useTheme {
-              color: getVar("textColor");
-            }
-          }
-        }
-        &:last-child {
-          .is-link {
-            @include useTheme {
-              color: getVar("regularTextColor");
-            }
-          }
-        }
-      }
-    }
-    :deep(.userinfo) {
-      .dropdown {
-        .admin-name,
-        .el-icon {
-          @include useTheme {
-            color: getVar("regularTextColor");
-          }
-        }
-      }
-    }
   }
 }
 </style>
+@/router/mapMenus

@@ -1,7 +1,7 @@
 import type { IForm } from "@/types/baseUI";
 import { validateSelect } from "@/utils/dataFormat";
 
-export const modelConfig: IForm = {
+export const modalConfig: IForm = {
   formItems: [
     {
       field: "goodName",

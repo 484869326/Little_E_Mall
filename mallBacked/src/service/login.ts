@@ -1,19 +1,22 @@
 import { Request1 } from "./index";
 import type { IDataType } from "@/types/service";
-import type { IAccount, IUser, IMenu } from "@/types/login";
+import type { IAccount, IMenu } from "@/types/login";
+import type { IAdmin } from "@/types/main";
 enum LoginApi {
   AccountLogin = "/admin/login",
-  GetMenu = "/menu/likeSelect"
+  getRoleMenu = "/admin/getRoleMenu"
 }
 export function loginRequest(account: IAccount) {
-  return Request1.post<IDataType<IUser>>({
+  return Request1.post<IDataType<IAdmin>>({
     url: LoginApi.AccountLogin,
     data: account
   });
 }
-export function menuRequest() {
+export function menuRequest(roleId: number) {
   return Request1.post<IDataType<IMenu[]>>({
-    url: LoginApi.GetMenu,
-    data: {}
+    url: LoginApi.getRoleMenu,
+    data: {
+      roleId
+    }
   });
 }

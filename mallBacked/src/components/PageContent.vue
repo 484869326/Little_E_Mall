@@ -6,7 +6,7 @@
       :total="mainStore.getListCount(pageName)"
       v-model:pagination="pagination"
     >
-      <template #handler v-if="contentTableConfig.addTitle">
+      <template #handler v-if="contentTableConfig.addTitle && isCreate">
         <ElButton type="primary" @click="handleAddClick">{{
           contentTableConfig.addTitle
         }}</ElButton>
@@ -20,18 +20,22 @@
       <!-- 编辑删除操作 -->
       <template #operate="scope">
         <div class="operate">
-          <ElLink :underline="false" type="primary" @click="handleEditClick(scope.row)">
-            <template #icon>
-              <IEpEdit></IEpEdit>
-            </template>
-            编辑</ElLink
-          >
-          <ElLink :underline="false" type="primary" @click="handleDeleteClick(scope.row)">
-            <template #icon>
-              <IEpDelete></IEpDelete>
-            </template>
-            删除
-          </ElLink>
+          <template v-if="isUpdate">
+            <ElLink :underline="false" type="primary" @click="handleEditClick(scope.row)">
+              <template #icon>
+                <IEpEdit></IEpEdit>
+              </template>
+              编辑</ElLink
+            >
+          </template>
+          <template v-if="isDelete">
+            <ElLink :underline="false" type="primary" @click="handleDeleteClick(scope.row)">
+              <template #icon>
+                <IEpDelete></IEpDelete>
+              </template>
+              删除
+            </ElLink>
+          </template>
         </div>
       </template>
       <!-- <template #created_at>
@@ -57,6 +61,7 @@ import type { PropType } from "vue";
 import DiyTable from "@/base-ui/TableUI.vue";
 import { useMainStore } from "@/store/main";
 import type { ITable } from "@/types/baseUI";
+import { usePermission } from "@/hook/usePermission";
 
 const props = defineProps({
   contentTableConfig: {
@@ -78,6 +83,12 @@ const props = defineProps({
     required: true
   }
 });
+
+const isCreate = usePermission(props.pageName, "create");
+const isDelete = usePermission(props.pageName, "delete");
+const isUpdate = usePermission(props.pageName, "edit");
+const isQuery = usePermission(props.pageName, "query");
+
 const emit = defineEmits(["addBtnClick", "editBtnClick"]);
 const mainStore = useMainStore();
 const pagination = ref({ currentPage: 1, pageSize: 10 });
@@ -125,10 +136,10 @@ const handleDeleteClick = async (item: any) => {
       type: "warning"
     });
     const id = item.id ?? item.goodId ?? item.cid;
-    await mainStore.deletePageDataAction(props.pageName, id);
+    const message = await mainStore.deletePageDataAction(props.pageName, id);
     ElMessage({
       type: "success",
-      message: "删除成功"
+      message
     });
     getPageData(props.getFormData);
   } catch (error: any) {
@@ -151,93 +162,6 @@ defineExpose({
   margin-top: 10px;
   box-shadow: 0 6px 18px 0 rgb(60 70 79 / 10%);
   border-radius: 5px;
-  @include useTheme {
-    border: 1px solid getVar("borderColor");
-  }
-  :deep(.table-UI) {
-    .el-table-ui {
-      background-color: transparent;
-      &::before,
-      &::after {
-        @include useTheme {
-          background-color: getVar("borderColor");
-        }
-      }
-      .el-table__inner-wrapper {
-        &::before,
-        &::after {
-          @include useTheme {
-            background-color: getVar("borderColor");
-          }
-        }
-        .el-table__border-left-patch {
-          opacity: 0;
-        }
-      }
-      .el-table__cell {
-        transition: none;
-        @include useTheme {
-          background: getVar("bgColor");
-          color: getVar("regularTextColor");
-          border-right-color: getVar("borderColor");
-          border-bottom-color: getVar("borderColor");
-        }
-      }
-    }
-  }
-  :deep(.el-pagination) {
-    .el-pagination__total.is-first,
-    .el-pagination__goto,
-    .el-pagination__classifier {
-      @include useTheme {
-        color: getVar("regularTextColor");
-      }
-    }
-    .el-select__wrapper,
-    .el-input__wrapper {
-      background: transparent;
-      transition: none;
-      @include useTheme {
-        box-shadow: inset 0 0 0 1px getVar("boxShadowColor");
-      }
-      &.is-focused,
-      &.is-focus {
-        box-shadow: inset 0 0 0 1px getVar("primaryColor") !important;
-      }
-      &:hover:not(.is-focused, .is-focus) {
-        @include useTheme {
-          box-shadow: inset 0 0 0 1px getVar("hoverBorderColor") !important;
-        }
-      }
-      .el-select__selected-item,
-      .el-icon,
-      .el-input__inner {
-        @include useTheme {
-          color: getVar("regularTextColor");
-        }
-      }
-    }
-    .btn-prev,
-    .btn-next {
-      background: transparent;
-      @include useTheme {
-        color: getVar("regularTextColor");
-      }
-    }
-    .el-pager {
-      li {
-        background: transparent;
-        @include useTheme {
-          color: getVar("regularTextColor");
-        }
-        &.is-active {
-          @include useTheme {
-            color: #409eff;
-          }
-        }
-      }
-    }
-  }
   .operate {
     .el-link {
       font-size: 12px;

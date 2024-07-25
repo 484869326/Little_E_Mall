@@ -2,18 +2,7 @@ interface IAccount {
   username: string;
   password: string;
 }
-interface IUser {
-  address: string;
-  email: string;
-  gender: string;
-  status: number;
-  tel: string;
-  adminName: string;
-  adminPwd: string;
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-}
+
 interface ILoginState {
   userInfo: any;
   getMenu: any;
@@ -29,4 +18,4 @@ interface IMenu {
   updatedAt: string;
   children?: IMenu[];
 }
-export type { IAccount, IUser, ILoginState, IMenu };
+export type { IAccount, ILoginState, IMenu };

@@ -61,9 +61,12 @@ function handleClick() {
   toggleFullScreen(document.documentElement);
 }
 //监听 是否夜间模式
-watchEffect(() => {
-  themeStore.toggleThemes(themeSwitch.value);
-});
+watch(
+  () => themeSwitch.value,
+  (newVal) => {
+    themeStore.toggleThemes(newVal);
+  }
+);
 </script>
 
 <style scoped lang="scss">

@@ -1,5 +1,7 @@
 // 工具类
 
+import type { IMenu } from "@/types/login";
+
 // 延时器
 function delay(seconds: number): Promise<void> {
   return new Promise((resolve) => {
@@ -40,4 +42,26 @@ function deepClone(originValue: any, map = new WeakMap()): any {
   }
   return newObject;
 }
-export { delay, deepClone };
+//首字母大写
+function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getCheckMenu(menuList: IMenu[]) {
+  const checkedKeys: number[] = [];
+  //存父级的
+  const halfCheckedKeys: number[] = [];
+  const _recurseGetCheckMenu = (menuList: IMenu[]) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        halfCheckedKeys.push(menu.id);
+        _recurseGetCheckMenu(menu.children);
+      } else {
+        checkedKeys.push(menu.id);
+      }
+    }
+  };
+  _recurseGetCheckMenu(menuList);
+  return [checkedKeys, halfCheckedKeys];
+}
+export { delay, deepClone, capitalizeFirstLetter, getCheckMenu };

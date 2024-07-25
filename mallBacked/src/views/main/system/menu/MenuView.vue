@@ -14,7 +14,7 @@
     </PageContent>
     <PageModal
       :title="title"
-      :modelConfig="modelConfigComputed"
+      :modalConfig="modalConfigComputed"
       pageName="menu"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
@@ -25,15 +25,15 @@
 
 <script setup lang="ts">
 import { contentTableConfig } from "./config/contentConfig";
-import { modelConfig } from "./config/modelConfig";
+import { modalConfig } from "./config/modalConfig";
 import { usePageModal } from "@/hook/usePageModal";
 import PageContent from "@/components/PageContent.vue";
 import { useMainStore } from "@/store/main";
 
 const mainStore = useMainStore();
 const pageContentRef = ref<InstanceType<typeof PageContent>>();
-const modelConfigComputed = computed(() => {
-  const menuItem = modelConfig.formItems.find((item: any) => {
+const modalConfigComputed = computed(() => {
+  const menuItem = modalConfig.formItems.find((item: any) => {
     return item.field === "parentId";
   });
   if (menuItem) {
@@ -42,12 +42,12 @@ const modelConfigComputed = computed(() => {
     });
     menuItem.options = [...menuList];
   }
-  return modelConfig;
+  return modalConfig;
 });
 
 //默认 disabled为false
 const addCallback = () => {
-  const levelItem: any = modelConfig.formItems.find((item: any) => {
+  const levelItem: any = modalConfig.formItems.find((item: any) => {
     return item.field === "level";
   });
   levelItem.disabled = false;
@@ -55,11 +55,11 @@ const addCallback = () => {
 //隐藏函数
 const editCallback = () => {
   //层级
-  const levelItem: any = modelConfig.formItems.find((item: any) => {
+  const levelItem: any = modalConfig.formItems.find((item: any) => {
     return item.field === "level";
   });
   //上次菜单
-  const parentIdItem = modelConfig.formItems.find((item: any) => {
+  const parentIdItem = modalConfig.formItems.find((item: any) => {
     return item.field === "parentId";
   });
   //默认设置为false
@@ -76,7 +76,7 @@ const editCallback = () => {
     });
     formData["children"].length !== 0 && (levelItem.disabled = true);
   }
-  levelItem?.isChange(modelConfig.formItems, level);
+  levelItem?.isChange(modalConfig.formItems, level);
 };
 //hook
 const { handleAddData, handleEditData, defaultInfo, pageModalRef, title } = usePageModal(

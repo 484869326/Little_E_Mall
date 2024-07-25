@@ -28,7 +28,7 @@
     </PageContent>
     <PageModal
       :title="title"
-      :modelConfig="modelConfigComputed"
+      :modalConfig="modalConfigComputed"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
       pageName="good"
@@ -41,7 +41,7 @@
 import { SearchFormConfig } from "./config/searchConfig";
 import { contentTableConfig } from "./config/contentConfig";
 import { usePageSearch } from "@/hook/usePageSearch";
-import { modelConfig } from "./config/modelConfig";
+import { modalConfig } from "./config/modalConfig";
 import { usePageModal } from "@/hook/usePageModal";
 import { useMainStore } from "@/store/main";
 
@@ -58,14 +58,14 @@ const searchConfigComputed = computed(() => {
   }
   return SearchFormConfig;
 });
-const modelConfigComputed = computed(() => {
-  const categoryItem = modelConfig.formItems.find((item) => item.field === "cid");
+const modalConfigComputed = computed(() => {
+  const categoryItem = modalConfig.formItems.find((item) => item.field === "cid");
   if (categoryItem) {
     categoryItem.options = mainStore.entireCategory.map((item: any) => {
       return { label: item.cName, value: item.cid };
     });
   }
-  return modelConfig;
+  return modalConfig;
 });
 onMounted(() => {
   mainStore.getEntireCategory();

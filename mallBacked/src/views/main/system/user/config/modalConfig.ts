@@ -1,6 +1,6 @@
 import type { IForm } from "@/types/baseUI";
 
-export const modelConfig: IForm = {
+export const modalConfig: IForm = {
   formItems: [
     {
       field: "nickName",

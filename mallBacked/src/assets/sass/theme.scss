@@ -2,35 +2,18 @@ $curTheme: "light";
 
 $themes: (
   light: (
-    bgColor: #fff,
-    textColor: #141414,
-    regularTextColor: #606266,
-    borderColor: #ebeef5,
-    boxShadowColor: #dcdfe6,
-    primaryColor: #303133,
-    hoverColor: #f5f7fa,
-    hoverBorderColor: #c0c4cc,
-    buttonHoverBorderColor: #c6e2ff,
-    buttonHoverBgColor: #ecf5ff
+    loginBgColor: linear-gradient(to right, rgb(191, 227, 241), rgb(170 221 241))
   ),
   dark: (
-    bgColor: #141414,
-    textColor: #fff,
-    regularTextColor: #fff,
-    borderColor: #363637,
-    boxShadowColor: #4c4d3f,
-    primaryColor: #409eff,
-    hoverColor: #262727,
-    hoverBorderColor: #6c6e72,
-    buttonHoverBorderColor: #213d5b,
-    buttonHoverBgColor: #18222c
+    loginBgColor: transparent
   )
 );
 
 @mixin useTheme() {
   @each $key, $value in $themes {
     $curTheme: $key !global;
-    html[data-theme="#{$key}"] & {
+    // html[data-theme="#{$key}"] & {
+    html.#{$key} & {
       @content;
     }
   }

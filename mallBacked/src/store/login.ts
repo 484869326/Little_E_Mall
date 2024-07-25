@@ -1,16 +1,17 @@
 import { defineStore } from "pinia";
 import router from "@/router";
-
-import type { IUser, IMenu } from "@/types/login";
+import type { IMenu } from "@/types/login";
 import { loginRequest, menuRequest } from "@/service/login";
 import LocalCache from "@/utils/cache";
-import { mapMenusToRouter } from "@/utils/mapMenus";
+import { mapMenusToPermissions, mapMenusToRouter } from "@/router/mapMenus";
+import type { IAdmin } from "@/types/main";
 
 export const useLoginStore = defineStore("login", {
   state: () => {
     return {
       getMenu: [] as IMenu[],
-      userInfo: {} as IUser
+      userInfo: {} as IAdmin,
+      permissionsList: [] as any[]
     };
   },
   actions: {
@@ -19,7 +20,7 @@ export const useLoginStore = defineStore("login", {
       try {
         const { data: userInfo } = await loginRequest(payload);
         if (userInfo) {
-          const { data: getMenu } = await menuRequest();
+          const { data: getMenu } = await menuRequest(userInfo.roleId);
           this.userInfo = userInfo;
           this.getMenu = getMenu;
           LocalCache.setCache("userinfo", userInfo);
@@ -50,6 +51,7 @@ export const useLoginStore = defineStore("login", {
         });
         ElMessage.closeAll();
         router.push("/main");
+        this.permissionsList = mapMenusToPermissions(this.getMenu);
         resolve(true);
       });
     }

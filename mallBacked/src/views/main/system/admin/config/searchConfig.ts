@@ -48,6 +48,13 @@ export const SearchFormConfig: IForm = {
       placeholder: "请输入手机号"
     },
     {
+      field: "roleId",
+      type: "select",
+      label: "角色",
+      placeholder: "请选择角色",
+      options: []
+    },
+    {
       field: "betweenTime",
       type: "datepicker",
       label: "时间",

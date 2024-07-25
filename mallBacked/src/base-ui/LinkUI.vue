@@ -50,9 +50,6 @@ export default defineComponent({
     width: 5px;
     height: 5px;
     border-radius: 100%;
-    @include useTheme {
-      background: getVar("textColor");
-    }
   }
 }
 </style>

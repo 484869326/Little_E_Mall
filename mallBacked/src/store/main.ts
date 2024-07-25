@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { addPageData, deletePageData, editPageData, getPageListData } from "@/service/main";
-import type { IUser, IMenu } from "@/types/login";
-import type { IAdmin, IGood, IGoodCategory, ICategory, IOrder } from "@/types/main";
+import type { IMenu } from "@/types/login";
+import type { IAdmin, IGood, IGoodCategory, ICategory, IOrder, IUser, IRole } from "@/types/main";
 
 export const useMainStore = defineStore("main", {
   state: () => {
@@ -17,7 +17,8 @@ export const useMainStore = defineStore("main", {
       orderListCount: 0,
       categoryList: [] as ICategory[],
       categoryListCount: 0,
-      entireCategory: [] as IGoodCategory[]
+      entireCategory: [] as IGoodCategory[],
+      entireRole: [] as IRole[]
     };
   },
   getters: {
@@ -33,6 +34,11 @@ export const useMainStore = defineStore("main", {
     }
   },
   actions: {
+    //查找所有角色
+    async getEntireRole() {
+      const res = await getPageListData("/role/selectRole");
+      this.entireRole = res.data;
+    },
     //查找商品需要的分类
     async getEntireCategory() {
       const res = await getPageListData("/good/selectCategory/2");
@@ -68,6 +74,7 @@ export const useMainStore = defineStore("main", {
       if (code === -1) {
         throw new Error(msg);
       }
+      return msg;
     }
   }
 });

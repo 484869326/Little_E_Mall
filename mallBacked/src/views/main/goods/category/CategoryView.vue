@@ -20,7 +20,7 @@
     </PageContent>
     <PageModal
       :title="title"
-      :modelConfig="modelConfig"
+      :modalConfig="modalConfig"
       pageName="category"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
@@ -31,21 +31,21 @@
 
 <script setup lang="ts">
 import { contentTableConfig } from "./config/contentConfig";
-import { modelConfig } from "./config/modelConfig";
+import { modalConfig } from "./config/modalConfig";
 import { usePageModal } from "@/hook/usePageModal";
 import PageContent from "@/components/PageContent.vue";
 
 const pageContentRef = ref<InstanceType<typeof PageContent>>();
 //默认 disabled为false
 const addCallback = () => {
-  const levelItem: any = modelConfig.formItems.find((item: any) => {
+  const levelItem: any = modalConfig.formItems.find((item: any) => {
     return item.field === "level";
   });
   levelItem.disabled = false;
 };
 //隐藏函数
 const editCallback = async () => {
-  const levelItem: any = modelConfig.formItems.find((item: any) => {
+  const levelItem: any = modalConfig.formItems.find((item: any) => {
     return item.field === "level";
   });
   (defaultInfo.value as any)["parentId"] === 0
@@ -53,7 +53,7 @@ const editCallback = async () => {
     : void 0;
   const formData: any = defaultInfo.value;
   const level = formData["level"];
-  await levelItem?.isChange(modelConfig.formItems, level);
+  await levelItem?.isChange(modalConfig.formItems, level);
   if (formData["children"] && formData["children"].length !== 0) {
     const children = formData["children"];
     const grandson = children.some((item: any) => {

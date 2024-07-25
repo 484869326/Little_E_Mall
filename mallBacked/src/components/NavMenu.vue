@@ -50,7 +50,7 @@
 import { computed, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useLoginStore } from "@/store/login";
-import { pathMapToMenu } from "@/utils/mapMenus";
+import { pathMapToMenu } from "@/router/mapMenus";
 
 const props = defineProps({
   collapse: {

@@ -30,6 +30,7 @@ export interface IFormItem {
   isChange?: any;
   disabled?: boolean;
   remote?: boolean;
+  slotName?: string;
 }
 export interface IForm {
   formItems: IFormItem[];

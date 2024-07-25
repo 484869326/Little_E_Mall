@@ -8,13 +8,25 @@
       center
       :z-index="3"
     >
-      <DiyForm v-bind="modelConfig" v-model="formData" ref="diyFormRef"> </DiyForm>
-      <template #footer>
-        <span class="dialog-footer">
-          <ElButton @click="centerDialogVisible = false" class="default-button">取消</ElButton>
-          <ElButton type="primary" @click="handleConfirmClick"> 确认 </ElButton>
-        </span>
-      </template>
+      <DiyForm v-bind="modalConfig" v-model="formData" ref="diyFormRef">
+        <template
+          v-for="item in modalConfig.formItems"
+          :key="item.field"
+          v-slot:[String(item.slotName)]
+        >
+          <template v-if="item.slotName">
+            <slot :name="item.slotName"></slot>
+          </template>
+        </template>
+        <template #footer>
+          <div class="footer">
+            <ElButton @click="centerDialogVisible = false" class="default-button">取消</ElButton>
+            <ElButton type="primary" @click="handleConfirmClick" native-type="submit">
+              确认
+            </ElButton>
+          </div>
+        </template>
+      </DiyForm>
     </ElDialog>
   </div>
 </template>
@@ -33,7 +45,7 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  modelConfig: {
+  modalConfig: {
     type: Object,
     required: true
   },
@@ -41,6 +53,11 @@ const props = defineProps({
   pageName: {
     type: String,
     required: true
+  },
+  // 插槽值
+  otherInfo: {
+    type: Object,
+    default: () => {}
   }
 });
 const emit = defineEmits(["success"]);
@@ -52,12 +69,13 @@ const formData = ref<any>({});
 watch(
   () => props.defaultInfo,
   (newValue: any) => {
-    for (const item of props.modelConfig.formItems) {
+    for (const item of props.modalConfig.formItems) {
       formData.value[`${item.field}`] = newValue[`${item.field}`];
     }
   }
 );
 const diyFormRef = ref<InstanceType<typeof DiyForm>>();
+
 //确认按钮
 const handleConfirmClick = async () => {
   if (diyFormRef.value) {
@@ -66,10 +84,17 @@ const handleConfirmClick = async () => {
       try {
         if (Object.keys(props.defaultInfo).length) {
           const id = props.defaultInfo.id ?? props.defaultInfo.goodId ?? props.defaultInfo.cid;
-          await mainStore.editPageDataAction(props.pageName, { ...formData.value }, id);
+          await mainStore.editPageDataAction(
+            props.pageName,
+            { ...formData.value, ...props.otherInfo },
+            id
+          );
           ElMessage.success("修改成功");
         } else {
-          await mainStore.addPageDataAction(props.pageName, { ...formData.value });
+          await mainStore.addPageDataAction(props.pageName, {
+            ...formData.value,
+            ...props.otherInfo
+          });
           ElMessage.success("增加成功");
         }
         emit("success");
@@ -103,15 +128,12 @@ defineExpose({
       @include responseTo("phone") {
         --el-dialog-width: 90% !important;
       }
-      @include useTheme {
-        background: getVar("bgColor");
-      }
-      .el-dialog__title {
-        @include useTheme {
-          color: getVar("textColor");
-        }
-      }
     }
+  }
+  :deep(.footer) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>

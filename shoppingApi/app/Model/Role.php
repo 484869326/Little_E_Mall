@@ -4,13 +4,15 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+// use App\Model\RoleMenu;
+
+class Role extends Model
 {
     //
-    protected $table = 'admin';
+    protected $table = 'role';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    protected $fillable = ['roleId','adminName', 'gender', 'email', 'address', 'adminPwd', 'tel', 'status', 'createdAt','updatedAt'];
+    protected $fillable = ['name','intro', 'createdAt','updatedAt'];
     public function getCreatedAtColumn()
     {
         return 'createdAt';
@@ -19,8 +21,8 @@ class Admin extends Model
     {
         return 'updatedAt';
     }
-    public function role()
+    public function menus()
     {
-        return $this->belongsTo(Role::class, 'roleId');
+        return $this->hasManyThrough(Menu::class, RoleMenu::class, 'roleId', 'id', 'id', 'menuId');
     }
 }

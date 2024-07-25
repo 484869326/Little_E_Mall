@@ -26,8 +26,8 @@
 import NavMenu from "@/components/NavMenu.vue";
 import NavHeader from "@/components/nav-header/NavHeader.vue";
 import { RouterView } from "vue-router";
-import { useMediaStore } from "@/store/media";
 import { storeToRefs } from "pinia";
+import { useMediaStore } from "@/store/media";
 
 const mediaStore = useMediaStore();
 const { collapse } = storeToRefs(mediaStore);
@@ -39,10 +39,6 @@ mediaStore.onResize();
 $height: 45px;
 .main-view {
   height: 100%;
-  @include useTheme {
-    background: getVar("bgColor");
-    color: getVar("textColor");
-  }
   & > .el-container {
     width: 100%;
     height: 100%;
@@ -94,16 +90,6 @@ $height: 45px;
   :deep(.footer) {
     background: inherit !important;
     color: inherit !important;
-    .content {
-      .el-breadcrumb {
-        .el-breadcrumb__item:first-child {
-          @include useTheme {
-            background: getVar("bgColor");
-            color: getVar("textColor");
-          }
-        }
-      }
-    }
   }
 }
 </style>

@@ -53,6 +53,7 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
     //管理员
     Route::prefix('admin')->group(function () {
         Route::post('login', "AdminController@login");
+        Route::post('getRoleMenu', "RoleMenuController@getRoleMenu");
         Route::post('getSelf', "AdminController@getSelf");
         Route::post('likeSelect', "AdminController@likeSelect");
         Route::post('Insert', "AdminController@Insert");
@@ -100,5 +101,14 @@ Route::prefix('api')->middleware(['CrossHttp'])->group(function () {
         Route::get('adminGenderCount', "AdminController@adminGenderCount");
         Route::get('orderCount', "OrderController@orderCount");
         Route::get('monthPriceCount', "OrderController@monthPriceCount");
+    });
+
+    //角色
+    Route::prefix('role')->group(function () {
+        Route::post('selectRole', "RoleMenuController@selectRole");
+        Route::post('likeSelect', "RoleMenuController@likeSelect");
+        Route::post('Insert', "RoleMenuController@Insert");
+        Route::patch('{id}', "RoleMenuController@Update");
+        Route::delete('{id}', "RoleMenuController@Delete");
     });
 });

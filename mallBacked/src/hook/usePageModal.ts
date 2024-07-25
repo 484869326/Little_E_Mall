@@ -1,7 +1,7 @@
 import PageModal from "@/components/PageModal.vue";
 import { ref } from "vue";
 
-type callBackFn = () => void;
+type callBackFn = (item?: any) => void;
 
 export function usePageModal(addCallback?: callBackFn, editCallback?: callBackFn) {
   const pageModalRef = ref<InstanceType<typeof PageModal>>();
@@ -18,7 +18,7 @@ export function usePageModal(addCallback?: callBackFn, editCallback?: callBackFn
   const handleEditData = async (item: any) => {
     if (pageModalRef.value) {
       defaultInfo.value = { ...item };
-      editCallback && editCallback();
+      editCallback && editCallback(item);
       pageModalRef.value && (pageModalRef.value.centerDialogVisible = true);
       title.value = "编辑界面";
     }
