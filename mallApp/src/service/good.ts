@@ -15,7 +15,9 @@ const getBuyGoodList = (data: any) => {
 };
 //获取订单管理数据
 const getOrderList = (data: IRequest.IOrderManage) => {
-  return Request1.post<IRequest.IOrder[]>("/getOrderList", data);
+  return Request1.post<{
+    list: IRequest.IOrder[];
+  }>("/getOrderList", data);
 };
 //确认收货
 const received = (data: IRequest.IReceive) => {

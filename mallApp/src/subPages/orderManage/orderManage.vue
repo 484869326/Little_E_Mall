@@ -56,7 +56,7 @@
         </view>
         <view class="bottom">
           <view class="left">
-            {{ item.createdAt }}
+            {{ formatTime(item.createdAt) }}
           </view>
           <view class="right">
             共{{ item.totalNum }}件商品 实付金额：<text class="price">
@@ -87,6 +87,7 @@ import { useGoodStore } from "@/store/good";
 import navigation from "@/components/navigation.vue";
 import { useTips } from "@/utils/tips";
 import tips from "@/components/tips.vue";
+import { formatTime } from "@/utils";
 
 const myStore = useMyStore();
 const goodStore = useGoodStore();

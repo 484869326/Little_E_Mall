@@ -87,8 +87,9 @@ export const useGoodStore = defineStore("good", {
       return msg;
     },
     async fetchgetOrderList(data: IRequest.IOrderManage) {
-      const { data: value } = await getOrderList(data);
-      if (!value) return;
+      const { data: resData } = await getOrderList(data);
+      const value = resData?.list ?? [];
+      if (!resData) return;
       if (this.orderPage === 1) {
         this.orderList.length = 0;
       }

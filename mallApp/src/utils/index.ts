@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { customRef } from "vue";
 import type { Ref } from "vue";
 //防抖
@@ -152,4 +153,19 @@ function countdown(seconds: number, callBack?: (remainingSeconds: number) => voi
     }
   }, 1000);
 }
-export { debounce, throttle, deepClone, phoneFormatter, phoneFormatterRef, countdown };
+
+//格式化时间
+function formatTime(oldvalue: any, format = "YYYY-MM-DD HH:mm:ss") {
+  // return moment(oldvalue).tz("Asia/shanghai").format(format);
+  dayjs.locale("es");
+  return dayjs(oldvalue).locale("zh-cn").format(format);
+}
+export {
+  debounce,
+  throttle,
+  deepClone,
+  phoneFormatter,
+  phoneFormatterRef,
+  countdown,
+  formatTime,
+};

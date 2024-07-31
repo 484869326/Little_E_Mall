@@ -1,82 +1,84 @@
 <template>
-  <!-- #ifdef MP-WEIXIN -->
-  <page-meta :page-style="noScroll ? 'overflow: hidden;' : 'overflow: visible;'">
-    <!-- #endif -->
-    <view
-      class="detail"
-      :style="{
-        'padding-bottom': paddingBottom + 'px',
-      }"
-    >
-      <!-- 轮播图 -->
-      <banner :banners="detail.swiper" :isPreview="true"></banner>
-      <!-- 商品信息 -->
-      <view class="good-info">
-        <view class="good-price">￥{{ (detail.price ?? [])[data.typeIndex] }}</view>
-        <view class="good-name">{{ detail.goodName }}</view>
-        <view class="good-desc">{{ detail.advertise }}</view>
-      </view>
-      <!-- 活动 -->
-      <detailBox title="活动" class="normal-box activity">
-        <text class="text">分期立减</text>
-        <text>分期最高减30元</text>
-      </detailBox>
-      <!-- 购买商品信息 -->
-      <view class="good-buy-msg normal-box">
-        <detailBox title="已选" @click="handleShowBuyClick">
-          {{ selectName }}
-        </detailBox>
-        <detailBox title="配送" class="delivery" @click="handleChooseAddressClick">
-          <uni-icons type="location" size="40rpx" color="#7e7e7e"></uni-icons
-          ><text class="text">{{ myStore.addressRegionText }}</text>
-        </detailBox>
-        <detailBox title="服务" class="service" @click="childName = 'service'">
-          <view class="service-item"
-            ><uni-icons type="checkbox" size="40rpx" color="#7e7e7e"></uni-icons
-            ><text class="text">小E自营</text></view
-          >
-          <view class="service-item"
-            ><uni-icons type="checkbox" size="40rpx" color="#7e7e7e"></uni-icons
-            ><text class="text">小E发货</text></view
-          >
-          <view class="service-item"
-            ><uni-icons type="checkbox" size="40rpx" color="#7e7e7e"></uni-icons
-            ><text class="text">7天无理由退货(到店自取拆封后不支持)</text></view
-          >
-        </detailBox>
-      </view>
-      <!-- 商品介绍 -->
-      <view class="good-introduction">
-        <template v-for="item in detail.detail" :key="item">
-          <waterMask text="小E商城">
-            <!-- #ifndef H5  -->
-            <image class="image" :src="item" :lazy-load="true" mode="widthFix"></image>
-            <!-- #endif  -->
-            <!-- #ifdef H5  -->
-            <img class="image" v-lazy="item" />
-            <!-- #endif  -->
-          </waterMask>
-        </template>
-      </view>
-      <!-- 底部 -->
-      <detailBottom ref="detailBottomRef" @add="handleShowBuyClick"></detailBottom>
-      <detailBuy
-        v-if="childName === 'buy'"
-        ref="detailBuyRef"
-        @close="childName = ''"
-        @load="loadData"
-        @update="updateData"
-        :detail="detail"
-      ></detailBuy>
-      <detailService
-        v-else-if="childName === 'service'"
-        @close="childName = ''"
-      ></detailService>
-    </view>
+  <view>
     <!-- #ifdef MP-WEIXIN -->
-  </page-meta>
-  <!-- #endif -->
-  <tips ref="tipsRef"></tips>
+    <page-meta :page-style="noScroll ? 'overflow: hidden;' : 'overflow: visible;'">
+      <!-- #endif -->
+      <view
+        class="detail"
+        :style="{
+          'padding-bottom': paddingBottom + 'px',
+        }"
+      >
+        <!-- 轮播图 -->
+        <banner :banners="detail.swiper" :isPreview="true"></banner>
+        <!-- 商品信息 -->
+        <view class="good-info">
+          <view class="good-price">￥{{ (detail.price ?? [])[data.typeIndex] }}</view>
+          <view class="good-name">{{ detail.goodName }}</view>
+          <view class="good-desc">{{ detail.advertise }}</view>
+        </view>
+        <!-- 活动 -->
+        <detailBox title="活动" class="normal-box activity">
+          <text class="text">分期立减</text>
+          <text>分期最高减30元</text>
+        </detailBox>
+        <!-- 购买商品信息 -->
+        <view class="good-buy-msg normal-box">
+          <detailBox title="已选" @click="handleShowBuyClick">
+            {{ selectName }}
+          </detailBox>
+          <detailBox title="配送" class="delivery" @click="handleChooseAddressClick">
+            <uni-icons type="location" size="40rpx" color="#7e7e7e"></uni-icons
+            ><text class="text">{{ myStore.addressRegionText }}</text>
+          </detailBox>
+          <detailBox title="服务" class="service" @click="childName = 'service'">
+            <view class="service-item"
+              ><uni-icons type="checkbox" size="40rpx" color="#7e7e7e"></uni-icons
+              ><text class="text">小E自营</text></view
+            >
+            <view class="service-item"
+              ><uni-icons type="checkbox" size="40rpx" color="#7e7e7e"></uni-icons
+              ><text class="text">小E发货</text></view
+            >
+            <view class="service-item"
+              ><uni-icons type="checkbox" size="40rpx" color="#7e7e7e"></uni-icons
+              ><text class="text">7天无理由退货(到店自取拆封后不支持)</text></view
+            >
+          </detailBox>
+        </view>
+        <!-- 商品介绍 -->
+        <view class="good-introduction">
+          <template v-for="item in detail.detail" :key="item">
+            <waterMask text="小E商城">
+              <!-- #ifndef H5  -->
+              <image class="image" :src="item" :lazy-load="true" mode="widthFix"></image>
+              <!-- #endif  -->
+              <!-- #ifdef H5  -->
+              <img class="image" v-lazy="item" />
+              <!-- #endif  -->
+            </waterMask>
+          </template>
+        </view>
+        <!-- 底部 -->
+        <detailBottom ref="detailBottomRef" @add="handleShowBuyClick"></detailBottom>
+        <detailBuy
+          v-if="childName === 'buy'"
+          ref="detailBuyRef"
+          @close="childName = ''"
+          @load="loadData"
+          @update="updateData"
+          :detail="detail"
+        ></detailBuy>
+        <detailService
+          v-else-if="childName === 'service'"
+          @close="childName = ''"
+        ></detailService>
+      </view>
+      <!-- #ifdef MP-WEIXIN -->
+    </page-meta>
+    <!-- #endif -->
+    <tips ref="tipsRef"></tips>
+  </view>
 </template>
 
 <script setup lang="ts">
