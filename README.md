@@ -1,8 +1,8 @@
 
 
 
-![PHP 7.4 badge](https://img.shields.io/badge/PHP-7.4-blue)  ![MySQL 5.7.26 badge](https://img.shields.io/badge/MySQL-5.7.26-blue)    ![Laravel 5.7.29 badge](https://img.shields.io/badge/Laravel-5.7.29-red)         ![UniApp](https://img.shields.io/badge/UniApp-v4.0.0-brightgreen) ![Vue 3](https://img.shields.io/badge/Vue-3.4.21-brightgreen) ![Element Plus](https://img.shields.io/badge/Element%20Plus-v2.6.1-brightgreen)   ![Pinia](https://img.shields.io/badge/Pinia-v2.1.7-brightgreen)  ![Echarts](https://img.shields.io/badge/Echarts-v5.2.2-brightgreen) ![Vite](https://img.shields.io/badge/Vite-v5.1.5-brightgreen)
-
+![PHP 7.4 badge](https://img.shields.io/badge/PHP-7.4-blue)  ![MySQL 5.7.26 badge](https://img.shields.io/badge/MySQL-5.7.26-blue)    ![Laravel 8.83.27 badge](https://img.shields.io/badge/Laravel-8.83.27-red)         ![UniApp](https://img.shields.io/badge/UniApp-v4.0.0-brightgreen) ![Vue 3](https://img.shields.io/badge/Vue-3.4.21-brightgreen) ![Element Plus](https://img.shields.io/badge/Element%20Plus-v2.6.1-brightgreen)   ![Pinia](https://img.shields.io/badge/Pinia-v2.1.7-brightgreen)  ![Echarts](https://img.shields.io/badge/Echarts-v5.2.2-brightgreen) ![Vite](https://img.shields.io/badge/Vite-v5.1.5-brightgreen)
+![Redis](https://img.shields.io/badge/Redis-brightgreen)
  - [在线访问网站](http://20.255.60.222:3333/)
  
  - 服务器系统Ubuntu。用jenkins使用自动化部署，1g1核服务器很容易崩，望见谅
@@ -52,17 +52,17 @@
 ![image](https://github.com/484869326/picture/blob/main/mallApp/address_insert.png?raw=true)
 ![image](https://github.com/484869326/picture/blob/main/mallApp/address_list.png?raw=true)
 ## 4.系统展示（后台）
-### 4.1登录界面
+### 4.1 登录界面
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/login.png)
-### 4.2技术总览界面
+### 4.2 技术总览界面
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/technology.png)
-### 4.3系统统计(数据可视化)
+### 4.3 系统统计(数据可视化)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/statistics.png)
-### 4.4用户管理
+### 4.4 用户管理
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/user_manage.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/user_manage_edit.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/user_manage_add.png)
-### 4.5菜单管理
+### 4.5 菜单管理
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/menu_manage.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/menu_manage_edit.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/menu_manage_edit2.png)
@@ -71,15 +71,17 @@
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/admin_manage.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/admin_manage_edit.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/admin_manage_add.png)
-### 4.7 商品类别管理
+### 4.7 角色管理
+![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/role_manage.png)
+### 4.8 商品类别管理
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/category_manage.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/category_manage_edit.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/category_manage_edit2.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/category_manage_edit3.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/category_manage_add.png)
-### 4.8商品管理
+### 4.9 商品管理
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/good_manage.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/good_manage_edit.png)
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/good_manage_add.png)
-### 4.9订单管理
+### 4.10 订单管理
 ![image](https://raw.githubusercontent.com/484869326/picture/main/mallBackend/order_manage.png)
