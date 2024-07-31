@@ -7,13 +7,13 @@
 <script setup lang="ts">
 import { ref, onMounted, watchEffect } from "vue";
 import useEcharts from "../hook/useEcharts";
-import type { EChartsOption } from "echarts";
+import type { EChartsCoreOption } from "echarts";
 
 const props = withDefaults(
   defineProps<{
     width?: string;
     height?: string;
-    options: EChartsOption;
+    options: EChartsCoreOption;
   }>(),
   {
     width: "100%",

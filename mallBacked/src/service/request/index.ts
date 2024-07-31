@@ -1,19 +1,41 @@
 import axios from "axios";
-import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import type { AxiosError, AxiosInstance } from "axios";
 import type { RequestInterceptors, RequestConfig } from "./type";
-
-const DEFAULT_LOADING = true;
-let loadingInstance: any = null;
-let timer: any = null;
 
 class Request {
   instance: AxiosInstance;
   requestInterceptors?: RequestInterceptors;
-  showLoading: boolean;
   constructor(config: RequestConfig) {
     this.instance = axios.create(config);
-    this.showLoading = config.showLoading ?? DEFAULT_LOADING;
     this.requestInterceptors = config.requestInterceptors;
+
+    //全部拦截
+    this.instance.interceptors.request.use(
+      (config) => {
+        // console.log("全部拦截器request");
+        return config;
+      },
+      (err) => {
+        return err;
+      }
+    );
+    this.instance.interceptors.response.use(
+      (res) => {
+        // console.log("全部相应拦截器");
+        return res;
+      },
+      (err: AxiosError) => {
+        const response = err.response;
+        if (response?.status === 500) {
+          ElMessage.error("服务器出错，请稍等片刻");
+        } else if (err.code === "ERR_NETWORK") {
+          ElMessage.error("网络错误");
+        } else if (err.code === "ECONNABORTED") {
+          ElMessage.error("连接超时，请稍等片刻");
+        }
+        return Promise.reject(err);
+      }
+    );
     //局部拦截
     this.instance.interceptors.request.use(
       this.requestInterceptors?.requestInterceptor,
@@ -23,62 +45,23 @@ class Request {
       this.requestInterceptors?.responseInterceptor,
       this.requestInterceptors?.responseInterceptorCatch
     );
-    //全部拦截
-    this.instance.interceptors.request.use(
-      (config) => {
-        // console.log('全部');
-        this.startLoading();
-        return config;
-      },
-      (err) => {
-        return err;
-      }
-    );
-    this.instance.interceptors.response.use(
-      (res) => {
-        this.endLoading();
-        return res.data;
-      },
-      (err) => {
-        this.endLoading();
-        return err;
-      }
-    );
   }
   request<T>(config: RequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
-      //解决版本更新 兼容问题
-      const requestInterceptorsConfig: InternalAxiosRequestConfig = Object.assign(
-        {},
-        { ...config },
-        {
-          headers:
-            config.headers ??
-            new axios.AxiosHeaders({
-              "Content-Type": "application/json"
-            })
-        }
-      );
       //单独拦截
       if (config.requestInterceptors?.requestInterceptor) {
-        config = config.requestInterceptors.requestInterceptor(requestInterceptorsConfig);
-      }
-      if (config.showLoading === false) {
-        this.showLoading = config.showLoading;
+        config = config.requestInterceptors.requestInterceptor(config as any);
       }
       this.instance
         .request<any, T>(config)
-        .then((res) => {
+        .then((res: any) => {
           if (config.requestInterceptors?.responseInterceptor) {
-            res = config.requestInterceptors.responseInterceptor(res);
+            resolve(config.requestInterceptors.responseInterceptor(res));
           }
-          resolve(res);
-          this.showLoading = DEFAULT_LOADING;
+          resolve(res.data);
         })
         .catch((err) => {
           reject(err);
-          this.showLoading = DEFAULT_LOADING;
-          return err;
         });
     });
   }
@@ -93,29 +76,6 @@ class Request {
   }
   patch<T>(config: RequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" });
-  }
-  startLoading() {
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    if (this.showLoading && !loadingInstance) {
-      loadingInstance = ElLoading.service({
-        lock: true,
-        text: "加载中....",
-        background: "rgba(0, 0, 0, 0.7)",
-        fullscreen: false
-      });
-    }
-  }
-  endLoading() {
-    if (this.showLoading && loadingInstance) {
-      timer = setTimeout(() => {
-        loadingInstance && loadingInstance.close();
-        loadingInstance = null;
-        timer = null;
-      }, 300);
-    }
   }
 }
 

@@ -37,43 +37,34 @@ export const useMainStore = defineStore("main", {
     //查找所有角色
     async getEntireRole() {
       const res = await getPageListData("/role/selectRole");
-      this.entireRole = res.data;
+      this.entireRole = res.data.list;
     },
     //查找商品需要的分类
     async getEntireCategory() {
       const res = await getPageListData("/good/selectCategory/2");
-      this.entireCategory = res.data;
+      this.entireCategory = res.data.list;
     },
     // 查找
     async getPageListAction(pageName: string, queryInfo: any) {
       const url = `${pageName}/likeSelect`;
       const res = await getPageListData(url, queryInfo);
-      (this as any)[`${pageName}List`] = res.data;
-      (this as any)[`${pageName}ListCount`] = res?.count ?? 0;
+      (this as any)[`${pageName}List`] = res.data.list;
+      (this as any)[`${pageName}ListCount`] = res.data.count;
     },
     //修改
     async editPageDataAction(pageName: string, data: any, id: string) {
       const url = `/${pageName}/${id}`;
-      const { code, msg } = await editPageData(url, data);
-      if (code === -1) {
-        throw new Error(msg);
-      }
+      await editPageData(url, data);
     },
     // 增加
     async addPageDataAction(pageName: string, data: any) {
       const url = `/${pageName}/Insert`;
-      const { code, msg } = await addPageData(url, data);
-      if (code === -1) {
-        throw new Error(msg);
-      }
+      await addPageData(url, data);
     },
     // 删除
     async deletePageDataAction(pageName: string, id: string) {
       const url = `/${pageName}/${id}`;
-      const { code, msg } = await deletePageData(url);
-      if (code === -1) {
-        throw new Error(msg);
-      }
+      const { msg } = await deletePageData(url);
       return msg;
     }
   }

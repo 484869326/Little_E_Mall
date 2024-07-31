@@ -1,6 +1,6 @@
 <template>
   <div class="login-view">
-    <LoginPanel></LoginPanel>
+    <LoginPanel> </LoginPanel>
   </div>
 </template>
 

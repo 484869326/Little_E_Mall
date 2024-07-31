@@ -38,9 +38,6 @@
           </template>
         </div>
       </template>
-      <!-- <template #created_at>
-    {{ $tool.formatTime('2021-08-12T01:49:08.000Z') }}
-  </template> -->
       <!-- 其他不是公用的插槽 -->
       <template
         v-for="item in otherPropSlots"
@@ -145,7 +142,7 @@ const handleDeleteClick = async (item: any) => {
   } catch (error: any) {
     ElMessage({
       type: "info",
-      message: error.message || "删除失败"
+      message: error.response.data.msg || "删除失败"
     });
   }
 };

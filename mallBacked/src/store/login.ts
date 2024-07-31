@@ -1,46 +1,33 @@
 import { defineStore } from "pinia";
 import router from "@/router";
-import type { IMenu } from "@/types/login";
-import { loginRequest, menuRequest } from "@/service/login";
-import LocalCache from "@/utils/cache";
+import { loginRequest, logout, menuRequest } from "@/service/login";
 import { mapMenusToPermissions, mapMenusToRouter } from "@/router/mapMenus";
+import type { IMenu } from "@/types/login";
 import type { IAdmin } from "@/types/main";
 
 export const useLoginStore = defineStore("login", {
   state: () => {
     return {
       getMenu: [] as IMenu[],
-      userInfo: {} as IAdmin,
-      permissionsList: [] as any[]
+      permissionsList: [] as any[],
+      token: "",
+      refreshToken: "",
+      userInfo: {} as IAdmin
     };
   },
   actions: {
     //登录的
     async loginAction(payload: any) {
-      try {
-        const { data: userInfo } = await loginRequest(payload);
-        if (userInfo) {
-          const { data: getMenu } = await menuRequest(userInfo.roleId);
-          this.userInfo = userInfo;
-          this.getMenu = getMenu;
-          LocalCache.setCache("userinfo", userInfo);
-          LocalCache.setCache("getMenu", getMenu);
-          ElMessage.success("登录成功！");
-          await this.getAllRoute();
-        } else {
-          ElMessage.error("账号密码错误，请重新输入");
-        }
-      } catch (error) {
-        ElMessage.error("api接口出错");
+      const { data } = await loginRequest(payload);
+      if (data) {
+        this.userInfo = data;
+        const { data: getMenu } = await menuRequest();
+        this.getMenu = getMenu;
+        ElMessage.success("登录成功！");
+        await this.getAllRoute();
+      } else {
+        ElMessage.error("账号密码错误，请重新输入");
       }
-    },
-    //重新加载用户信息
-    async loadUserInfoAction() {
-      const userinfo = LocalCache.getCache("userinfo");
-      const getMenu = LocalCache.getCache("getMenu");
-      this.userInfo = userinfo ?? {};
-      this.getMenu = getMenu ?? [];
-      await this.getAllRoute();
     },
     //动态加载菜单
     async getAllRoute() {
@@ -54,6 +41,13 @@ export const useLoginStore = defineStore("login", {
         this.permissionsList = mapMenusToPermissions(this.getMenu);
         resolve(true);
       });
+    },
+    //退出登录
+    async logoutAction() {
+      await logout();
+      this.$reset();
+      router.push("/");
+      ElMessage.success("退出登录成功！");
     }
   }
 });

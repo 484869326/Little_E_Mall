@@ -14,8 +14,8 @@ export function mapMenusToRouter(userMenus: any[]): RouteRecordRaw[] {
     eager: true,
     import: "default"
   });
-  //组件导出
-  const componentFiles: Record<string, any> = import.meta.glob("../views/main/**/*.vue", {
+  //组件导出(!MainView  route已经导出了。这里不能导出不然打包会有警告)
+  const componentFiles: Record<string, any> = import.meta.glob("../views/main/**/!(MainView).vue", {
     eager: true,
     import: "default"
   });

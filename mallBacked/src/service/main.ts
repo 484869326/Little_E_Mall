@@ -2,7 +2,12 @@ import { Request1 } from "./index";
 import type { IDataType } from "@/types/service";
 
 export function getPageListData(url: string, queryInfo: any = {}) {
-  return Request1.post<IDataType>({
+  return Request1.post<
+    IDataType<{
+      count: number;
+      list: any[];
+    }>
+  >({
     url,
     data: queryInfo
   });

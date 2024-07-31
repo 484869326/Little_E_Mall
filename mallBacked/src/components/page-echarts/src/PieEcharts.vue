@@ -8,7 +8,7 @@
 import { computed } from "vue";
 import DiyEcharts from "@/base-ui/echart";
 import type { IDataType } from "../type";
-import type { EChartsOption } from "echarts";
+import type { EChartsCoreOption } from "echarts";
 
 const props = withDefaults(
   defineProps<{
@@ -18,7 +18,7 @@ const props = withDefaults(
   { isDark: false }
 );
 
-const options = computed<EChartsOption>(() => ({
+const options = computed<EChartsCoreOption>(() => ({
   tooltip: {
     trigger: "item"
   },

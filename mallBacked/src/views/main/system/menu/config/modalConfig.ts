@@ -18,16 +18,6 @@ export const modalConfig: IForm = {
       placeholder: "请输入菜单名"
     },
     {
-      field: "icon",
-      type: "input",
-      label: "字体图标",
-      rules: [
-        { required: true, message: "字体图标不能为空", trigger: "blur" },
-        { validator: isValidSvg, trigger: "blur" }
-      ],
-      placeholder: "请输入字体图标"
-    },
-    {
       field: "level",
       type: "select",
       label: "层级",
@@ -36,39 +26,37 @@ export const modalConfig: IForm = {
       options: [
         {
           label: "一级菜单",
-          value: 0
+          value: 1
         },
         {
           label: "二级菜单",
-          value: 1
+          value: 2
+        },
+        {
+          label: "三级菜单",
+          value: 3
         }
       ],
-      isChange: (formItems: any, value: any) => {
-        const pathRules = [
-          { required: true, message: "请输入路径", trigger: "blur" },
-          {
-            pattern: /\/+/,
-            message: "请填写正确的路径",
-            trigger: "blur"
-          }
-        ];
-        formItems.forEach((item: any) => {
-          if (item.field === "parentId") {
-            item.isHidden = !value;
-          } else if (item.field === "icon") {
-            item.isHidden = value;
-          } else if (item.field === "path") {
-            item.rules = value ? pathRules : [];
-          }
-        });
-      }
+      isChange: () => {}
+    },
+    {
+      field: "icon",
+      type: "input",
+      label: "字体图标",
+      rules: [
+        { required: true, message: "字体图标不能为空", trigger: "blur" },
+        { validator: isValidSvg, trigger: "blur" }
+      ],
+      placeholder: "请输入字体图标",
+      isHidden: true
     },
     {
       field: "path",
       type: "input",
       label: "路径",
       rules: [],
-      placeholder: "请输入路径"
+      placeholder: "请输入路径",
+      isHidden: true
     },
     {
       field: "parentId",
@@ -78,7 +66,16 @@ export const modalConfig: IForm = {
         { required: true, message: "请选择上级菜单", trigger: "blur" },
         { validator: validateSelect, trigger: "change" }
       ],
-      options: []
+      options: [],
+      isHidden: true
+    },
+    {
+      field: "permission",
+      type: "input",
+      label: "权限",
+      rules: [{ required: true, message: "请输入权限", trigger: "blur" }],
+      options: [],
+      isHidden: true
     }
   ],
   colLayout: {

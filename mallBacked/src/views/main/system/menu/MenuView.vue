@@ -14,7 +14,7 @@
     </PageContent>
     <PageModal
       :title="title"
-      :modalConfig="modalConfigComputed"
+      :modalConfig="modalConfig"
       pageName="menu"
       ref="pageModalRef"
       :defaultInfo="defaultInfo"
@@ -29,22 +29,10 @@ import { modalConfig } from "./config/modalConfig";
 import { usePageModal } from "@/hook/usePageModal";
 import PageContent from "@/components/PageContent.vue";
 import { useMainStore } from "@/store/main";
+import { parentMenuList } from "@/utils";
 
 const mainStore = useMainStore();
 const pageContentRef = ref<InstanceType<typeof PageContent>>();
-const modalConfigComputed = computed(() => {
-  const menuItem = modalConfig.formItems.find((item: any) => {
-    return item.field === "parentId";
-  });
-  if (menuItem) {
-    let menuList = mainStore.menuList.map((item) => {
-      return { label: item.text, value: item.id };
-    });
-    menuItem.options = [...menuList];
-  }
-  return modalConfig;
-});
-
 //默认 disabled为false
 const addCallback = () => {
   const levelItem: any = modalConfig.formItems.find((item: any) => {
@@ -83,6 +71,47 @@ const { handleAddData, handleEditData, defaultInfo, pageModalRef, title } = useP
   addCallback,
   editCallback
 );
+onMounted(() => {
+  const level = modalConfig.formItems.find((item) => item.field === "level");
+  if (!level) return;
+  level.isChange = (formItems: any, value: any) => {
+    const fieldArr: any[] = [
+      //一级菜单
+      ["text", "level", "icon", "path"],
+      //二级菜单
+      ["text", "level", "path", "parentId"],
+      //三级菜单
+      ["text", "level", "parentId", "permission"]
+    ];
+    if (value !== 1) {
+      const parentId = formItems.find((item: any) => {
+        return item.field === "parentId";
+      });
+      parentId.options = parentMenuList(value, mainStore.menuList);
+      pageModalRef.value && pageModalRef.value.setFormDataField("parentId", "");
+    }
+    formItems.forEach((item: any) => {
+      const field = item.field;
+      item.isHidden = true;
+      if (fieldArr[value - 1].includes(field)) {
+        item.isHidden = false;
+        if (field === "path") {
+          item.rules =
+            value !== 1
+              ? [
+                  { required: true, message: "请输入路径", trigger: "blur" },
+                  {
+                    pattern: /\/+/,
+                    message: "请填写正确的路径",
+                    trigger: "blur"
+                  }
+                ]
+              : [];
+        }
+      }
+    });
+  };
+});
 </script>
 
 <style scoped></style>

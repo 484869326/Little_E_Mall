@@ -100,15 +100,20 @@ const handleConfirmClick = async () => {
         emit("success");
         centerDialogVisible.value = false;
       } catch (error: any) {
-        ElMessage.error(error.message);
+        ElMessage.error(error.response.data.msg);
       }
     } else {
       ElMessage.error("检查所填内容");
     }
   }
 };
+//赋值改变Form UI  formData值
+function setFormDataField(field: string, value: any) {
+  diyFormRef.value && diyFormRef.value.setFormDataField(field, value);
+}
 defineExpose({
-  centerDialogVisible
+  centerDialogVisible,
+  setFormDataField
 });
 </script>
 

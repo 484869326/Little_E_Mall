@@ -6,6 +6,7 @@ import Components from "unplugin-vue-components/vite";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import viteCompression from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -14,6 +15,17 @@ export default defineConfig(({ mode }) => {
   return {
     base: "./",
     plugins: [
+      // nginx开启静态压缩配置 gzip_static on;
+      viteCompression({
+        //默认gzip
+        algorithm: "gzip",
+        //大于10k
+        threshold: 10240,
+        // 是否在控制台输出压缩结果 默认 true
+        verbose: true
+        // 删除源文件，开启nginx会报错 压缩文件找不到源文件
+        // deleteOriginFile:true
+      }),
       vue(),
       AutoImport({
         imports: ["vue"],
@@ -45,6 +57,7 @@ export default defineConfig(({ mode }) => {
       })
     ],
     build: {
+      sourcemap: false,
       rollupOptions: {
         output: {
           entryFileNames: "js/[name]-[hash].js",
@@ -73,6 +86,8 @@ export default defineConfig(({ mode }) => {
             if (!id.includes("node_modules")) return;
             if (id.includes("echarts")) {
               return "echarts";
+            } else if (id.includes("moment-timezone")) {
+              return "moment-timezone";
             } else if (id.includes("element-plus")) {
               return "element-plus";
             } else if (id.includes("axios")) {
@@ -82,6 +97,7 @@ export default defineConfig(({ mode }) => {
             } else if (id.includes("lodash-es")) {
               return "lodash-es";
             } else {
+              // return id.toString().split("node_modules/")[1].split("/")[0].toString();
               return "vendor";
             }
           }
@@ -100,7 +116,7 @@ export default defineConfig(({ mode }) => {
       port: 3001,
       proxy: {
         "^/api": {
-          target: "http://127.0.0.1:3333",
+          target: "http://127.0.0.1:12345",
           changeOrigin: true
         }
       }

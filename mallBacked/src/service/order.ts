@@ -3,7 +3,7 @@ import type { IDataType } from "@/types/service";
 
 export function getOrderDetail(data: any) {
   return Request1.post<IDataType>({
-    url: "/getOrderList",
+    url: "/order/getOrderList",
     data
   });
 }

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
-import LocalCache from "@/utils/cache";
 import { firstMenu } from "@/router/mapMenus";
+import { useLoginStore } from "@/store/login";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -32,8 +32,9 @@ const router = createRouter({
 //路由守卫
 router.beforeEach((to) => {
   if (to.path !== "/login") {
-    const userinfo = LocalCache.getCache("userinfo");
-    if (!userinfo) {
+    const loginStore = useLoginStore();
+    const token = loginStore.token;
+    if (!token) {
       return "/login";
     }
   }

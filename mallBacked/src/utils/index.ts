@@ -1,7 +1,9 @@
 // 工具类
 
 import type { IMenu } from "@/types/login";
-
+// import moment from "moment-timezone";
+import "dayjs/locale/es";
+import dayjs from "dayjs";
 // 延时器
 function delay(seconds: number): Promise<void> {
   return new Promise((resolve) => {
@@ -64,4 +66,27 @@ function getCheckMenu(menuList: IMenu[]) {
   _recurseGetCheckMenu(menuList);
   return [checkedKeys, halfCheckedKeys];
 }
-export { delay, deepClone, capitalizeFirstLetter, getCheckMenu };
+//格式化时间
+function formatTime(oldvalue: any, format = "YYYY-MM-DD HH:mm:ss") {
+  // return moment(oldvalue).tz("Asia/shanghai").format(format);
+  dayjs.locale("es");
+  return dayjs(oldvalue).locale("zh-cn").format(format);
+}
+//返回菜单一级或者二级的
+function parentMenuList(level: number, list: IMenu[]) {
+  if (level < 1) return [];
+  if (level === 2) {
+    return list.map((item) => ({
+      label: item.text,
+      value: item.id
+    }));
+  }
+  return list.flatMap((item) => {
+    if (!item.children) return [];
+    return item.children.map((children) => ({
+      label: children.text,
+      value: children.id
+    }));
+  });
+}
+export { delay, deepClone, capitalizeFirstLetter, getCheckMenu, formatTime, parentMenuList };

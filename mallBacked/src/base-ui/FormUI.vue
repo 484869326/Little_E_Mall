@@ -1,6 +1,12 @@
 <template>
   <div class="form">
-    <ElForm :label-width="labelWidth" :model="formData" ref="ruleFormRef" :size="'default'">
+    <ElForm
+      :label-width="labelWidth"
+      :model="formData"
+      ref="ruleFormRef"
+      :size="'default'"
+      @submit.prevent
+    >
       <ElRow>
         <template v-for="item in formItemsRef" :key="item.label">
           <ElCol v-bind="colLayout">
@@ -29,7 +35,7 @@
                     clearable
                     :remote="item.remote"
                   >
-                    <template v-for="option in item.options" :key="option.label">
+                    <template v-for="option in item.options" :key="option.value">
                       <ElOption :label="option.label" :value="option.value"></ElOption>
                     </template>
                   </ElSelect>
@@ -127,7 +133,7 @@ function validateData() {
 const formItemsRef = ref([...props.formItems]);
 //响应式,避免不是单向数据流
 // //第一种方法
-const formData = ref({ ...props.modelValue });
+const formData = ref(props.modelValue);
 watch(
   formData,
   (newValue) => {
@@ -138,8 +144,12 @@ watch(
 //第二种方法
 // const formData = useVModel(props, "modelValue", emit);
 
+function setFormDataField(field: string, value: any) {
+  formData.value[field] = value;
+}
 defineExpose({
-  validateData
+  validateData,
+  setFormDataField
 });
 </script>
 

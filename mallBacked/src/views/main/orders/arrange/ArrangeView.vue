@@ -30,6 +30,9 @@
           formatterDetail((scope.data as any)["color"], (scope.row as any)["color"], scope.index)
         }}
       </template>
+      <template #createdAt="scope">
+        {{ formatTime((scope.row as any).createdAt) }}
+      </template>
     </PageDetail>
   </div>
 </template>
@@ -41,7 +44,7 @@ import detailConfig from "./config/detailConfig";
 import { contentTableConfig } from "./config/contentConfig";
 import { useMainStore } from "@/store/main";
 import { getOrderDetail } from "@/service/order";
-import { delay } from "@/utils";
+import { delay, formatTime } from "@/utils";
 import { reduce } from "@/utils/dataFormat";
 
 const mainStore = useMainStore();
@@ -61,7 +64,7 @@ async function handleSeeDetailClick(data: any) {
     goodId,
     userId
   });
-  Object.assign(detailData, res.data[0]);
+  Object.assign(detailData, res.data.list[0]);
   await delay(300);
   pageDetailRef.value && pageDetailRef.value?.setVisible(true);
 }

@@ -29,7 +29,14 @@
       <template v-for="item in propList" :key="item.label">
         <ElTableColumn v-bind="item" align="center" show-overflow-tooltip>
           <template #default="scope">
-            <slot :name="item.slotName" :row="scope.row"> {{ scope.row[item.prop ?? ""] }}</slot>
+            <slot :name="item.slotName" :row="scope.row">
+              <template v-if="item.prop === 'createdAt' || item.prop === 'updatedAt'">
+                {{ formatTime(scope.row[item.prop ?? ""]) }}
+              </template>
+              <template v-else>
+                {{ scope.row[item.prop ?? ""] }}
+              </template></slot
+            >
           </template>
         </ElTableColumn>
       </template>
@@ -53,6 +60,7 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import type { ITable } from "@/types/baseUI";
+import { formatTime } from "@/utils";
 
 const props = defineProps({
   title: { type: String, default: "" },

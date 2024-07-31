@@ -59,7 +59,7 @@ export const modalConfig: IForm = reactive({
           categoryParentItem.isHidden = false;
         }
         const { data } = await getPageListData(`/good/selectCategory/${value - 1}`, {});
-        categoryParentItem.options = data.map((item: any) => {
+        categoryParentItem.options = data.list.map((item: any) => {
           return { label: item.cName, value: item.cid };
         });
       }

@@ -30,7 +30,7 @@
       <template #dropdown>
         <ElDropdownMenu>
           <!--          <ElDropdownItem>我的资料</ElDropdownItem>-->
-          <ElDropdownItem @click="handleLogoutClick">退出登录</ElDropdownItem>
+          <ElDropdownItem @click="loginStore.logoutAction">退出登录</ElDropdownItem>
         </ElDropdownMenu>
       </template>
     </ElDropdown>
@@ -39,9 +39,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useRouter } from "vue-router";
 import { useLoginStore } from "@/store/login";
-import LocalCache from "@/utils/cache";
 import { useThemeStore } from "@/store/theme";
 import toggleFullScreen from "@/utils/fullScreen";
 
@@ -49,13 +47,8 @@ const themeStore = useThemeStore();
 const themeSwitch = ref(themeStore.isDark);
 const loginStore = useLoginStore();
 const adminName = computed(() => loginStore.userInfo.adminName);
-const router = useRouter();
 const circleUrl = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
-//退出登录
-const handleLogoutClick = () => {
-  LocalCache.clearCache();
-  router.push("/");
-};
+
 //全屏
 function handleClick() {
   toggleFullScreen(document.documentElement);

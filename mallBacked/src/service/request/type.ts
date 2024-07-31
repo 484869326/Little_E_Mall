@@ -2,7 +2,7 @@ import type {
   InternalAxiosRequestConfig,
   AxiosResponse,
   AxiosRequestConfig,
-  AxiosRequestHeaders
+  RawAxiosResponseHeaders
 } from "axios";
 
 interface RequestInterceptors<T = AxiosResponse> {
@@ -15,7 +15,7 @@ interface RequestInterceptors<T = AxiosResponse> {
 interface RequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   requestInterceptors?: RequestInterceptors<T>;
   showLoading?: boolean;
-  headers?: AxiosRequestHeaders;
+  headers?: RawAxiosResponseHeaders;
 }
 
 export type { RequestInterceptors, RequestConfig };

@@ -4,7 +4,7 @@ export default {
     { label: "订单号:", field: "orderId" },
     { label: "购买总数量:", field: "num", slotName: "num" },
     { label: "总价格:", field: "totalPrice" },
-    { label: "下单时间:", field: "createdAt" },
+    { label: "下单时间:", field: "createdAt", slotName: "createdAt" },
     { label: "收货人:", field: "name" },
     { label: "收货地址:", field: "address" },
     { label: "收货手机号:", field: "phone" },

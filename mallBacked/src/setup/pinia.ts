@@ -11,6 +11,6 @@ export default {
     app.use(pinia);
     //刷新才能保持页面不跳转
     const loginStore = useLoginStore();
-    await loginStore.loadUserInfoAction();
+    await loginStore.getAllRoute();
   }
 };

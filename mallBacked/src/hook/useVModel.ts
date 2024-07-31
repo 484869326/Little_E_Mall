@@ -12,8 +12,6 @@ export function useVModel(props: any, propName: string, emit: any) {
           return Reflect.get(target, key);
         },
         set: (target, key, newValue) => {
-          // console.log(key);
-          // console.log(newValue);
           emit(`update:${propName}`, { ...target, [key]: newValue });
           return true;
         }
