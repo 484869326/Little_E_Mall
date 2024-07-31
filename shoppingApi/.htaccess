@@ -1,9 +1,0 @@
-<IfModule mod_rewrite.c>
-       <IfModule mod_negotiation.c>
-        Options -MultiViews
-        </IfModule>
-        RewriteEngine On
-        #规则代码
-#示例
-RewriteRule ^test1$ test1.php 
-</IfModule>
