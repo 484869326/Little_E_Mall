@@ -38,7 +38,7 @@ const Request1 = new Request({
         const res = await refreshToken();
         if (res) {
           err.config.headers.Authorization = `Bearer ${loginStore.token}`;
-          const resp = Request1.request(err.config);
+          const resp: any = Request1.request(err.config);
           return resp;
         }
         router.push("/login");

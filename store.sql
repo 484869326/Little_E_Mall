@@ -41,19 +41,19 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 1, 'admin', 0, '1657447830@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001000', 1, '2024-03-27 10:15:16', '2024-03-27 10:53:11');
-INSERT INTO `admin` VALUES (2, 1, 'admin1', 1, '1657447831@qq.com', '广东广州', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001001', 1, '2024-03-27 10:15:16', '2024-07-25 00:35:18');
-INSERT INTO `admin` VALUES (3, 1, 'baiyun', 0, '1657447832@qq.com', '广东广州白云', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001002', 1, '2024-04-26 10:15:16', '2024-07-24 13:21:35');
-INSERT INTO `admin` VALUES (4, 1, 'tianhe', 0, '1657447833@qq.com', '广东广州天河', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001003', 1, '2024-04-26 10:15:16', '2024-07-24 13:21:38');
-INSERT INTO `admin` VALUES (5, 1, 'liwan', 0, '1657447834@qq.com', '广东广州荔湾', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001004', 1, '2024-04-26 10:15:16', '2024-07-24 13:21:42');
-INSERT INTO `admin` VALUES (6, 1, 'huangpu', 0, '1657447835@qq.com', '广东广州黄埔', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001005', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (7, 1, 'huadu', 0, '1657447836@qq.com', '广东广州花都', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001006', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (8, 1, 'conghua', 0, '1657447837@qq.com', '广东广州从化', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001007', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (9, 1, 'zengcheng', 0, '1657447838@qq.com', '广东广州增城', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001008', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (10, 1, 'haizhu', 0, '1657447839@qq.com', '广东广州海珠', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001009', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (11, 1, 'yuexiu', 0, '1657447840@qq.com', '广东广州越秀', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001010', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (12, 1, 'nansha', 0, '1657447841@qq.com', '广东广州南沙', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001011', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
-INSERT INTO `admin` VALUES (13, 1, 'panyu', 0, '1657447842@qq.com', '广东广州番禺', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '13410001012', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (1, 1, 'admin', 0, '1657447830@qq.com', '广东广州', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001000', 1, '2024-03-27 10:15:16', '2024-03-27 10:53:11');
+INSERT INTO `admin` VALUES (2, 1, 'admin1', 1, '1657447831@qq.com', '广东广州', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001001', 1, '2024-03-27 10:15:16', '2024-07-25 00:35:18');
+INSERT INTO `admin` VALUES (3, 1, 'baiyun', 0, '1657447832@qq.com', '广东广州白云', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001002', 1, '2024-04-26 10:15:16', '2024-07-24 13:21:35');
+INSERT INTO `admin` VALUES (4, 1, 'tianhe', 0, '1657447833@qq.com', '广东广州天河', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001003', 1, '2024-04-26 10:15:16', '2024-07-24 13:21:38');
+INSERT INTO `admin` VALUES (5, 1, 'liwan', 0, '1657447834@qq.com', '广东广州荔湾', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001004', 1, '2024-04-26 10:15:16', '2024-07-24 13:21:42');
+INSERT INTO `admin` VALUES (6, 1, 'huangpu', 0, '1657447835@qq.com', '广东广州黄埔', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001005', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (7, 1, 'huadu', 0, '1657447836@qq.com', '广东广州花都', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001006', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (8, 1, 'conghua', 0, '1657447837@qq.com', '广东广州从化', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001007', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (9, 1, 'zengcheng', 0, '1657447838@qq.com', '广东广州增城', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001008', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (10, 1, 'haizhu', 0, '1657447839@qq.com', '广东广州海珠', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001009', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (11, 1, 'yuexiu', 0, '1657447840@qq.com', '广东广州越秀', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001010', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (12, 1, 'nansha', 0, '1657447841@qq.com', '广东广州南沙', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001011', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
+INSERT INTO `admin` VALUES (13, 1, 'panyu', 0, '1657447842@qq.com', '广东广州番禺', '$2y$10$4H2pTtaH5KY/5rjvYX2W1uuTvI8TwxjVwaw.qMHGtl1LKj9UAPo22', '13410001012', 1, '2024-04-26 10:15:16', '2024-04-26 10:15:16');
 
 -- ----------------------------
 -- Table structure for category
