@@ -40,21 +40,24 @@ class AdminController extends BaseController
     }
 //    通过长token  弄短token 刷新
     public function  refresh(Request $request){
-        $refreshToken = $request->header('Authorization');
+        try{
+            $refreshToken = $request->header('Authorization');
+            if(!auth('admin')->check($refreshToken)){
+                return $this->response(null,'未授权，禁止访问',401);
+            }
         $admin=auth('admin')->user();
         $refreshTokenKey=md5($admin['id'].$admin['adminPwd'].'refreshToken');
         $accessTokenKey=md5($admin['id'].$admin['adminPwd'].'accessToken');
-        if(!auth('admin')->check($refreshToken) || $refreshToken!=='Bearer '.Redis::get($refreshTokenKey)){
+        if($refreshToken!=='Bearer '.Redis::get($refreshTokenKey)){
             return $this->response(null,'未授权，禁止访问',401);
         }
-       try{
            $newAccessToken=JWTAuth::setToken(Redis::get($accessTokenKey))->refresh();
            Redis::set($accessTokenKey,$newAccessToken);
            return $this->response(null,'token刷新',200,[
                'Authorization'=>'Bearer '.$newAccessToken,
            ]);
        }catch(QueryException $e){
-           return $this->response(null,'未授权，禁止访问1',401);
+           return $this->response(null,'未授权，禁止访问',401);
        }
     }
 
