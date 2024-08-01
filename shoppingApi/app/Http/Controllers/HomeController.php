@@ -8,7 +8,7 @@ class HomeController extends BaseController
 {
     public function multidata()
     {
-        $banner=array("/swiper/1.jpg","/swiper/2.jpg","/swiper/3.jpg","/swiper/4.jpg" );
+        $banner=array("/image/swiper/1.jpg","/image/swiper/2.jpg","/image/swiper/3.jpg","/image/swiper/4.jpg" );
         foreach($banner as $key=>$model){
             $banner[$key]=env('APP_URL').$model;
         }
@@ -22,7 +22,7 @@ class HomeController extends BaseController
     }
     public function mySwiper()
     {
-        $data=array("/swiper/my1.png","/swiper/my2.png","/swiper/my3.png","/swiper/my4.png");
+        $data=array("/image/swiper/my1.png","/image/swiper/my2.png","/image/swiper/my3.png","/image/swiper/my4.png");
         foreach($data as $key=>$model){
             $data[$key]=env('APP_URL').$model;
         }

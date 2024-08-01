@@ -22,14 +22,13 @@ class AuthMiddleware
         if ($request->is('api/back/admin/login', 'api/sendFile','api/back/admin/refresh','api/front/*')) {
             return $next($request);
         }
-        if (!$request->header('Authorization')) {
+        $accessToken = $request->header('Authorization');
+        if (!$accessToken || !auth('admin')->check($accessToken)) {
             return response([
                 'code'=>401,
                 'msg'=>'未授权，禁止访问',
             ],401);
         }
-        // 从 Authorization 头部中获取 token
-        $accessToken = $request->header('Authorization');
         $admin=auth('admin')->user();
         $refreshTokenKey=md5($admin['id'].$admin['adminPwd'].'refreshToken');
         $accessTokenKey=md5($admin['id'].$admin['adminPwd'].'accessToken');
@@ -41,7 +40,7 @@ class AuthMiddleware
             ],401);
         }
         // 进行 token 验证
-        if (!auth('admin')->check($accessToken) || 'Bearer '.Redis::get($accessTokenKey)!==$accessToken) {
+        if ('Bearer '.Redis::get($accessTokenKey)!==$accessToken) {
             return response([
                 'code'=>401,
                 'msg'=>'未授权，禁止访问',
