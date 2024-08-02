@@ -21,17 +21,17 @@ export const useLoginStore = defineStore("login", {
       const { data } = await loginRequest(payload);
       if (data) {
         this.userInfo = data;
-        const { data: getMenu } = await menuRequest();
-        this.getMenu = getMenu;
-        ElMessage.success("登录成功！");
         await this.getAllRoute();
+        ElMessage.success("登录成功！");
       } else {
         ElMessage.error("账号密码错误，请重新输入");
       }
     },
     //动态加载菜单
     async getAllRoute() {
-      return new Promise((resolve) => {
+      return new Promise(async (resolve) => {
+        const { data: getMenu } = await menuRequest();
+        this.getMenu = getMenu;
         const routes = mapMenusToRouter(this.getMenu);
         routes.forEach((route) => {
           router.addRoute("main", route);

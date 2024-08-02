@@ -125,6 +125,13 @@ class MenuController extends BaseController
         } else {
             $icon = null;
         }
+         $delete=true;
+        if($parentId){
+            $sonMenu=Menu::where('parentId',$parentId)->get();
+            if(count($sonMenu)<2){
+                $delete=RoleMenu::where('menuId',$parentId)->delete();
+            }
+        }
         $data = [
             'text' => $text,
             'icon' => $level===1?$icon:null,
@@ -134,7 +141,7 @@ class MenuController extends BaseController
             'permission'=>$level===3?$permission:null
         ];
         $result = Menu::insert($data);
-        if ($result) {
+        if ($result&&$delete) {
             return $this->response(null,'增加成功');
         } else {
             return $this->response(null,'增加失败',400);

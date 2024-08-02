@@ -18,11 +18,6 @@ const routes: RouteRecordRaw[] = [
     path: "/main",
     name: "main",
     component: () => import("@/views/main/MainView.vue")
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "NotFound",
-    component: () => import("@/views/not-found/NotFound.vue")
   }
 ];
 const router = createRouter({
