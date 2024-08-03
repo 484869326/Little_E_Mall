@@ -127,10 +127,13 @@ class MenuController extends BaseController
         }
          $delete=true;
         if($parentId){
-            $sonMenu=Menu::where('parentId',$parentId)->get();
-            if(count($sonMenu)<2){
-                $delete=RoleMenu::where('menuId',$parentId)->delete();
-            }
+           if($level===3){
+               $sonMenu=Menu::where('id',$parentId)->first();
+               $grandSonMenu=Menu::where('id',$sonMenu['parentId'])->first();
+               $delete=RoleMenu::where('menuId',$grandSonMenu['id'])->delete();
+           }else{
+               $delete=RoleMenu::where('menuId',$parentId)->delete();
+           }
         }
         $data = [
             'text' => $text,

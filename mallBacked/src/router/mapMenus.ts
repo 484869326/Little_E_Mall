@@ -55,12 +55,6 @@ export function mapMenusToRouter(userMenus: any[]): RouteRecordRaw[] {
     }
   };
   _recurseGetRoute(userMenus);
-  routes.push({
-    path: "/:pathMatch(.*)*",
-    name: "NotFound",
-    component: () => import("@/views/not-found/NotFound.vue")
-  });
-  console.log(routes);
   return routes;
 }
 //左边菜单栏跟着变化

@@ -37,7 +37,7 @@ const formOriginData: any = {};
 for (const item of formItem) {
   formOriginData[item.field] = item.value;
 }
-const formData = ref(formOriginData);
+const formData = ref(deepClone(formOriginData));
 const handleResetClick = () => {
   for (const key in formOriginData) {
     formData.value[key] = formOriginData[key];

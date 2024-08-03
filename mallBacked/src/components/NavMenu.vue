@@ -71,7 +71,7 @@ const handleMenuItemClick = (children: any) => {
 };
 const currentPath = route.path;
 const menu = pathMapToMenu(getMenu.value, currentPath);
-const defaultActive = ref(menu.id + "");
+const defaultActive = ref(menu?.id + "");
 watchEffect(() => {
   collapse.value = props.collapse;
 });

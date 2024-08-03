@@ -42,6 +42,7 @@ const Request1 = new Request({
           return resp;
         }
         router.push("/login");
+        loginStore.$reset();
         ElMessage.error("登录状态失效，请重新登录");
       }
       return Promise.reject(err);

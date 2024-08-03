@@ -18,13 +18,13 @@ export const useLoginStore = defineStore("login", {
   actions: {
     //登录的
     async loginAction(payload: any) {
-      const { data } = await loginRequest(payload);
-      if (data) {
+        try {
+        const { data } = await loginRequest(payload);
         this.userInfo = data;
         await this.getAllRoute();
         ElMessage.success("登录成功！");
-      } else {
-        ElMessage.error("账号密码错误，请重新输入");
+      } catch (error: any) {
+        error.response.data.code === 400 && ElMessage.error("账号密码错误，请重新输入");
       }
     },
     //动态加载菜单
@@ -35,6 +35,11 @@ export const useLoginStore = defineStore("login", {
         const routes = mapMenusToRouter(this.getMenu);
         routes.forEach((route) => {
           router.addRoute("main", route);
+        });
+		router.addRoute({
+          path: "/:pathMatch(.*)*",
+          name: "NotFound",
+          component: () => import("@/views/not-found/NotFound.vue")
         });
         ElMessage.closeAll();
         router.push("/main");

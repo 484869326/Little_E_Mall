@@ -2,7 +2,7 @@
   <div class="container">
     <h1>404</h1>
     <p>您正在查找的页面可能已被删除或暂时不可用。</p>
-    <a href="/">返回首页</a>
+    <ElButton type="success" size="large" @click="$router.push('/main')">返回首页</ElButton>
   </div>
 </template>
 
@@ -27,18 +27,6 @@
     font-size: 18px;
     color: #777;
     margin-bottom: 40px;
-  }
-
-  a {
-    color: #fff;
-    background-color: #4caf50;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: #45a049;
-    }
   }
 }
 </style>

@@ -34,7 +34,10 @@ router.beforeEach((to) => {
     }
   }
   if (to.path === "/main") {
-    return firstMenu.path;
+	 if (!from.path.includes("login") && from.matched.length === 0) {
+      return from.path;
+    }
+    return firstMenu?.path;
   }
 });
 export default router;

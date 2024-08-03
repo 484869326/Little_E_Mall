@@ -21,7 +21,7 @@ class AdminController extends BaseController
             'password'=>$adminPwd
         ]);
         if(!$accessToken){
-            return $this->response(null,'登录失败',401);
+            return $this->response(null,'登录失败',400);
         }
         $admin=auth('admin')->user();
         $refreshToken = auth('admin')->setTTL(20160)->login($admin);
