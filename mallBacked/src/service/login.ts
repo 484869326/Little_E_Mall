@@ -5,6 +5,8 @@ import type { IAdmin } from "@/types/main";
 
 enum LoginApi {
   login = "/admin/login",
+  register = "/admin/register",
+  validateAdminName = "/admin/validateAdminName",
   getRoleMenu = "/admin/getRoleMenu",
   logout = "/admin/logout"
 }
@@ -22,5 +24,21 @@ export function logout() {
 export function menuRequest() {
   return Request1.post<IDataType<IMenu[]>>({
     url: LoginApi.getRoleMenu
+  });
+}
+
+export function validateAdminName(adminName: string) {
+  return Request1.post<IDataType<boolean>>({
+    url: LoginApi.validateAdminName,
+    data: {
+      adminName
+    }
+  });
+}
+
+export function registerRequest(data: any) {
+  return Request1.post<IDataType>({
+    url: LoginApi.register,
+    data
   });
 }

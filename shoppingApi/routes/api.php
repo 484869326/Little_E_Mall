@@ -66,6 +66,8 @@ Route::prefix('back')->group(function (){
     //管理员
     Route::prefix('admin')->group(function (){
         Route::post('login', [AdminController::class, 'login']);
+        Route::post('register', [AdminController::class, 'register']);
+        Route::post('validateAdminName', [AdminController::class, 'validateAdminName']);
         Route::post('logout', [AdminController::class, 'logout']);
         Route::post('getRoleMenu', [RoleMenuController::class, 'getRoleMenu']);
         Route::post('likeSelect', [AdminController::class, 'likeSelect']);

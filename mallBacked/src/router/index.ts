@@ -6,13 +6,21 @@ import { useLoginStore } from "@/store/login";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    name: "index",
-    redirect: "/main"
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: () => import("@/views/login/LoginView.vue")
+    name: "home",
+    component: () => import("@/views/home/HomeView.vue"),
+    redirect: { name: "login" },
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: () => import("@/views/home/cpns/LoginPanel.vue")
+      },
+      {
+        path: "register",
+        name: "register",
+        component: () => import("@/views/home/cpns/RegisterPanel.vue")
+      }
+    ]
   },
   {
     path: "/main",
@@ -25,8 +33,8 @@ const router = createRouter({
   history: createWebHashHistory()
 });
 //路由守卫
-router.beforeEach((to) => {
-  if (to.path !== "/login") {
+router.beforeEach((to, from) => {
+  if (to.path !== "/login" && to.path !== "/register") {
     const loginStore = useLoginStore();
     const token = loginStore.token;
     if (!token) {
@@ -34,7 +42,7 @@ router.beforeEach((to) => {
     }
   }
   if (to.path === "/main") {
-	 if (!from.path.includes("login") && from.matched.length === 0) {
+    if (!from.path.includes("login") && from.matched.length === 0) {
       return from.path;
     }
     return firstMenu?.path;

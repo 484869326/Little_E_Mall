@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\Redis;
 
 class AdminController extends BaseController
 {
+    public function  validateAdminName(Request $request){
+        $adminName=$request->input('adminName');
+        $admin=Admin::where('adminName',$adminName)->first();
+        return $this->response(empty($admin));
+    }
+    public  function  register(Request $request){
+        $password=$request->input('password');
+        $rePassword=$request->input('rePassword');
+        if($password!==$rePassword){
+            return $this->response(null,'两次密码不一样',400);
+        }
+        $request->merge(['roleId' => 2,'status'=>1,'adminPwd'=>$password]);
+        return $this->Insert($request);
+    }
     //登录
     public  function  login(Request $request){
         $adminName = $request->input('username');
@@ -168,7 +182,11 @@ class AdminController extends BaseController
         $roleId=$request->input('roleId');
         $betweenTime = $request->input('betweenTime') ?: "";
         $admin=auth('admin')->user();
-        $query = Admin::with('role')->where('id','!=',$admin['id'])->where(function ($query) use ($adminName, $gender, $email, $address, $tel,$roleId, $betweenTime) {
+        $query = Admin::with('role');
+        if($admin['roleId']!==1){
+            $query->where('roleId', '!=','1');
+        }
+        $query->where('id','!=',$admin['id'])->where(function ($query) use ($adminName, $gender, $email, $address, $tel,$roleId, $betweenTime) {
             if (!empty($adminName)) {
                 $query->where('adminName', 'like', '%' . $adminName . '%');
             }
@@ -190,9 +208,10 @@ class AdminController extends BaseController
             if (!empty($betweenTime)) {
                 $query->whereBetween('createdAt', $betweenTime);
             }
-        })->paginate($limit);
-        $list = $query->items();
-        $count=$query->total();;
+        });
+        $result=$query->paginate($limit);
+        $list = $result->items();
+        $count=$result->total();;
         $data=['count'=>$count,'list'=>$list];
         return $this->response($data);
     }

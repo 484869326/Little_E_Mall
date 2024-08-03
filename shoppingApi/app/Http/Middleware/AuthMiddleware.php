@@ -19,7 +19,7 @@ class AuthMiddleware
     public function handle(Request $request, Closure $next)
     {
 //        排除不需要请求头的路由
-        if ($request->is('api/back/admin/login', 'api/sendFile','api/back/admin/refresh','api/front/*')) {
+        if ($request->is('api/back/admin/login', 'api/sendFile','api/back/admin/validateAdminName','api/back/admin/register','api/back/admin/refresh','api/front/*')) {
             return $next($request);
         }
         $accessToken = $request->header('Authorization');

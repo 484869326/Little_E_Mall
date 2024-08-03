@@ -139,7 +139,7 @@ class RoleMenuController extends BaseController
     //删除
     public function Delete($id)
     {
-        if ($id<3) {
+        if ($id<4) {
             return $this->response(null,'数据项小于3，不允许删除。如果需要删除，请跟开发者联系',400);
         }
         $hasAdmin=Admin::where('roleId', $id)->first();
