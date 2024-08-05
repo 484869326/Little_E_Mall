@@ -67,6 +67,8 @@ Route::prefix('back')->group(function (){
     Route::prefix('admin')->group(function (){
         Route::post('login', [AdminController::class, 'login']);
         Route::post('register', [AdminController::class, 'register']);
+        Route::post('updatePassword', [AdminController::class, 'updatePassword']);
+        Route::post('updateUserInfo', [AdminController::class, 'updateUserInfo']);
         Route::post('validateAdminName', [AdminController::class, 'validateAdminName']);
         Route::post('logout', [AdminController::class, 'logout']);
         Route::post('getRoleMenu', [RoleMenuController::class, 'getRoleMenu']);

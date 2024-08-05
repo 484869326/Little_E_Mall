@@ -18,14 +18,12 @@ export const useLoginStore = defineStore("login", {
   actions: {
     //登录的
     async loginAction(payload: any) {
-        try {
+      
         const { data } = await loginRequest(payload);
         this.userInfo = data;
         await this.getAllRoute();
         ElMessage.success("登录成功！");
-      } catch (error: any) {
-        error.response.data.code === 400 && ElMessage.error("账号密码错误，请重新输入");
-      }
+     
     },
     //动态加载菜单
     async getAllRoute() {

@@ -68,13 +68,21 @@ onUnmounted(() => {
     position: relative;
     max-width: 400px;
     left: 50%;
-    top: 40%;
+    top: 50%;
     transform: translate(-50%, -50%);
     padding: 40px 40px 20px;
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 2px 1px 19px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     z-index: 2;
+    @include responseTo("phone") {
+      width: 90%;
+      padding: 30px 20px 20px;
+      box-sizing: border-box;
+      .title {
+        font-size: 28px;
+      }
+    }
     //猫头鹰盒子
     .owl-box {
       position: absolute;

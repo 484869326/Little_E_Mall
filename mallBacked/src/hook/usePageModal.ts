@@ -10,8 +10,8 @@ export function usePageModal(addCallback?: callBackFn, editCallback?: callBackFn
   const handleAddData = () => {
     if (pageModalRef.value) {
       defaultInfo.value = {};
-      pageModalRef.value.centerDialogVisible = true;
       addCallback && addCallback();
+      pageModalRef.value.setCenterDialogVisible();
       title.value = "新增界面";
     }
   };
@@ -19,7 +19,7 @@ export function usePageModal(addCallback?: callBackFn, editCallback?: callBackFn
     if (pageModalRef.value) {
       defaultInfo.value = { ...item };
       editCallback && editCallback(item);
-      pageModalRef.value && (pageModalRef.value.centerDialogVisible = true);
+      pageModalRef.value.setCenterDialogVisible();
       title.value = "编辑界面";
     }
   };

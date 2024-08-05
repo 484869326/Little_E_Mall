@@ -162,13 +162,5 @@ $left: -50px;
       }
     }
   }
-  @include responseTo("phone") {
-    width: 90%;
-    padding: 30px 20px 0;
-    box-sizing: border-box;
-    .title {
-      font-size: 28px;
-    }
-  }
 }
 </style>

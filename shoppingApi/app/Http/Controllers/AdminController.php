@@ -35,9 +35,12 @@ class AdminController extends BaseController
             'password'=>$adminPwd
         ]);
         if(!$accessToken){
-            return $this->response(null,'登录失败',400);
+            return $this->response(null,'账号密码错误',400);
         }
         $admin=auth('admin')->user();
+		if($admin['status']===0){
+           return $this->response(null,'请先联系上级管理员给你启用此账号',400);
+        }
         $refreshToken = auth('admin')->setTTL(20160)->login($admin);
         $refreshTokenKey=md5($admin['id'].$admin['adminPwd'].'refreshToken');
         $accessTokenKey=md5($admin['id'].$admin['adminPwd'].'accessToken');
@@ -74,7 +77,36 @@ class AdminController extends BaseController
            return $this->response(null,'未授权，禁止访问',401);
        }
     }
-
+    public function updatePassword(Request $request){
+        $password=$request->input('password');
+        $newPassword=$request->input('newPassword');
+        $admin=auth('admin')->user();
+        if(!password_verify($password, $admin->adminPwd)){
+            return $this->response(null,'旧密码错误',400);
+        }
+        if(!$newPassword){
+            return $this->response(null,'数据错误',400);
+        }
+        $data = Admin::where('id', $admin['id'])->update(
+            [
+                'adminPwd' => bcrypt($newPassword),
+            ]
+        );
+        if ($data) {
+            return $this->response(null,'密码修改成功');
+        } else {
+            return $this->response(null,'密码修改失败',400);
+        }
+    }
+    public function updateUserInfo(Request $request){
+        $admin=auth('admin')->user();
+        $request->merge([
+            'roleId' => $admin['roleId'],
+            'adminName'=>$admin['adminName'],
+            'status'=>$admin['status'],
+        ]);
+        return $this->Update($admin['id'],$request);
+    }
     //退出登录
     public function logout(){
         $logout=auth('admin')->logout();

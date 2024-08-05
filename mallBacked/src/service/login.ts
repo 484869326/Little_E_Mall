@@ -6,6 +6,8 @@ import type { IAdmin } from "@/types/main";
 enum LoginApi {
   login = "/admin/login",
   register = "/admin/register",
+  updatePassword = "/admin/updatePassword",
+  updateUserInfo = "/admin/updateUserInfo",
   validateAdminName = "/admin/validateAdminName",
   getRoleMenu = "/admin/getRoleMenu",
   logout = "/admin/logout"
@@ -30,6 +32,7 @@ export function menuRequest() {
 export function validateAdminName(adminName: string) {
   return Request1.post<IDataType<boolean>>({
     url: LoginApi.validateAdminName,
+    showLoading: false,
     data: {
       adminName
     }
@@ -39,6 +42,19 @@ export function validateAdminName(adminName: string) {
 export function registerRequest(data: any) {
   return Request1.post<IDataType>({
     url: LoginApi.register,
+    data
+  });
+}
+export function updatePassword(data: any) {
+  return Request1.post<IDataType>({
+    url: LoginApi.updatePassword,
+    data
+  });
+}
+
+export function updateUserInfo(data: any) {
+  return Request1.post<IDataType>({
+    url: LoginApi.updateUserInfo,
     data
   });
 }

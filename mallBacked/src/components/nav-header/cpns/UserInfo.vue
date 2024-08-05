@@ -19,7 +19,7 @@
     <ElIcon @click="handleClick">
       <IEpFullScreen></IEpFullScreen>
     </ElIcon>
-    <ElDropdown class="dropdown">
+    <ElDropdown class="dropdown" :teleported="false">
       <span class="el-dropdown-link">
         <ElAvatar :size="30" :src="circleUrl" />
         <span class="admin-name">{{ adminName }}</span>
@@ -29,7 +29,20 @@
       </span>
       <template #dropdown>
         <ElDropdownMenu>
-          <!--          <ElDropdownItem>我的资料</ElDropdownItem>-->
+          <ElDropdownItem
+            @click="
+              isPwd = false;
+              $emit('click');
+            "
+            >修改个人资料</ElDropdownItem
+          >
+          <ElDropdownItem
+            @click="
+              isPwd = true;
+              $emit('click');
+            "
+            >修改密码</ElDropdownItem
+          >
           <ElDropdownItem @click="loginStore.logoutAction">退出登录</ElDropdownItem>
         </ElDropdownMenu>
       </template>
@@ -46,6 +59,8 @@ import toggleFullScreen from "@/utils/fullScreen";
 const themeStore = useThemeStore();
 const themeSwitch = ref(themeStore.isDark);
 const loginStore = useLoginStore();
+const isPwd = defineModel("isPwd");
+const emits = defineEmits(["click"]);
 const adminName = computed(() => loginStore.userInfo.adminName);
 const circleUrl = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
 
@@ -107,6 +122,11 @@ watch(
       &:hover,
       i:hover {
         color: var(--el-color-primary);
+      }
+    }
+    :deep(.el-dropdown-menu) {
+      li {
+        justify-content: center;
       }
     }
     :focus-visible {

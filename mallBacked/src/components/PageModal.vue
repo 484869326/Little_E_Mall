@@ -1,34 +1,29 @@
 <template>
-  <div class="page-modal">
-    <ElDialog
-      v-model="centerDialogVisible"
-      v-if="centerDialogVisible"
-      :title="title"
-      width="30%"
-      center
-      :z-index="3"
-    >
-      <DiyForm v-bind="modalConfig" v-model="formData" ref="diyFormRef">
-        <template
-          v-for="item in modalConfig.formItems"
-          :key="item.field"
-          v-slot:[String(item.slotName)]
-        >
-          <template v-if="item.slotName">
-            <slot :name="item.slotName"></slot>
+  <Teleport to="body">
+    <div class="page-modal" v-if="centerDialogVisible">
+      <ElDialog v-model="centerDialogVisible" :title="title" width="30%" center :z-index="3">
+        <DiyForm v-bind="modalConfig" v-model="formData" ref="diyFormRef">
+          <template
+            v-for="item in modalConfig.formItems"
+            :key="item.field"
+            v-slot:[String(item.slotName)]
+          >
+            <template v-if="item.slotName">
+              <slot :name="item.slotName"></slot>
+            </template>
           </template>
-        </template>
-        <template #footer>
-          <div class="footer">
-            <ElButton @click="centerDialogVisible = false" class="default-button">取消</ElButton>
-            <ElButton type="primary" @click="handleConfirmClick" native-type="submit">
-              确认
-            </ElButton>
-          </div>
-        </template>
-      </DiyForm>
-    </ElDialog>
-  </div>
+          <template #footer>
+            <div class="footer">
+              <ElButton @click="centerDialogVisible = false" class="default-button">取消</ElButton>
+              <ElButton type="primary" @click="handleConfirmClick" native-type="submit">
+                确认
+              </ElButton>
+            </div>
+          </template>
+        </DiyForm>
+      </ElDialog>
+    </div>
+  </Teleport>
 </template>
 <script lang="ts" setup>
 import { ref, watch } from "vue";
@@ -58,9 +53,13 @@ const props = defineProps({
   otherInfo: {
     type: Object,
     default: () => {}
+  },
+  otherMethod: {
+    type: Boolean,
+    default: false
   }
 });
-const emit = defineEmits(["success"]);
+const emit = defineEmits(["success", "confirmClick"]);
 const mainStore = useMainStore();
 //dialog是否弹出
 const centerDialogVisible = ref(false);
@@ -81,38 +80,41 @@ const handleConfirmClick = async () => {
   if (diyFormRef.value) {
     const result = await diyFormRef?.value.validateData();
     if (result) {
-      try {
-        if (Object.keys(props.defaultInfo).length) {
-          const id = props.defaultInfo.id ?? props.defaultInfo.goodId ?? props.defaultInfo.cid;
-          await mainStore.editPageDataAction(
-            props.pageName,
-            { ...formData.value, ...props.otherInfo },
-            id
-          );
-          ElMessage.success("修改成功");
-        } else {
-          await mainStore.addPageDataAction(props.pageName, {
-            ...formData.value,
-            ...props.otherInfo
-          });
-          ElMessage.success("增加成功");
-        }
-        emit("success");
-        centerDialogVisible.value = false;
-      } catch (error: any) {
-        ElMessage.error(error.response.data.msg);
+      if (props.otherMethod) {
+        emit("confirmClick", formData.value);
+        return;
       }
-    } else {
-      ElMessage.error("检查所填内容");
+      if (Object.keys(props.defaultInfo).length) {
+        const id = props.defaultInfo.id ?? props.defaultInfo.goodId ?? props.defaultInfo.cid;
+        await mainStore.editPageDataAction(
+          props.pageName,
+          { ...formData.value, ...props.otherInfo },
+          id
+        );
+        ElMessage.success("修改成功");
+      } else {
+        await mainStore.addPageDataAction(props.pageName, {
+          ...formData.value,
+          ...props.otherInfo
+        });
+        ElMessage.success("增加成功");
+      }
+      emit("success");
+      centerDialogVisible.value = false;
+      return;
     }
+    ElMessage.error("检查所填内容");
   }
 };
 //赋值改变Form UI  formData值
 function setFormDataField(field: string, value: any) {
   diyFormRef.value && diyFormRef.value.setFormDataField(field, value);
 }
+function setCenterDialogVisible(isVisible = true) {
+  centerDialogVisible.value = isVisible;
+}
 defineExpose({
-  centerDialogVisible,
+  setCenterDialogVisible,
   setFormDataField
 });
 </script>

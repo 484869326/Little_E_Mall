@@ -36,6 +36,8 @@ class Request {
         const response = err.response;
         if (response?.status === 500) {
           ElMessage.error("服务器出错，请稍等片刻");
+        } else if (response?.status === 400) {
+          ElMessage.error((response.data as any)["msg"]);
         } else if (err.code === "ERR_NETWORK") {
           ElMessage.error("网络错误");
         } else if (err.code === "ECONNABORTED") {
