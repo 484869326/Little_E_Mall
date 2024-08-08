@@ -69,7 +69,10 @@ export function pathMapToMenu(
       return menu;
     } else if (menu.level === 1) {
       if (!menu.children || menu.children.length === 0) {
-        return menu;
+        if (menu.path == currentPath) {
+          breadCrumb?.push({ name: menu.text });
+          return menu;
+        }
       } else {
         const findMenu = pathMapToMenu(menu.children, currentPath);
         if (findMenu) {

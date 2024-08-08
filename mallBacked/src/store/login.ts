@@ -18,12 +18,10 @@ export const useLoginStore = defineStore("login", {
   actions: {
     //登录的
     async loginAction(payload: any) {
-      
-        const { data } = await loginRequest(payload);
-        this.userInfo = data;
-        await this.getAllRoute();
-        ElMessage.success("登录成功！");
-     
+      const { data } = await loginRequest(payload);
+      this.userInfo = data;
+      await this.getAllRoute();
+      ElMessage.success("登录成功！");
     },
     //动态加载菜单
     async getAllRoute() {
@@ -34,7 +32,7 @@ export const useLoginStore = defineStore("login", {
         routes.forEach((route) => {
           router.addRoute("main", route);
         });
-		router.addRoute({
+        router.addRoute({
           path: "/:pathMatch(.*)*",
           name: "NotFound",
           component: () => import("@/views/not-found/NotFound.vue")

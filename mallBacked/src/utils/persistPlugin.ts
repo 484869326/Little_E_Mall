@@ -6,7 +6,7 @@ const KEY_PREFIX = "PINIA_STATE_";
 export default function (context: PiniaPluginContext) {
   const { store } = context;
   //先持久化 主题状态
-  if (store.$id !== "theme" && store.$id !== "login") return;
+  if (store.$id !== "theme" && store.$id !== "login" && store.$id !== "tabs") return;
   const id = store.$id.toUpperCase();
   window.addEventListener("beforeunload", () => {
     localCache.setCache(KEY_PREFIX + id, store.$state);

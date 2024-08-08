@@ -14,7 +14,12 @@
           <NavHeader v-model:collapse="collapse"></NavHeader>
         </ElHeader>
         <ElMain>
-          <RouterView></RouterView>
+          <MenuTabs></MenuTabs>
+          <RouterView #="{ Component }">
+            <keep-alive>
+              <component :is="Component"></component>
+            </keep-alive>
+          </RouterView>
         </ElMain>
         <ElFooter class="footer">Copyright ©2020-2024 小E商城 All Rights Reserved</ElFooter>
       </ElContainer>
@@ -24,6 +29,7 @@
 
 <script setup lang="ts">
 import NavMenu from "@/components/NavMenu.vue";
+import MenuTabs from "@/components/MenuTabs.vue";
 import NavHeader from "@/components/nav-header/NavHeader.vue";
 import { RouterView } from "vue-router";
 import { storeToRefs } from "pinia";

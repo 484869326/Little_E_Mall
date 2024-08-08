@@ -10,12 +10,12 @@
       active-text-color="#0a60bd"
       :unique-opened="true"
       :collapse="collapse"
-      :default-active="defaultActive"
+      :default-active="$route.path"
       :collapse-transition="false"
     >
       <template v-for="item in getMenu" :key="item.id">
         <template v-if="item.children && item.children.length != 0">
-          <ElSubMenu :index="item.id + ''" :teleported="false">
+          <ElSubMenu :index="item.path || String(item.id)" :teleported="false">
             <template #title>
               <el-icon v-html="item.icon" class="icon-animation"> </el-icon>
               <span>{{ item.text }}</span>
@@ -23,17 +23,19 @@
             <ElMenuItemGroup
               v-for="children in item.children"
               :key="children.id"
-              class="menu_children"
+              class="menu-children"
             >
-              <ElMenuItem @click="handleMenuItemClick(children)" :index="children.id + ''">{{
-                children.text
-              }}</ElMenuItem>
+              <ElMenuItem
+                @click="handleMenuItemClick(children)"
+                :index="children.path || String(item.id)"
+                >{{ children.text }}</ElMenuItem
+              >
             </ElMenuItemGroup>
           </ElSubMenu>
         </template>
         <template v-else
           ><ElMenuItem
-            :index="item.id + ''"
+            :index="item.path || String(item.id)"
             :class="collapse ? 'other-menu-deal' : ''"
             @click="handleMenuItemClick(item)"
           >
@@ -51,6 +53,7 @@ import { computed, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useLoginStore } from "@/store/login";
 import { pathMapToMenu } from "@/router/mapMenus";
+import { useTabsStore } from "@/store/tabs";
 
 const props = defineProps({
   collapse: {
@@ -61,9 +64,11 @@ const props = defineProps({
 const router = useRouter();
 const route = useRoute();
 const loginStore = useLoginStore();
+const tabsStore = useTabsStore();
 const collapse = ref(props.collapse);
 const getMenu = computed(() => loginStore.getMenu);
 const handleMenuItemClick = (children: any) => {
+  tabsStore.addTabs(children);
   //执行跳转的路由
   router.push({
     path: children.path ?? "/NotFound"
@@ -71,7 +76,15 @@ const handleMenuItemClick = (children: any) => {
 };
 const currentPath = route.path;
 const menu = pathMapToMenu(getMenu.value, currentPath);
-const defaultActive = ref(menu?.id + "");
+tabsStore.addTabs(menu);
+const defaultActive = ref(menu?.path + "");
+// watch(
+//   () => tabsStore.id,
+//   (newVal: number) => {
+//     console.log(newVal);
+//     defaultActive.value = newVal.toString();
+//   }
+// );
 watchEffect(() => {
   collapse.value = props.collapse;
 });
