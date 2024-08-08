@@ -15,18 +15,16 @@ export const useTabsStore = defineStore("tabs", {
         this.currentPath = item.path;
         return;
       }
-      // 最多6个标签
-      if (this.tabsList.length === 3) {
+      // 最多4个标签
+      if (this.tabsList.length === 4) {
         this.tabsList.shift();
       }
       this.tabsList.push(data);
       this.currentPath = data.path;
     },
     removeTab(path: string) {
-      const index = this.tabsList.findIndex((item) => item.path === path);
-      this.tabsList.splice(index, 1);
-      const data = this.tabsList[this.tabsList.length - 1];
-      this.currentPath = data.path;
+      this.tabsList = this.tabsList.filter((item) => item.path !== path);
+      this.currentPath = this.tabsList[this.tabsList.length - 1]?.path;
     }
   }
 });
