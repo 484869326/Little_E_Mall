@@ -2,7 +2,7 @@
   <div class="menu-list" :class="{ 'menu-fold-list': collapse }">
     <div class="menu-title">
       <div class="img-box"><img src="@/assets/img/logo.png" alt="logo" /></div>
-      <span class="menu-span-title">家具系统</span>
+      <span class="menu-span-title">小E商城</span>
     </div>
     <ElMenu
       background-color="#0c2135"
