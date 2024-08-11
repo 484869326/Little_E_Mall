@@ -79,9 +79,10 @@
 
 ## 4.系统展示（后台）
 
-### 4.1 登录界面
+### 4.1 登录/注册界面
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/login.png?raw=true)
+![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/register.png?raw=true)
 
 ### 4.2 技术总览界面
 
@@ -101,33 +102,28 @@
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/menu_manage.png?raw=true)
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/menu_manage_edit.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/menu_manage_edit2.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/menu_manage_add.png?raw=true)
 
 ### 4.6 管理员管理
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/admin_manage.png?raw=true)
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/admin_manage_edit.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/admin_manage_add.png?raw=true)
 
 ### 4.7 角色管理
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/role_manage.png?raw=true)
+![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/role_manage_edit.png?raw=true)
 
 ### 4.8 商品类别管理
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/category_manage.png?raw=true)
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/category_manage_edit.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/category_manage_edit2.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/category_manage_edit3.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/category_manage_add.png?raw=true)
 
 ### 4.9 商品管理
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/good_manage.png?raw=true)
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/good_manage_edit.png?raw=true)
-![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/good_manage_add.png?raw=true)
 
 ### 4.10 订单管理
 
 ![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/order_manage.png?raw=true)
+![image](https://github.com/484869326/Little_E_Mall/blob/main/picture/mallBackend/order_manage.png_detail.png?raw=true)

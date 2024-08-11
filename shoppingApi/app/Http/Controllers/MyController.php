@@ -17,7 +17,8 @@ class MyController extends BaseController
             $code .= rand(0, 9);
         }
         session(['code'=>$code,'phone'=>$phone,'expireTime'=>time() + 60,'codeStatus'=>'init']);
-       $this->response(null,$code);
+       //return $this->response(null,$code);
+	   echo $code;
     }
     public function verifyCode(Request $request)
     {
