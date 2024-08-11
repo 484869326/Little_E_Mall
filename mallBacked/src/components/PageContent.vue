@@ -90,7 +90,7 @@ const emit = defineEmits(["addBtnClick", "editBtnClick"]);
 const mainStore = useMainStore();
 const pagination = ref({ currentPage: 1, pageSize: 10 });
 function paginationWatch() {
-  return watch(pagination, () => getPageData(props.getFormData));
+  return watch(pagination, () => getPageData());
 }
 let unWatch = paginationWatch();
 //页面初始化
@@ -100,7 +100,7 @@ const initPagination = () => {
   unWatch = paginationWatch();
 };
 //数据更新
-const getPageData = (queryInfo: any = {}) => {
+const getPageData = (queryInfo: any = props.getFormData) => {
   if (queryInfo["betweenTime"]) {
     const betweenTime = queryInfo["betweenTime"];
     betweenTime[0] = betweenTime[0] + " 00:00";
@@ -112,7 +112,7 @@ const getPageData = (queryInfo: any = {}) => {
     ...queryInfo
   });
 };
-getPageData(props.getFormData);
+getPageData();
 const otherPropSlots = props.contentTableConfig?.propList.filter((item: any) => {
   return !(item.slotName === "status" || item.slotName === "operate");
 });
@@ -138,7 +138,7 @@ const handleDeleteClick = async (item: any) => {
       type: "success",
       message
     });
-    getPageData(props.getFormData);
+    getPageData();
   } catch (error: any) {
     ElMessage({
       type: "info",

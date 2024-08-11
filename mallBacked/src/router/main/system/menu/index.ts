@@ -1,1 +1,5 @@
-export default { title: "菜单管理" };
+export default {
+  meta: {
+    title: "菜单管理"
+  }
+};

@@ -1,1 +1,5 @@
-export default { title: "统计" };
+export default {
+  meta: {
+    title: "统计"
+  }
+};

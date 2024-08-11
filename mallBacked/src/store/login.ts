@@ -4,6 +4,7 @@ import { loginRequest, logout, menuRequest } from "@/service/login";
 import { mapMenusToPermissions, mapMenusToRouter } from "@/router/mapMenus";
 import type { IMenu } from "@/types/login";
 import type { IAdmin } from "@/types/main";
+import { useTabsStore } from "./tabs";
 
 export const useLoginStore = defineStore("login", {
   state: () => {
@@ -47,6 +48,7 @@ export const useLoginStore = defineStore("login", {
     async logoutAction() {
       await logout();
       this.$reset();
+	  useTabsStore().$reset();
       router.push("/");
       ElMessage.success("退出登录成功！");
     }

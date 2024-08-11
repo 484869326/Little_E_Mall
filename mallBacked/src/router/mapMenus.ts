@@ -1,7 +1,7 @@
 // 路由工具类
 import type { IBreadCrumb } from "@/types/baseUI";
 import { capitalizeFirstLetter } from "@/utils";
-import type { RouteRecordRaw } from "vue-router";
+import { type RouteRecordRaw } from "vue-router";
 
 //记住菜单地址，默认进入首页的地址
 let firstMenu: any = null;
@@ -19,19 +19,22 @@ export function mapMenusToRouter(userMenus: any[]): RouteRecordRaw[] {
     eager: true,
     import: "default"
   });
-
-  Object.entries(routeFiles).map(([path, meta]) => {
+  Object.entries(routeFiles).map(([path, routerConfig]) => {
     path = path.replace("./", "/").replace("/index.ts", "");
     const pathArr = path.split("/");
     const name = pathArr[pathArr.length - 1];
     const componentPath = `../views${path}/${capitalizeFirstLetter(name)}View.vue`;
-    allRoutes.push({
-      path,
-      name,
-      component: componentFiles[componentPath],
-      children: [],
-      meta
-    });
+    allRoutes.push(
+      Object.assign(
+        {
+          path,
+          name,
+          component: componentFiles[componentPath],
+          children: []
+        },
+        routerConfig
+      )
+    );
   });
   const _recurseGetRoute = (menus: any[]) => {
     for (const menu of menus) {
@@ -48,6 +51,9 @@ export function mapMenusToRouter(userMenus: any[]): RouteRecordRaw[] {
           const route = allRoutes.find((route) => {
             return route.path == menu.path;
           });
+          if (!firstMenu) {
+            firstMenu = menu;
+          }
           if (route) routes.push(route);
         }
         _recurseGetRoute(menu.children ?? []);

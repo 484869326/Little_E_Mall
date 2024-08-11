@@ -1,4 +1,3 @@
-import { validateAdminName } from "@/service/login";
 import type { IForm } from "@/types/baseUI";
 
 export const modalConfig: IForm = {
@@ -7,26 +6,7 @@ export const modalConfig: IForm = {
       field: "adminName",
       type: "input",
       label: "管理员账号",
-      rules: [
-        { required: true, message: "请输入用户名", trigger: "blur" },
-        {
-          pattern: /^[a-z0-9]{5,10}$/,
-          message: "账号为5-10个数字或者英文",
-          trigger: "blur"
-        },
-        {
-          validator: (rule: any, value: string, callback: any) => {
-            const res = validateAdminName(value).then((res) => {
-              if (res.data) {
-                callback();
-                return;
-              }
-              callback(new Error("此账号已注册，请更换别的账号"));
-            });
-          },
-          trigger: "blur"
-        }
-      ],
+      rules: [],
       placeholder: "请输入管理员账号"
     },
     {

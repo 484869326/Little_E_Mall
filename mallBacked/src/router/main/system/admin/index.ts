@@ -1,1 +1,5 @@
-export default { title: "管理员管理" };
+export default {
+  meta: {
+    title: "管理员管理"
+  }
+};

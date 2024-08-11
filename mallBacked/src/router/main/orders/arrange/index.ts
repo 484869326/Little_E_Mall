@@ -1,3 +1,5 @@
 export default {
-  title: "订单管理"
+  meta: {
+    title: "订单管理"
+  }
 };

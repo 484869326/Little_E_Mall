@@ -16,7 +16,7 @@ export const useTabsStore = defineStore("tabs", {
         return;
       }
       // 最多4个标签
-      if (this.tabsList.length === 4) {
+      if (this.tabsList.length === 6) {
         this.tabsList.shift();
       }
       this.tabsList.push(data);

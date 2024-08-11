@@ -2,7 +2,7 @@
   <div class="menu-list" :class="{ 'menu-fold-list': collapse }">
     <div class="menu-title">
       <div class="img-box"><img src="@/assets/img/logo.png" alt="logo" /></div>
-      <span class="menu-span-title">小E商城</span>
+      <span class="menu-span-title">家具系统</span>
     </div>
     <ElMenu
       background-color="#0c2135"
@@ -116,7 +116,7 @@ $foldSvgSize: 1.3em;
     .img-box {
       img {
         width: 36px;
-        padding: 0 14px 0 14px;
+        padding: 0 14px 0 0;
         vertical-align: middle;
       }
     }

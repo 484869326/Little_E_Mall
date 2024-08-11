@@ -1,3 +1,5 @@
 export default {
-  title: "商品管理"
+  meta: {
+    title: "商品管理"
+  }
 };
