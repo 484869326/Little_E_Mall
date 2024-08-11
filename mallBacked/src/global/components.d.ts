@@ -68,7 +68,6 @@ declare module 'vue' {
     IEpView: typeof import('~icons/ep/view')['default']
     LineBarEcharts: typeof import('./../components/page-echarts/src/LineBarEcharts.vue')['default']
     LineEcharts: typeof import('./../components/page-echarts/src/LineEcharts.vue')['default']
-    MenuTab: typeof import('./../components/MenuTab.vue')['default']
     MenuTabs: typeof import('./../components/MenuTabs.vue')['default']
     NavHeader: typeof import('./../components/nav-header/NavHeader.vue')['default']
     NavMenu: typeof import('./../components/NavMenu.vue')['default']
