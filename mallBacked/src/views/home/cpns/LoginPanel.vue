@@ -1,6 +1,6 @@
 <template>
   <div class="login-panel">
-    <ElForm :rules="rules" :model="account" ref="FormRef">
+    <ElForm :rules="rules" :model="account" ref="FormRef" @submit.prevent>
       <ElFormItem prop="username">
         <ElInput v-model="account.username" placeholder="账号" class="login-input"></ElInput>
       </ElFormItem>
@@ -28,7 +28,9 @@
         </ElInput>
       </ElFormItem>
       <ElFormItem>
-        <ElButton type="primary" class="login-btn" @click="handleLoginClick">登录</ElButton>
+        <ElButton type="primary" native-type="submit" class="login-btn" @click="handleLoginClick"
+          >登录</ElButton
+        >
       </ElFormItem>
     </ElForm>
   </div>

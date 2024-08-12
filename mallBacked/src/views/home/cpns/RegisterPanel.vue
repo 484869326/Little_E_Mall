@@ -1,6 +1,6 @@
 <template>
   <div class="register-panel">
-    <ElForm :rules="rulesComputed" :model="account" ref="FormRef">
+    <ElForm :rules="rulesComputed" :model="account" ref="FormRef" @submit.prevent>
       <ElFormItem prop="adminName">
         <ElInput v-model="account.adminName" placeholder="账号" class="register-input"></ElInput>
       </ElFormItem>
@@ -69,7 +69,13 @@
         <ElButton native-type="reset" class="register-btn" @click="Object.assign(account, initObj)"
           >重置</ElButton
         >
-        <ElButton type="primary" class="register-btn" @click="handleRegisterClick">注册</ElButton>
+        <ElButton
+          type="primary"
+          native-type="submit"
+          class="register-btn"
+          @click="handleRegisterClick"
+          >注册</ElButton
+        >
       </ElFormItem>
     </ElForm>
   </div>
