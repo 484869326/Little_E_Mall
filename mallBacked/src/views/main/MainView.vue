@@ -14,10 +14,14 @@
           <NavHeader v-model:collapse="collapse"></NavHeader>
         </ElHeader>
         <ElMain>
-          <MenuTabs></MenuTabs>
+          <MenuTabs
+            @refresh="handleRefresh"
+            @closeOther="handleCloseOther"
+            @closeLeftRight="handleCloseLeftRight"
+          ></MenuTabs>
           <RouterView #="{ Component }">
-            <keep-alive>
-              <component :is="Component"></component>
+            <keep-alive :exclude="keepAliveData.exclude" :include="keepAliveData.include">
+              <component :is="keepAliveData.showCompoent ? Component : 'div'"></component>
             </keep-alive>
           </RouterView>
         </ElMain>
@@ -31,7 +35,7 @@
 import NavMenu from "@/components/NavMenu.vue";
 import MenuTabs from "@/components/MenuTabs.vue";
 import NavHeader from "@/components/nav-header/NavHeader.vue";
-import { RouterView } from "vue-router";
+import { RouterView, useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useMediaStore } from "@/store/media";
 
@@ -39,6 +43,50 @@ const mediaStore = useMediaStore();
 const { collapse } = storeToRefs(mediaStore);
 mediaStore.init();
 mediaStore.onResize();
+const initData = {
+  exclude: "",
+  showCompoent: true,
+  include: undefined
+};
+const keepAliveData = reactive(Object.assign({}, initData));
+const router = useRouter();
+const route = useRoute();
+function handleRefresh() {
+  const data = {
+    exclude: "",
+    showCompoent: false
+  };
+  data.exclude = useRouterMatch(route.fullPath);
+  Object.assign(keepAliveData, data);
+  nextTick(() => {
+    Object.assign(keepAliveData, initData);
+  });
+}
+function handleCloseOther(path: string) {
+  const data = { include: "", showCompoent: false };
+  data.include = useRouterMatch(path);
+  Object.assign(keepAliveData, data);
+  nextTick(() => {
+    Object.assign(keepAliveData, initData);
+  });
+}
+function handleCloseLeftRight(pathArr: string[]) {
+  const data = { include: [] as string[], showCompoent: false };
+  data.include = pathArr.map((item) => {
+    return useRouterMatch(item);
+  });
+  Object.assign(keepAliveData, data);
+  nextTick(() => {
+    Object.assign(keepAliveData, initData);
+  });
+}
+
+function useRouterMatch(path: string) {
+  const matchRouteArr = router.resolve(path).matched;
+  const matchRoute: any = matchRouteArr.find((item) => item.path === path);
+  const comName = (matchRoute.components?.default as any)["__name"];
+  return comName;
+}
 </script>
 
 <style scoped lang="scss">

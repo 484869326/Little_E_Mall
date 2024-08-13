@@ -5,6 +5,7 @@ import { mapMenusToPermissions, mapMenusToRouter } from "@/router/mapMenus";
 import type { IMenu } from "@/types/login";
 import type { IAdmin } from "@/types/main";
 import { useTabsStore } from "./tabs";
+import localCache from "@/utils/cache";
 
 export const useLoginStore = defineStore("login", {
   state: () => {
@@ -23,6 +24,7 @@ export const useLoginStore = defineStore("login", {
       this.userInfo = data;
       await this.getAllRoute();
       ElMessage.success("登录成功！");
+      localCache.setCache("PINIA_STATE_LOGIN", this.$state);
     },
     //动态加载菜单
     async getAllRoute() {
@@ -48,7 +50,7 @@ export const useLoginStore = defineStore("login", {
     async logoutAction() {
       await logout();
       this.$reset();
-	  useTabsStore().$reset();
+      useTabsStore().$reset();
       router.push("/");
       ElMessage.success("退出登录成功！");
     }

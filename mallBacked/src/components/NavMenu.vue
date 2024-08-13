@@ -1,7 +1,15 @@
 <template>
   <div class="menu-list" :class="{ 'menu-fold-list': collapse }">
     <div class="menu-title">
-      <div class="img-box"><img src="@/assets/img/logo.png" alt="logo" /></div>
+      <div class="img-box">
+        <img
+          src="@/assets/img/logo.png"
+          alt="logo"
+          :style="{
+            padding: collapse ? '0 14px' : '0 14px 0 0'
+          }"
+        />
+      </div>
       <span class="menu-span-title">小E商城</span>
     </div>
     <ElMenu
@@ -116,7 +124,6 @@ $foldSvgSize: 1.3em;
     .img-box {
       img {
         width: 36px;
-        padding: 0 14px 0 0;
         vertical-align: middle;
       }
     }
