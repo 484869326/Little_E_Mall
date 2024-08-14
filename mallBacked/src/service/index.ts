@@ -34,7 +34,11 @@ const Request1 = new Request({
     },
     responseInterceptorCatch: async (err) => {
       const loginStore = useLoginStore();
-      if (err.response.data.code === 401 && !isRefreshRequest(err.config)) {
+      if (
+        err.response.data.code === 401 &&
+        !isRefreshRequest(err.config) &&
+        err.config.url !== "/admin/logout"
+      ) {
         const res = await refreshToken();
         if (res) {
           err.config.headers.Authorization = `Bearer ${loginStore.token}`;

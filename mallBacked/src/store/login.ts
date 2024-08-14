@@ -20,11 +20,16 @@ export const useLoginStore = defineStore("login", {
   actions: {
     //登录的
     async loginAction(payload: any) {
-      const { data } = await loginRequest(payload);
-      this.userInfo = data;
-      await this.getAllRoute();
-      ElMessage.success("登录成功！");
-      localCache.setCache("PINIA_STATE_LOGIN", this.$state);
+      try {
+        //保证之前登录的就会退出
+        this.refreshToken && (await logout());
+      } finally {
+        const { data } = await loginRequest(payload);
+        this.userInfo = data;
+        await this.getAllRoute();
+        useTabsStore().$reset();
+        ElMessage.success("登录成功！");
+      }
     },
     //动态加载菜单
     async getAllRoute() {
@@ -48,11 +53,14 @@ export const useLoginStore = defineStore("login", {
     },
     //退出登录
     async logoutAction() {
-      await logout();
-      this.$reset();
-      useTabsStore().$reset();
-      router.push("/");
-      ElMessage.success("退出登录成功！");
+      try {
+        await logout();
+      } finally {
+        this.$reset();
+        localCache.clearCache();
+        router.push("/");
+        ElMessage.success("退出登录成功！");
+      }
     }
   }
 });

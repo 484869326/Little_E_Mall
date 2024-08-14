@@ -57,7 +57,7 @@ import { useThemeStore } from "@/store/theme";
 import toggleFullScreen from "@/utils/fullScreen";
 
 const themeStore = useThemeStore();
-const themeSwitch = ref(themeStore.isDark);
+const themeSwitch = ref(false);
 const loginStore = useLoginStore();
 const isPwd = defineModel("isPwd");
 const emits = defineEmits(["click"]);
@@ -68,13 +68,13 @@ const circleUrl = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcp
 function handleClick() {
   toggleFullScreen(document.documentElement);
 }
+watchEffect(() => {
+  themeSwitch.value = themeStore.isDark;
+});
 //监听 是否夜间模式
-watch(
-  () => themeSwitch.value,
-  (newVal) => {
-    themeStore.toggleThemes(newVal);
-  }
-);
+watchEffect(() => {
+  themeStore.toggleThemes(themeSwitch.value);
+});
 </script>
 
 <style scoped lang="scss">
