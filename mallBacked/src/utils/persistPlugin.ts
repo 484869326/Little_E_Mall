@@ -30,7 +30,7 @@ export default function (context: PiniaPluginContext) {
       try {
         const state = localCache.getCache(KEY_PREFIX + id);
         if (state) {
-          if (!state.token) {
+          if (id === "LOGIN" && !state.token) {
             return;
           }
           store.$patch(state);
