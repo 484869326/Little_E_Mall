@@ -125,7 +125,8 @@ function handleSubmitClick(e: any) {
 function handleOpenWebClick() {
   uni.navigateTo({
     url:
-      "/subPages/webview/webview?url=" + "https://484869326.github.io/tool/webview.html",
+      "/subPages/webview/webview?url=" +
+      "https://484869326.github.io/staticPage/webview.html",
   });
 }
 </script>

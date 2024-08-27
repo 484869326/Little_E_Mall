@@ -1,7 +1,7 @@
 ![PHP 7.4 badge](https://img.shields.io/badge/PHP-7.4-blue)  ![MySQL 5.7.26 badge](https://img.shields.io/badge/MySQL-5.7.26-blue)    ![Laravel 8.83.27 badge](https://img.shields.io/badge/Laravel-8.83.27-red)         ![UniApp](https://img.shields.io/badge/UniApp-v4.0.0-brightgreen) ![Vue 3](https://img.shields.io/badge/Vue-3.4.21-brightgreen) ![Element Plus](https://img.shields.io/badge/Element%20Plus-v2.6.1-brightgreen)   ![Pinia](https://img.shields.io/badge/Pinia-v2.1.7-brightgreen)  ![Echarts](https://img.shields.io/badge/Echarts-v5.2.2-brightgreen) ![Vite](https://img.shields.io/badge/Vite-v5.1.5-brightgreen)
 ![Redis](https://img.shields.io/badge/Redis-brightgreen)
 
-- [在线访问网站](https://little.yunzk52.work/)
+- [在线访问网站](https://484869326.github.io/staticPage/)
 - 服务器系统Ubuntu。用jenkins使用自动化部署，1g1核服务器很容易崩，望见谅
 
 > tips：
