@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/static/(.*)", "destination": "/build/h5/static/$1" }]
+}
