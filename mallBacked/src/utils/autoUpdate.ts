@@ -7,7 +7,7 @@ const DURATION = import.meta.env.VITE_AUTO_UPDATE_TIME;
 const scriptReg = /<script.*src=["'](?<src>[^"']+)/gm;
 
 const extractNewScripts = async () => {
-  const html = await fetch("/?_timestamp=" + Date.now()).then((resp) => resp.text());
+  const html = await fetch("./?_timestamp=" + Date.now()).then((resp) => resp.text());
   scriptReg.lastIndex = 0;
   let result = [];
   let match: RegExpExecArray;

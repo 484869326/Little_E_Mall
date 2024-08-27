@@ -17,8 +17,7 @@ class MyController extends BaseController
             $code .= rand(0, 9);
         }
         session(['code'=>$code,'phone'=>$phone,'expireTime'=>time() + 60,'codeStatus'=>'init']);
-       //return $this->response(null,$code);
-	   echo $code;
+       return $this->response(null,$code);
     }
     public function verifyCode(Request $request)
     {
@@ -26,7 +25,7 @@ class MyController extends BaseController
         $phone=$request->input('phone');
         $scode = session('code');
         $sphone = session('phone');
-        if ($code!==$scode || $phone!==$sphone||time() >= session('expireTime')) {
+        if ($code!=$scode || $phone!==$sphone||time() >= session('expireTime')) {
             $request->session()->forget('code');
             $request->session()->save();
             return $this->response(null,'校验失败',400);

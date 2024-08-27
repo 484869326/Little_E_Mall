@@ -70,8 +70,8 @@ watch(formData, async (newVal) => {
 //重新获取验证码
 async function handleGetCode() {
   if (second.value !== 0) return;
-  const code = await myStore.fetchGetCode(phone);
-  useTips(tipsRef, `验证码为${code}(有效期1分钟)`, 2000);
+  const { msg } = await myStore.fetchGetCode(phone);
+  useTips(tipsRef, `验证码为${msg}(有效期1分钟)`, 2000);
   countDownFn();
 }
 function countDownFn() {

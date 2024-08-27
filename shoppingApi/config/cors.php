@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://mall-app-gamma.vercel.app','https://mallbackend.yunzk52.work'],
 
     'allowed_origins_patterns' => [],
 
