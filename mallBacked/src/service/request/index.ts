@@ -107,7 +107,7 @@ class Request {
     }
   }
   endLoading() {
-    if (this.showLoading && loadingInstance) {
+    if (loadingInstance) {
       timer = setTimeout(() => {
         loadingInstance && loadingInstance.close();
         loadingInstance = null;

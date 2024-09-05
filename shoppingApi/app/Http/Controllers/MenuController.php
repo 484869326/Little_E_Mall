@@ -65,7 +65,7 @@ class MenuController extends BaseController
     {
         $validator = $this->validateData($request, $id);
         if ($validator->fails()) {
-            return $this->response(null,'校验失败',400);
+            return $this->response(null, '校验失败', 400);
         }
         $text = $request->input('text');
         $icon = $request->input('icon');
@@ -77,15 +77,15 @@ class MenuController extends BaseController
         if ($level === 1) {
             $parentId = 0;
         } elseif ($parentId === 0) {
-            return $this->response(null,'上级菜单错误',400);
+            return $this->response(null, '上级菜单错误', 400);
         } else {
             $hasChildren = Menu::where('parentId', '=', $id)->count();
             if ($hasChildren > 0) {
-                return $this->response(null,'父节点有子节点',400);
+                return $this->response(null, '父节点有子节点', 400);
             }
             $hasParentId = Menu::where('id', '=', $parentId)->where('level', '=', $level-1)->count();
             if ($hasParentId === 0) {
-                return $this->response(null,'上级菜单不存在',400);
+                return $this->response(null, '上级菜单不存在', 400);
             }
         }
 
@@ -99,9 +99,9 @@ class MenuController extends BaseController
         ];
         $result = Menu::where('id', $id)->update($data);
         if ($result) {
-            return $this->response(null,'更新成功');
+            return $this->response(null, '更新成功');
         } else {
-            return $this->response(null,'更新失败',400);
+            return $this->response(null, '更新失败', 400);
         }
     }
     //增加
@@ -109,7 +109,7 @@ class MenuController extends BaseController
     {
         $validator = $this->validateData($request, null);
         if ($validator->fails()) {
-            return $this->response(null,'校验失败',400);
+            return $this->response(null, '校验失败', 400);
         }
         $text = $request->input('text');
         $icon = $request->input('icon');
@@ -121,19 +121,25 @@ class MenuController extends BaseController
         if ($level === 1) {
             $parentId = 0;
         } elseif ($parentId === 0) {
-            return $this->response(null,'上级菜单错误',400);
+            return $this->response(null, '上级菜单错误', 400);
         } else {
             $icon = null;
         }
-         $delete=true;
-        if($parentId){
-           if($level===3){
-               $sonMenu=Menu::where('id',$parentId)->first();
-               $grandSonMenu=Menu::where('id',$sonMenu['parentId'])->first();
-               $delete=RoleMenu::where('menuId',$grandSonMenu['id'])->delete();
-           }else{
-               $delete=RoleMenu::where('menuId',$parentId)->delete();
-           }
+        $delete=true;
+        if ($parentId) {
+            if ($level===3) {
+                $sonMenu=Menu::where('id', $parentId)->first();
+                $grandSonMenu=Menu::where('id', $sonMenu['parentId'])->first();
+                $hasRoleMenu=RoleMenu::where('menuId', $grandSonMenu['id'])->frist();
+                if ($hasRoleMenu) {
+                    $delete=RoleMenu::where('menuId', $grandSonMenu['id'])->delete();
+                }
+            } else {
+                $hasRoleMenu=RoleMenu::where('menuId', $parentId)->frist();
+                if ($hasRoleMenu) {
+                    $delete=RoleMenu::where('menuId', $parentId)->delete();
+                }
+            }
         }
         $data = [
             'text' => $text,
@@ -145,9 +151,9 @@ class MenuController extends BaseController
         ];
         $result = Menu::insert($data);
         if ($result&&$delete) {
-            return $this->response(null,'增加成功');
+            return $this->response(null, '增加成功');
         } else {
-            return $this->response(null,'增加失败',400);
+            return $this->response(null, '增加失败', 400);
         }
     }
     //查找
@@ -170,13 +176,13 @@ class MenuController extends BaseController
     {
         $sonMenu=Menu::where('parentId', $id)->first();
         if ($sonMenu) {
-            return $this->response(null,'无法删除该菜单，因为它具有下级菜单。',400);
+            return $this->response(null, '无法删除该菜单，因为它具有下级菜单。', 400);
         }
         $deletedRows  = Menu::where('id', $id)->delete();
         if ($deletedRows) {
-            return $this->response(null,'删除成功');
+            return $this->response(null, '删除成功');
         } else {
-            return $this->response(null,'删除失败',400);
+            return $this->response(null, '删除失败', 400);
         }
     }
 }
