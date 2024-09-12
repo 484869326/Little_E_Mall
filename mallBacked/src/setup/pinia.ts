@@ -11,7 +11,7 @@ export default {
     app.use(pinia);
     //刷新才能保持页面不跳转
     const loginStore = useLoginStore();
-     if (loginStore.refreshToken) {
+    if (loginStore.refreshToken) {
       await loginStore.getAllRoute();
     }
   }

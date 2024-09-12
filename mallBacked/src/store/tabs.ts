@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const useTabsStore = defineStore("tabs", {
   state: () => {
     return {
-      currentPath: "/",
+      currentPath: "",
       tabsList: [] as IMenu[]
     };
   },

@@ -1,14 +1,15 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import { firstMenu } from "@/router/mapMenus";
 import { useLoginStore } from "@/store/login";
+import { useTabsStore } from "@/store/tabs";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "home",
     component: () => import("@/views/home/HomeView.vue"),
-    redirect: { name: "login" },
     children: [
       {
         path: "login",
@@ -20,7 +21,20 @@ const routes: RouteRecordRaw[] = [
         name: "register",
         component: () => import("@/views/home/cpns/RegisterPanel.vue")
       }
-    ]
+    ],
+    beforeEnter: (
+      to: RouteLocationNormalized,
+      from: RouteLocationNormalized,
+      next: NavigationGuardNext
+    ) => {
+      const tabStore = useTabsStore();
+      const loginStore = useLoginStore();
+      if (loginStore.refreshToken && tabStore.currentPath) {
+        next(tabStore.currentPath);
+        return;
+      }
+      next();
+    }
   },
   {
     path: "/main",

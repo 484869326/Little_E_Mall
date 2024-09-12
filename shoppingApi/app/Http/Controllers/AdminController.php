@@ -73,7 +73,7 @@ class AdminController extends BaseController
            return $this->response(null,'token刷新',200,[
                'Authorization'=>'Bearer '.$newAccessToken,
            ]);
-       }catch(QueryException $e){
+       }catch(\Throwable $e){
            return $this->response(null,'未授权，禁止访问',401);
        }
     }

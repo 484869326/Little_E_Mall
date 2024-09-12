@@ -5,7 +5,6 @@ import { mapMenusToPermissions, mapMenusToRouter } from "@/router/mapMenus";
 import type { IMenu } from "@/types/login";
 import type { IAdmin } from "@/types/main";
 import { useTabsStore } from "./tabs";
-import localCache from "@/utils/cache";
 
 export const useLoginStore = defineStore("login", {
   state: () => {
@@ -51,16 +50,16 @@ export const useLoginStore = defineStore("login", {
         resolve(true);
       });
     },
+    async reset() {
+      this.$reset();
+      useTabsStore().$reset();
+      router.push("/");
+    },
     //退出登录
     async logoutAction() {
-      try {
-        await logout();
-      } finally {
-        this.$reset();
-        localCache.clearCache();
-        router.push("/");
-        ElMessage.success("退出登录成功！");
-      }
+      await logout();
+      await this.reset();
+      ElMessage.success("退出登录成功！");
     }
   }
 });
