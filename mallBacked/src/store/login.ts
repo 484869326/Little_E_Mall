@@ -57,9 +57,12 @@ export const useLoginStore = defineStore("login", {
     },
     //退出登录
     async logoutAction() {
-      await logout();
-      await this.reset();
+	try{
+	await logout();
+	}finally{
+	await this.reset();
       ElMessage.success("退出登录成功！");
+	}
     }
   }
 });

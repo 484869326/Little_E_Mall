@@ -72,12 +72,12 @@ class Request {
             resolve(config.requestInterceptors.responseInterceptor(res));
           }
           resolve(res.data);
-          this.showLoading = DEFAULT_LOADING;
         })
         .catch((err) => {
           reject(err);
-          this.showLoading = DEFAULT_LOADING;
-        });
+        }).finally(()=>{
+		 this.showLoading = DEFAULT_LOADING;
+		});
     });
   }
   get<T>(config: RequestConfig<T>): Promise<T> {
