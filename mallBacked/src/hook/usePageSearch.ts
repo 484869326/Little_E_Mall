@@ -17,7 +17,7 @@ export function usePageSearch(SearchFormConfig?: any) {
   const handleResetClick = () => {
     if (pageContentRef.value) {
       pageContentRef.value.initPagination();
-      pageContentRef.value.getPageData();
+      pageContentRef.value.getPageData({});
       getFormData.value = value;
     }
   };
