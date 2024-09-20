@@ -10,10 +10,12 @@ class Request {
   instance: AxiosInstance;
   requestInterceptors?: RequestInterceptors;
   showLoading: boolean;
+  requestMap: Map<any, { resolve: any[]; reject: any[]; isPending: boolean }>;
   constructor(config: RequestConfig) {
     this.instance = axios.create(config);
     this.requestInterceptors = config.requestInterceptors;
     this.showLoading = config.showLoading ?? DEFAULT_LOADING;
+    this.requestMap = new Map();
     //全部拦截
     this.instance.interceptors.request.use(
       (config) => {
@@ -65,19 +67,40 @@ class Request {
       if (config.showLoading === false) {
         this.showLoading = config.showLoading;
       }
+      const key = JSON.stringify(config);
+      if (!this.requestMap.has(key)) {
+        this.requestMap.set(key, {
+          resolve: [],
+          reject: [],
+          isPending: false
+        });
+      }
+      const state = this.requestMap.get(key);
+      if (!state) return;
+      state.resolve.push(resolve);
+      state.reject.push(reject);
+      if (state.isPending) return;
+      state.isPending = true;
       this.instance
         .request<any, T>(config)
         .then((res: any) => {
-          if (config.requestInterceptors?.responseInterceptor) {
-            resolve(config.requestInterceptors.responseInterceptor(res));
-          }
-          resolve(res.data);
+          //resolve(res.data);
+          state.resolve.forEach((resolve) => {
+            if (config.requestInterceptors?.responseInterceptor) {
+              resolve(config.requestInterceptors.responseInterceptor(res));
+              return;
+            }
+            resolve(res.data);
+          });
         })
         .catch((err) => {
-          reject(err);
-        }).finally(()=>{
-		 this.showLoading = DEFAULT_LOADING;
-		});
+          //reject(err);
+          state.reject.forEach((reject) => reject(err));
+        })
+        .finally(() => {
+          this.showLoading = DEFAULT_LOADING;
+          this.requestMap.delete(key);
+        });
     });
   }
   get<T>(config: RequestConfig<T>): Promise<T> {
