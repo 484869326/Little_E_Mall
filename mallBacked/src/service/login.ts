@@ -25,7 +25,8 @@ export function logout() {
 }
 export function menuRequest() {
   return Request1.post<IDataType<IMenu[]>>({
-    url: LoginApi.getRoleMenu
+    url: LoginApi.getRoleMenu,
+    showLoading: false
   });
 }
 

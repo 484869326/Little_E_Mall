@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BarEcharts: typeof import('./../components/page-echarts/src/BarEcharts.vue')['default']
     ContextMenu: typeof import('./../components/ContextMenu.vue')['default']
+    EchartSkeleton: typeof import('./../components/EchartSkeleton.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -45,6 +46,8 @@ declare module 'vue' {
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
+    ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
@@ -79,6 +82,7 @@ declare module 'vue' {
     PieEcharts: typeof import('./../components/page-echarts/src/PieEcharts.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Skeleton: typeof import('./../components/Skeleton.vue')['default']
     UserInfo: typeof import('./../components/nav-header/cpns/UserInfo.vue')['default']
   }
 }

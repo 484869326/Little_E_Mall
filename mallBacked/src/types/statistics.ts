@@ -16,4 +16,13 @@ interface IMonthPriceCount {
   price: number;
 }
 
-export type { IAdminSexCount, IOrderCount, ICategoryGoodsCount, IMonthPriceCount };
+interface IPie {
+  name: string;
+  value: any;
+}
+interface ILine {
+  xLabels: string[];
+  values: any[];
+}
+
+export type { IAdminSexCount, IOrderCount, ICategoryGoodsCount, IMonthPriceCount, IPie, ILine };

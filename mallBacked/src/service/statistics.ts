@@ -16,22 +16,26 @@ enum StatisticsAPI {
 
 export function getAdminSexCount() {
   return Request1.get<IDataType<IAdminSexCount[]>>({
-    url: StatisticsAPI.adminGenderCount
+    url: StatisticsAPI.adminGenderCount,
+    showLoading: false
   });
 }
 
 export function getOrderCount() {
   return Request1.get<IDataType<IOrderCount[]>>({
-    url: StatisticsAPI.orderCount
+    url: StatisticsAPI.orderCount,
+    showLoading: false
   });
 }
 export function getCategoryGoodsCount() {
   return Request1.get<IDataType<ICategoryGoodsCount[]>>({
-    url: StatisticsAPI.categoryGoodsCount
+    url: StatisticsAPI.categoryGoodsCount,
+    showLoading: false
   });
 }
 export function getMonthPriceCount() {
   return Request1.get<IDataType<IMonthPriceCount[]>>({
-    url: StatisticsAPI.monthPriceCount
+    url: StatisticsAPI.monthPriceCount,
+    showLoading: false
   });
 }

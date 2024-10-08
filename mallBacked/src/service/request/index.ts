@@ -9,17 +9,15 @@ let timer: any = null;
 class Request {
   instance: AxiosInstance;
   requestInterceptors?: RequestInterceptors;
-  showLoading: boolean;
   requestMap: Map<any, { resolve: any[]; reject: any[]; isPending: boolean }>;
   constructor(config: RequestConfig) {
     this.instance = axios.create(config);
     this.requestInterceptors = config.requestInterceptors;
-    this.showLoading = config.showLoading ?? DEFAULT_LOADING;
     this.requestMap = new Map();
     //全部拦截
     this.instance.interceptors.request.use(
       (config) => {
-        this.startLoading();
+        this.startLoading((config as any)?.showLoading ?? DEFAULT_LOADING);
         // console.log("全部拦截器request");
         return config;
       },
@@ -64,9 +62,6 @@ class Request {
       if (config.requestInterceptors?.requestInterceptor) {
         config = config.requestInterceptors.requestInterceptor(config as any);
       }
-      if (config.showLoading === false) {
-        this.showLoading = config.showLoading;
-      }
       const key = JSON.stringify(config);
       if (!this.requestMap.has(key)) {
         this.requestMap.set(key, {
@@ -98,7 +93,6 @@ class Request {
           state.reject.forEach((reject) => reject(err));
         })
         .finally(() => {
-          this.showLoading = DEFAULT_LOADING;
           this.requestMap.delete(key);
         });
     });
@@ -115,12 +109,12 @@ class Request {
   patch<T>(config: RequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "PATCH" });
   }
-  startLoading() {
+  startLoading(showLoading: boolean) {
     if (timer) {
       clearTimeout(timer);
       timer = null;
     }
-    if (this.showLoading && !loadingInstance) {
+    if (showLoading && !loadingInstance) {
       loadingInstance = ElLoading.service({
         lock: true,
         text: "加载中....",
