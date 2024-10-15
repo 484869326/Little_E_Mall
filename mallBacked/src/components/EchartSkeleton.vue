@@ -9,17 +9,17 @@
       <template #fallback>
         <ElCard>
           <template #header>
-            <el-skeleton animated>
+            <ElSkeleton animated>
               <template #template>
-                <el-skeleton-item variant="p" />
+                <ElSkeletonItem variant="p" />
               </template>
-            </el-skeleton>
+            </ElSkeleton>
           </template>
-          <el-skeleton animated>
+          <ElSkeleton animated>
             <template #template>
-              <el-skeleton-item variant="image" style="height: 300px" />
+              <ElSkeletonItem variant="image" style="height: 300px" />
             </template>
-          </el-skeleton>
+          </ElSkeleton>
         </ElCard>
       </template>
     </Suspense>
@@ -31,22 +31,13 @@ const props = defineProps({
   title: {
     type: String,
     default: ""
+  },
+  loadFn: {
+    type: Function,
+    default: () => {}
   }
 });
-const complete: any = inject("complete");
 const isShow: any = inject("isShow");
-function isComplete() {
-  let timer: any = null;
-  return new Promise((resolve, reject) => {
-    timer = setInterval(() => {
-      if (complete.value) {
-        resolve(true);
-        clearInterval(timer);
-        timer = null;
-      }
-    }, 1000);
-  });
-}
 let DiyCard: any = null;
 watchEffect(() => {
   if (!isShow.value) {
@@ -55,7 +46,7 @@ watchEffect(() => {
   }
   DiyCard = defineAsyncComponent(() => {
     return (async () => {
-      await isComplete();
+      await props.loadFn();
       return import("@/base-ui/CardUI.vue");
     })();
   });

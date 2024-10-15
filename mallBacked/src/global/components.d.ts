@@ -82,7 +82,6 @@ declare module 'vue' {
     PieEcharts: typeof import('./../components/page-echarts/src/PieEcharts.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Skeleton: typeof import('./../components/Skeleton.vue')['default']
     UserInfo: typeof import('./../components/nav-header/cpns/UserInfo.vue')['default']
   }
 }
